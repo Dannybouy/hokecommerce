@@ -1,0 +1,104 @@
+ {/* Mobile menu */}
+        <Sheet open={open} onOpenChange={setOpen}>
+          <SheetTrigger asChild className="lg:hidden">
+            <Button variant="ghost" size="icon" className="text-white">
+              <Menu className="h-6 w-6" />
+              <span className="sr-only">Toggle menu</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+            <nav className="flex flex-col gap-4 mt-8">
+              {NavLinks.map((link) => (
+                <div key={link.title} className="py-2">
+                  <Link
+                    href={link.href}
+                    className="text-lg font-medium hover:text-gray-400 transition-colors"
+                    onClick={() => setOpen(false)}
+                  >
+                    {link.title}
+                  </Link>
+                  {link.submenu && (
+                    <div className="ml-4 mt-2 flex flex-col gap-2">
+                      {link.submenu.map((subItem) => (
+                        <Link
+                          key={subItem.title}
+                          href={subItem.href}
+                          className="text-sm text-gray-400 hover:text-white transition-colors"
+                          onClick={() => setOpen(false)}
+                        >
+                          {subItem.title}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </nav>
+          </SheetContent>
+        </Sheet>
+
+        {/* Logo */}
+        <Link href="/" className="font-bold text-xl">
+          <Image src="/logo.png" alt="HOK logo" width={100} height={100} />
+        </Link>
+
+        {/* Desktop navigation */}
+        <div className="hidden lg:flex">
+          <NavigationMenu className="">
+            <NavigationMenuList className="">
+              {NavLinks.map((link) => (
+                <NavigationMenuItem key={link.title}>
+                  {link.submenu ? (
+                    <>
+                      <NavigationMenuTrigger className="bg-transparent hover:bg-black hover:text-white focus:bg-black data-[state=open]:bg-black no-arrow">
+                        {link.title}
+                      </NavigationMenuTrigger>
+                      <NavigationMenuContent>
+                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                          {link.submenu.map((subItem) => (
+                            <li key={subItem.title}>
+                              <NavigationMenuLink asChild>
+                                <Link
+                                  href={subItem.href}
+                                  className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                >
+                                  <div className="text-sm font-medium leading-none">{subItem.title}</div>
+                                  <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                    {subItem.description}
+                                  </p>
+                                </Link>
+                              </NavigationMenuLink>
+                            </li>
+                          ))}
+                        </ul>
+                      </NavigationMenuContent>
+                    </>
+                  ) : (
+                    <Link href={link.href} className={navigationMenuTriggerStyle()}>
+                      {link.title}
+                    </Link>
+                  )}
+                </NavigationMenuItem>
+              ))}
+            </NavigationMenuList>
+          </NavigationMenu>
+        </div>
+
+        {/* Right side icons */}
+        <div className="flex items-center gap-4">
+          <Button variant="ghost" size="icon" className="text-white">
+            <Search className="h-5 w-5" />
+            <span className="sr-only">Search</span>
+          </Button>
+          <Button variant="ghost" size="icon" className="text-white">
+            <User className="h-5 w-5" />
+            <span className="sr-only">Account</span>
+          </Button>
+          <Button variant="ghost" size="icon" className="text-white">
+            <ShoppingBag className="h-5 w-5" />
+            <span className="sr-only">Cart</span>
+          </Button>
+          <Button className="bg-yellow-400 text-black hover:bg-yellow-500 rounded-none px-4 hidden md:flex">
+            SIGN UP
+          </Button>
+        </div>

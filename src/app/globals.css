@@ -1,35 +1,26 @@
 @import "tailwindcss";
+@import "tailwindcss/preflight.css" layer(base);
 
 @plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
+@theme {
+  --color-cream: #f5f5dc;
+  --color-goldenBrown: #b88e2f;
+  --color-hokBlack: #1c1b19;
+  --color-white: #ffffff;
+  --color-gold: #ffd700;
+  --color-burntOrange: #cc5500;
+  --color-hokWhite: #f3f5f0;
+  --color-hokGray: #EEEAE1;
 
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+  --font-montserrat: var(--font-montserrat, sans-serif);
+  --font-roboto: var(--font-roboto, sans-serif);
+  --font-playfair: var(--font-playfair, serif);
+  --font-valky: var(--font-valky, sans-serif);
+  --font-inter: var(--font-inter, sans-serif);
 }
 
 :root {
@@ -143,6 +134,33 @@ a {
 }
 
 @layer base {
+  html,
+  body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html {
+      color-scheme: dark;
+    }
+  }
   * {
     @apply border-border outline-ring/50;
   }

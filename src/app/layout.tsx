@@ -1,17 +1,34 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Montserrat , Roboto, Playfair, Inter} from "next/font/google";
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
+
+const valky = localFont({
+  src: "./fonts/Valky.woff2",
+  variable: "--font-valky",
   weight: "100 900",
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
 });
+const roboto = Roboto({
+  subsets: ["latin"],
+  variable: "--font-roboto",
+  weight: ["400", "500", "700"],
+});
+const playfair = Playfair({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  weight: ["400", "500", "700"],
+});
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  weight: ["400", "500", "700"],
+});
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,7 +42,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${montserrat.variable} ${valky.variable} ${roboto.variable} ${playfair.variable} ${inter.variable}`}>
         {children}
       </body>
     </html>
