@@ -1,6 +1,5 @@
 import Carousel from "@/components/ui/landingPage/Carousel";
 import Footer from "@/components/ui/landingPage/Footer";
-import Navbar from "@/components/ui/landingPage/Navbar";
 import Newsletter from "@/components/ui/landingPage/Newsletter";
 import SearchComponent from "@/components/ui/landingPage/search";
 import Testimonial from "@/components/ui/landingPage/Testimonial";
@@ -11,12 +10,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main className="bg-hokWhite min-h-screen">
-      <div className="px-12 pt-14">
-        <Navbar />
-      </div>
-
       <SearchComponent />
-
       <div className="mt-[70px] text-center">
         <h2 className="font-playfair text-4xl leading-[95px] font-medium lg:text-8xl">
           Glow, Track & Shop with{" "}

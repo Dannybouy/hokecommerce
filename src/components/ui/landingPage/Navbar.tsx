@@ -119,8 +119,8 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="bg-hokBlack w-full text-white font-montserrat rounded-xl px-8">
-      <nav className="flex h-20 items-center justify-between w-full">
+    <header className="sticky top-0 z-50 w-full">
+      <nav className="mx-8 mt-8 flex h-20 items-center justify-between px-8 rounded-xl text-white font-montserrat bg-hokBlack">
         {/* Mobile menu */}
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild className="lg:hidden">
