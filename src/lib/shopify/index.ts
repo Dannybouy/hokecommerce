@@ -174,6 +174,11 @@ export async function getProduct(handle: string) {
         handle
         description
         descriptionHtml
+        vendor
+        productType
+        tags
+        availableForSale
+        totalInventory
         priceRange {
           minVariantPrice {
             amount
@@ -196,10 +201,20 @@ export async function getProduct(handle: string) {
               id
               title
               availableForSale
+              quantityAvailable
               price {
                 amount
                 currencyCode
               }
+            }
+          }
+        }
+        collections(first: 5) {
+          edges {
+            node {
+              id
+              title
+              handle
             }
           }
         }
@@ -224,10 +239,27 @@ export async function getProduct(handle: string) {
     handle: product.handle,
     description: product.description,
     descriptionHtml: product.descriptionHtml,
+    vendor: product.vendor,
+    productType: product.productType,
+    tags: product.tags,
+    availableForSale: product.availableForSale,
+    totalInventory: product.totalInventory,
+    collections:
+      product.collections?.edges.map(({ node }) => ({
+        id: node.id,
+        title: node.title,
+        handle: node.handle,
+      })) || [],
     price: product.priceRange.minVariantPrice.amount,
     currencyCode: product.priceRange.minVariantPrice.currencyCode,
     images: product.images.edges.map(({ node }) => node),
-    variants: product.variants.edges.map(({ node }) => node),
+    variants: product.variants.edges.map(({ node }) => ({
+      id: node.id,
+      title: node.title,
+      availableForSale: node.availableForSale,
+      quantityAvailable: node.quantityAvailable,
+      price: node.price,
+    })),
   };
 }
 
@@ -267,14 +299,4 @@ export async function getCollections() {
   });
 
   return collections;
-}
-
-/**
- * Formats a price with the correct currency
- */
-export function formatPrice(price: string, currencyCode: string) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: currencyCode,
-  }).format(Number.parseFloat(price));
 }

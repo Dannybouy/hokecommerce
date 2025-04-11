@@ -1,5 +1,4 @@
 import Carousel from "@/components/ui/landingPage/Carousel";
-import Footer from "@/components/ui/landingPage/Footer";
 import Newsletter from "@/components/ui/landingPage/Newsletter";
 import SearchComponent from "@/components/ui/landingPage/search";
 import Testimonial from "@/components/ui/landingPage/Testimonial";
@@ -199,11 +198,9 @@ export default function Home() {
       </div>
 
       {/* Newsletter */}
-      <div className="my-44 w-full">
+      <div className="w-full">
         <Newsletter />
       </div>
-
-      <Footer />
     </main>
   );
 }

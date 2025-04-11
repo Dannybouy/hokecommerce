@@ -10,14 +10,21 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Sheet,
-  SheetContent, 
+  SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Slider } from "@/components/ui/slider";
-import { brands, collections, skinConcerns, skinTypes } from "@/lib/filters";
+import {
+  brands,
+  categories,
+  collections,
+  productTypes,
+  skinConcerns,
+  skinTypes,
+} from "@/lib/filters";
 import { Sliders } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -30,6 +37,8 @@ interface FiltersProps {
     brands: string[];
     skinTypes: string[];
     skinConcerns: string[];
+    productTypes: string[];
+    categories: string[];
     priceRange: [number, number];
     sortOption: string;
     viewMode: "grid" | "list";
@@ -49,6 +58,10 @@ export function Filters({ onFilterChange }: FiltersProps) {
   const [selectedSkinConcerns, setSelectedSkinConcerns] = useState<string[]>(
     [],
   );
+  const [selectedProductTypes, setSelectedProductTypes] = useState<string[]>(
+    [],
+  );
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([3200, 51000]);
   const [sortOption, setSortOption] = useState("featured");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
@@ -61,6 +74,8 @@ export function Filters({ onFilterChange }: FiltersProps) {
     const brand = searchParams.get("brand");
     const skinType = searchParams.get("skinType");
     const skinConcern = searchParams.get("skinConcern");
+    const productType = searchParams.get("productType");
+    const category = searchParams.get("category");
     const price = searchParams.get("price");
     const sort = searchParams.get("sort");
 
@@ -70,11 +85,19 @@ export function Filters({ onFilterChange }: FiltersProps) {
     if (brand) setSelectedBrands(brand.split(","));
     if (skinType) setSelectedSkinTypes(skinType.split(","));
     if (skinConcern) setSelectedSkinConcerns(skinConcern.split(","));
+    if (productType) setSelectedProductTypes(productType.split(","));
+    if (category) setSelectedCategories(category.split(","));
     if (price) {
       const [min, max] = price.split("-").map(Number);
       setPriceRange([min, max]);
     }
     if (sort) setSortOption(sort);
+
+    // Set view mode if present in URL
+    const view = searchParams.get("view") as "grid" | "list" | null;
+    if (view && (view === "grid" || view === "list")) {
+      setViewMode(view);
+    }
   }, [searchParams]);
 
   // Update URL with filters
@@ -92,6 +115,10 @@ export function Filters({ onFilterChange }: FiltersProps) {
       params.set("skinType", selectedSkinTypes.join(","));
     if (selectedSkinConcerns.length > 0)
       params.set("skinConcern", selectedSkinConcerns.join(","));
+    if (selectedProductTypes.length > 0)
+      params.set("productType", selectedProductTypes.join(","));
+    if (selectedCategories.length > 0)
+      params.set("category", selectedCategories.join(","));
     if (priceRange[0] !== 3200 || priceRange[1] !== 51000) {
       params.set("price", `${priceRange[0]}-${priceRange[1]}`);
     }
@@ -107,6 +134,8 @@ export function Filters({ onFilterChange }: FiltersProps) {
       brands: selectedBrands,
       skinTypes: selectedSkinTypes,
       skinConcerns: selectedSkinConcerns,
+      productTypes: selectedProductTypes,
+      categories: selectedCategories,
       priceRange,
       sortOption,
       viewMode,
@@ -119,6 +148,8 @@ export function Filters({ onFilterChange }: FiltersProps) {
     selectedBrands,
     selectedSkinTypes,
     selectedSkinConcerns,
+    selectedProductTypes,
+    selectedCategories,
     priceRange,
     sortOption,
     viewMode,
@@ -161,6 +192,24 @@ export function Filters({ onFilterChange }: FiltersProps) {
     );
   };
 
+  // Toggle product type selection
+  const toggleProductType = (typeId: string) => {
+    setSelectedProductTypes((prev) =>
+      prev.includes(typeId)
+        ? prev.filter((t) => t !== typeId)
+        : [...prev, typeId],
+    );
+  };
+
+  // Toggle category selection
+  const toggleCategory = (categoryId: string) => {
+    setSelectedCategories((prev) =>
+      prev.includes(categoryId)
+        ? prev.filter((c) => c !== categoryId)
+        : [...prev, categoryId],
+    );
+  };
+
   // Handle price range change
   const handlePriceChange = (value: number[]) => {
     setPriceRange([value[0], value[1]]);
@@ -183,6 +232,8 @@ export function Filters({ onFilterChange }: FiltersProps) {
     setSelectedBrands([]);
     setSelectedSkinTypes([]);
     setSelectedSkinConcerns([]);
+    setSelectedProductTypes([]);
+    setSelectedCategories([]);
     setPriceRange([3200, 51000]);
     setSortOption("featured");
     router.push("/shop");
@@ -190,14 +241,13 @@ export function Filters({ onFilterChange }: FiltersProps) {
 
   return (
     <div className="space-y-10">
-
       {/* Desktop Filters */}
       <div className="hidden md:block">
         <div className="mb-4 flex items-center justify-between">
           <h3 className="text-lg font-medium">Filters</h3>
         </div>
 
-        <Accordion type="multiple" className="w-full">
+        <Accordion type="multiple" className="w-full space-y-4">
           {/* Price Range */}
           <AccordionItem value="price">
             <AccordionTrigger>Price Range</AccordionTrigger>
@@ -277,23 +327,23 @@ export function Filters({ onFilterChange }: FiltersProps) {
             </AccordionContent>
           </AccordionItem>
 
-          {/* Skin Types */}
-          <AccordionItem value="skin-types">
-            <AccordionTrigger>Skin Types</AccordionTrigger>
+          {/* Product Types */}
+          <AccordionItem value="productTypes">
+            <AccordionTrigger>Product Types</AccordionTrigger>
             <AccordionContent>
               <div className="space-y-2">
-                {skinTypes.map((type) => (
+                {productTypes.map((type) => (
                   <div key={type.id} className="flex items-center space-x-2">
                     <Checkbox
-                      id={`skin-type-${type.id}`}
-                      checked={selectedSkinTypes.includes(type.id)}
+                      id={`productType-${type.id}`}
+                      checked={selectedProductTypes.includes(type.id)}
                       onCheckedChange={() => {
-                        toggleSkinType(type.id);
+                        toggleProductType(type.id);
                         updateFilters();
                       }}
                     />
                     <label
-                      htmlFor={`skin-type-${type.id}`}
+                      htmlFor={`productType-${type.id}`}
                       className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                     >
                       {type.name}
@@ -304,15 +354,15 @@ export function Filters({ onFilterChange }: FiltersProps) {
             </AccordionContent>
           </AccordionItem>
 
-          {/* Skin Concerns */}
-          <AccordionItem value="skin-concerns">
-            <AccordionTrigger>Skin Concerns</AccordionTrigger>
+          {/* Tags (Skin Concerns) */}
+          <AccordionItem value="tags">
+            <AccordionTrigger>Tags</AccordionTrigger>
             <AccordionContent>
               <div className="space-y-2">
                 {skinConcerns.map((concern) => (
                   <div key={concern.id} className="flex items-center space-x-2">
                     <Checkbox
-                      id={`skin-concern-${concern.id}`}
+                      id={`concern-${concern.id}`}
                       checked={selectedSkinConcerns.includes(concern.id)}
                       onCheckedChange={() => {
                         toggleSkinConcern(concern.id);
@@ -320,7 +370,7 @@ export function Filters({ onFilterChange }: FiltersProps) {
                       }}
                     />
                     <label
-                      htmlFor={`skin-concern-${concern.id}`}
+                      htmlFor={`concern-${concern.id}`}
                       className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                     >
                       {concern.name}
@@ -330,174 +380,251 @@ export function Filters({ onFilterChange }: FiltersProps) {
               </div>
             </AccordionContent>
           </AccordionItem>
-        </Accordion>
 
-        <Button variant="outline" size="lg" onClick={clearFilters} className="w-full mt-5">
-          Clear all
-        </Button>
+          {/* Categories */}
+          <AccordionItem value="categories">
+            <AccordionTrigger>Categories</AccordionTrigger>
+            <AccordionContent>
+              <div className="space-y-2">
+                {categories.map((category) => (
+                  <div
+                    key={category.id}
+                    className="flex items-center space-x-2"
+                  >
+                    <Checkbox
+                      id={`category-${category.id}`}
+                      checked={selectedCategories.includes(category.id)}
+                      onCheckedChange={() => {
+                        toggleCategory(category.id);
+                        updateFilters();
+                      }}
+                    />
+                    <label
+                      htmlFor={`category-${category.id}`}
+                      className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      {category.name}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+
+          <Button
+            onClick={() => {
+              clearFilters();
+              updateFilters();
+            }}
+            variant="outline"
+            size="sm"
+            className="mt-4"
+          >
+            Clear Filters
+          </Button>
+        </Accordion>
       </div>
 
-      {/* Mobile Filters */}
+      {/* Mobile Filter Trigger */}
       <div className="md:hidden">
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="outline" size="icon">
-              <Sliders className="h-4 w-4" />
+            <Button variant="outline" className="flex items-center space-x-2">
+              <Sliders className="h-5 w-5" />
+              <span>Filters</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+          <SheetContent>
             <SheetHeader>
               <SheetTitle>Filters</SheetTitle>
               <SheetDescription>
-                Narrow down your product search
+                Refine your product search here
               </SheetDescription>
             </SheetHeader>
-            <div className="py-4">
-              <Accordion type="multiple" className="w-full">
-                {/* Price Range */}
-                <AccordionItem value="price">
-                  <AccordionTrigger>Price Range</AccordionTrigger>
-                  <AccordionContent>
-                    <div className="px-2 pt-2 pb-6">
-                      <Slider
-                        defaultValue={[3200, 51000]}
-                        min={3200}
-                        max={51000}
-                        step={100}
-                        value={priceRange}
-                        onValueChange={handlePriceChange}
-                        className="my-6"
-                      />
-                      <div className="flex justify-between text-sm text-gray-500">
-                        <span>{formatPrice(priceRange[0])}</span>
-                        <span>{formatPrice(priceRange[1])}</span>
+
+            <Accordion type="multiple" className="mt-4 w-full">
+              {/* Price Range Mobile */}
+              <AccordionItem value="price-mobile">
+                <AccordionTrigger>Price Range</AccordionTrigger>
+                <AccordionContent>
+                  <div className="px-2 pt-2 pb-6">
+                    <Slider
+                      defaultValue={[3200, 51000]}
+                      min={3200}
+                      max={51000}
+                      step={100}
+                      value={priceRange}
+                      onValueChange={handlePriceChange}
+                      className="my-6"
+                    />
+                    <div className="flex justify-between text-sm text-gray-500">
+                      <span>{formatPrice(priceRange[0])}</span>
+                      <span>{formatPrice(priceRange[1])}</span>
+                    </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+
+              {/* Collections Mobile */}
+              <AccordionItem value="collections-mobile">
+                <AccordionTrigger>Collections</AccordionTrigger>
+                <AccordionContent>
+                  <div className="space-y-2">
+                    {collections.map((collection) => (
+                      <div
+                        key={collection.id}
+                        className="flex items-center space-x-2"
+                      >
+                        <Checkbox
+                          id={`mobile-collection-${collection.id}`}
+                          checked={selectedCollections.includes(collection.id)}
+                          onCheckedChange={() => {
+                            toggleCollection(collection.id);
+                          }}
+                        />
+                        <label
+                          htmlFor={`mobile-collection-${collection.id}`}
+                          className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                          {collection.name}
+                        </label>
                       </div>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
+                    ))}
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
 
-                {/* Collections */}
-                <AccordionItem value="collections">
-                  <AccordionTrigger>Collections</AccordionTrigger>
-                  <AccordionContent>
-                    <div className="space-y-2">
-                      {collections.map((collection) => (
-                        <div
-                          key={collection.id}
-                          className="flex items-center space-x-2"
+              {/* Brands Mobile */}
+              <AccordionItem value="brands-mobile">
+                <AccordionTrigger>Brands</AccordionTrigger>
+                <AccordionContent>
+                  <div className="space-y-2">
+                    {brands.map((brand) => (
+                      <div
+                        key={brand.id}
+                        className="flex items-center space-x-2"
+                      >
+                        <Checkbox
+                          id={`mobile-brand-${brand.id}`}
+                          checked={selectedBrands.includes(brand.id)}
+                          onCheckedChange={() => {
+                            toggleBrand(brand.id);
+                          }}
+                        />
+                        <label
+                          htmlFor={`mobile-brand-${brand.id}`}
+                          className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         >
-                          <Checkbox
-                            id={`collection-${collection.id}-mobile`}
-                            checked={selectedCollections.includes(
-                              collection.id,
-                            )}
-                            onCheckedChange={() => {
-                              toggleCollection(collection.id);
-                              updateFilters();
-                            }}
-                          />
-                          <label
-                            htmlFor={`collection-${collection.id}-mobile`}
-                            className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {collection.name}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
+                          {brand.name}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
 
-                {/* Brands */}
-                <AccordionItem value="brands">
-                  <AccordionTrigger>Brands</AccordionTrigger>
-                  <AccordionContent>
-                    <div className="space-y-2">
-                      {brands.map((brand) => (
-                        <div
-                          key={brand.id}
-                          className="flex items-center space-x-2"
+              {/* Product Types Mobile */}
+              <AccordionItem value="productTypes-mobile">
+                <AccordionTrigger>Product Types</AccordionTrigger>
+                <AccordionContent>
+                  <div className="space-y-2">
+                    {productTypes.map((type) => (
+                      <div
+                        key={type.id}
+                        className="flex items-center space-x-2"
+                      >
+                        <Checkbox
+                          id={`mobile-productType-${type.id}`}
+                          checked={selectedProductTypes.includes(type.id)}
+                          onCheckedChange={() => {
+                            toggleProductType(type.id);
+                          }}
+                        />
+                        <label
+                          htmlFor={`mobile-productType-${type.id}`}
+                          className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         >
-                          <Checkbox
-                            id={`brand-${brand.id}-mobile`}
-                            checked={selectedBrands.includes(brand.id)}
-                            onCheckedChange={() => {
-                              toggleBrand(brand.id);
-                              updateFilters();
-                            }}
-                          />
-                          <label
-                            htmlFor={`brand-${brand.id}-mobile`}
-                            className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {brand.name}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
+                          {type.name}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
 
-                {/* Skin Types */}
-                <AccordionItem value="skin-types">
-                  <AccordionTrigger>Skin Types</AccordionTrigger>
-                  <AccordionContent>
-                    <div className="space-y-2">
-                      {skinTypes.map((type) => (
-                        <div
-                          key={type.id}
-                          className="flex items-center space-x-2"
+              {/* Tags Mobile */}
+              <AccordionItem value="tags-mobile">
+                <AccordionTrigger>Tags</AccordionTrigger>
+                <AccordionContent>
+                  <div className="space-y-2">
+                    {skinConcerns.map((concern) => (
+                      <div
+                        key={concern.id}
+                        className="flex items-center space-x-2"
+                      >
+                        <Checkbox
+                          id={`mobile-concern-${concern.id}`}
+                          checked={selectedSkinConcerns.includes(concern.id)}
+                          onCheckedChange={() => {
+                            toggleSkinConcern(concern.id);
+                          }}
+                        />
+                        <label
+                          htmlFor={`mobile-concern-${concern.id}`}
+                          className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         >
-                          <Checkbox
-                            id={`skin-type-${type.id}-mobile`}
-                            checked={selectedSkinTypes.includes(type.id)}
-                            onCheckedChange={() => {
-                              toggleSkinType(type.id);
-                              updateFilters();
-                            }}
-                          />
-                          <label
-                            htmlFor={`skin-type-${type.id}-mobile`}
-                            className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {type.name}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
+                          {concern.name}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
 
-                {/* Skin Concerns */}
-                <AccordionItem value="skin-concerns">
-                  <AccordionTrigger>Skin Concerns</AccordionTrigger>
-                  <AccordionContent>
-                    <div className="space-y-2">
-                      {skinConcerns.map((concern) => (
-                        <div
-                          key={concern.id}
-                          className="flex items-center space-x-2"
+              {/* Categories Mobile */}
+              <AccordionItem value="categories-mobile">
+                <AccordionTrigger>Categories</AccordionTrigger>
+                <AccordionContent>
+                  <div className="space-y-2">
+                    {categories.map((category) => (
+                      <div
+                        key={category.id}
+                        className="flex items-center space-x-2"
+                      >
+                        <Checkbox
+                          id={`mobile-category-${category.id}`}
+                          checked={selectedCategories.includes(category.id)}
+                          onCheckedChange={() => {
+                            toggleCategory(category.id);
+                          }}
+                        />
+                        <label
+                          htmlFor={`mobile-category-${category.id}`}
+                          className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         >
-                          <Checkbox
-                            id={`skin-concern-${concern.id}-mobile`}
-                            checked={selectedSkinConcerns.includes(concern.id)}
-                            onCheckedChange={() => {
-                              toggleSkinConcern(concern.id);
-                              updateFilters();
-                            }}
-                          />
-                          <label
-                            htmlFor={`skin-concern-${concern.id}-mobile`}
-                            className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {concern.name}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+                          {category.name}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+
+            <div className="mt-6 flex flex-col gap-2">
+              <Button onClick={updateFilters} className="bg-gold mt-2 w-full">
+                Apply Filters
+              </Button>
+              <Button
+                onClick={() => {
+                  clearFilters();
+                  updateFilters();
+                }}
+                variant="outline"
+                className="mt-2 w-full"
+              >
+                Clear Filters
+              </Button>
             </div>
           </SheetContent>
         </Sheet>

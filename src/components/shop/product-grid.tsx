@@ -31,8 +31,8 @@ const ProductGrid = ({ products }: ProductGridProps) => {
   };
 
   return (
-    <div className="group transition-all duration-300 ease-in-out">
-      <Link href={`/shop/product/${products.handle}`} className="block">
+    <div className="group font-inter transition-all duration-300 ease-in-out">
+      <Link href={`/shop/${products.handle}`} className="block">
         <div className="relative overflow-hidden rounded-md bg-gray-100">
           <Image
             src={products.image?.url || "/placeholder.svg"}
@@ -56,12 +56,7 @@ const ProductGrid = ({ products }: ProductGridProps) => {
         <div className="mt-3">
           <h3 className="font-medium">{products.title}</h3>
           <div className="mt-1 flex items-center justify-between">
-            <p className="line-clamp-1 text-sm text-gray-500">
-              {typeof products.description === "object"
-                ? JSON.stringify(products.description)
-                : products.description}
-            </p>
-            <p className="ml-2 font-medium">{formatPrice(products.price)}</p>
+            <p className="font-semibold">{formatPrice(products.price)}</p>
           </div>
         </div>
       </Link>

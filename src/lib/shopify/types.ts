@@ -44,6 +44,20 @@ export type ShopifyProductResponse = {
       handle: string;
       description: string;
       descriptionHtml: string;
+      vendor: string;
+      productType: string;
+      tags: string[];
+      availableForSale: boolean;
+      totalInventory: number;
+      collections: {
+        edges: Array<{
+          node: {
+            id: string;
+            title: string;
+            handle: string;
+          };
+        }>;
+      };
       priceRange: {
         minVariantPrice: {
           amount: string;
@@ -66,6 +80,7 @@ export type ShopifyProductResponse = {
             id: string;
             title: string;
             availableForSale: boolean;
+            quantityAvailable: number;
             price: {
               amount: string;
               currencyCode: string;

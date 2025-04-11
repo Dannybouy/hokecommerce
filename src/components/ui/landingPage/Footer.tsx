@@ -1,12 +1,11 @@
 import { Facebook, Instagram, Youtube } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-hokBlack rounded-tl-4xl rounded-tr-4xl py-16 text-white">
-      <div className="container mx-auto px-4">
+    <footer className="bg-hokBlack sticky bottom-0 rounded-tl-4xl rounded-tr-4xl py-16 px-4 text-white">
+      <div className="container mx-auto ">
         <div className="flex items-center justify-between">
           {/* Logo and Brand */}
           <div className="flex flex-col items-center md:items-start">
@@ -68,41 +67,41 @@ const Footer = () => {
                 />
                 <path
                   d="M318.862 45.229C313.058 51.92 307.254 58.603 301.458 65.2939C299.85 67.2181 296.905 70.1479 292.375 72.0245C292.019 72.175 291.655 72.3096 291.299 72.4363V26.4072C291.536 -0.000403464 262.927 0.84683 262.927 0.84683C267.14 9.55697 266.863 17.1427 266.863 26.4072L267.14 119.669C267.14 125.845 266.863 142.426 263.204 146.639H295.226C292.138 140.74 291.291 134.001 291.291 127.54V78.2958C292.629 78.1612 294.015 77.9474 295.456 77.6148C300.721 76.4033 304.728 73.4023 306.961 71.4148L362.825 136.796C372.493 147.811 392.067 149.949 401.466 141.31L318.862 45.229Z"
-                  fill="#B88E2F"
+                  fill="#FFD700"
                 />
                 <path
                   d="M371.091 40.7236C378.661 40.8741 383.903 36.5348 386.896 31.9897C393.057 22.6461 389.929 8.5674 381.33 3.01667C375.122 -0.989997 359.356 -0.594089 345.871 14.0944C342.11 18.1961 336.544 23.5171 331.151 31.0633C332.862 29.9627 336.876 27.9356 342.467 27.4605C358.216 26.1223 355.856 40.4227 371.091 40.7236Z"
-                  fill="#B88E2F"
+                  fill="#FFD700"
                 />
                 <path
                   d="M121.91 73.6006C121.91 35.1177 144.667 0 186.238 0C227.809 0 250.567 35.6799 250.567 74.1628C250.567 112.369 228.094 147.764 186.515 147.764C144.944 147.764 121.91 112.369 121.91 73.6006ZM223.035 73.3156C223.035 51.9678 216.011 4.2125 186.8 4.2125C156.465 4.2125 149.442 52.2529 149.442 74.44C149.442 96.0728 156.18 143.543 186.238 143.543C216.296 143.543 223.035 95.2334 223.035 73.3156Z"
-                  fill="#B88E2F"
+                  fill="#FFD700"
                 />
                 <path
                   d="M185.731 59.3184C182.437 64.8216 178.034 69.6439 172.064 73.4921C178.486 77.0871 183.34 82.0122 186.744 88.1727C189.429 81.6717 194.243 77 200.411 73.4921C193.736 70.0239 188.89 65.265 185.731 59.3184Z"
-                  fill="#B88E2F"
+                  fill="#FFD700"
                 />
                 <path
                   d="M105.622 26.408C105.622 17.1357 105.345 9.54994 109.558 0.847721C109.558 0.847721 81.1626 0.847746 81.1864 26.408L81.3447 79.722C73.371 72.5955 56.9643 60.7498 35.1098 59.6808C32.7897 59.5699 30.5409 59.459 28.3713 59.3561V26.4001C28.4267 0.83982 0 0.839844 0 0.839844C4.21254 9.54998 3.9354 17.1357 3.9354 26.4001L4.21252 119.662C4.21252 125.838 3.93538 142.419 0.277121 146.632H32.2988C29.2106 140.733 28.3634 133.994 28.3634 127.533V77.6395C38.4988 75.462 58.635 71.9145 81.3447 82.3588L81.4556 119.67C81.4556 125.846 81.1706 142.427 77.5202 146.64H109.542C106.454 140.74 105.606 134.002 105.606 127.541V26.408H105.622Z"
-                  fill="#B88E2F"
+                  fill="#FFD700"
                 />
               </svg>
             </Link>
           </div>
 
-           {/* Navigation */}
-          <div className="flex items-center lg:gap-20 md:items-start mr-24">
+          {/* Navigation */}
+          <div className="mr-24 flex items-center md:items-start lg:gap-20">
             <div>
-              <ul className="font-inter space-y-2 text-hokGray">
+              <ul className="font-inter text-hokGray space-y-2">
                 <li>
-                  <h3 className="font-valky text-xl font-medium uppercase">
+                  <h3 className="font-playfair text-2xl font-medium uppercase">
                     Follow Us
                   </h3>
                 </li>
                 <li>
                   <Link
                     href="https://instagram.com"
-                    className="flex items-center transition-colors text-xl hover:text-gray-300"
+                    className="flex items-center text-xl transition-colors hover:text-gray-300"
                   >
                     <Instagram className="mr-2 h-4 w-4" />
                     INSTAGRAM
@@ -111,7 +110,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="https://youtube.com"
-                    className="flex items-center transition-colors text-xl hover:text-gray-300"
+                    className="flex items-center text-xl transition-colors hover:text-gray-300"
                   >
                     <Youtube className="mr-2 h-4 w-4" />
                     YOUTUBE
@@ -120,7 +119,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="https://facebook.com"
-                    className="flex items-center transition-colors text-xl hover:text-gray-300"
+                    className="flex items-center text-xl transition-colors hover:text-gray-300"
                   >
                     <Facebook className="mr-2 h-4 w-4" />
                     FACEBOOK
@@ -133,41 +132,49 @@ const Footer = () => {
                 <li>
                   <Link
                     href="/"
-                    className="hover:text-hokGray/80 text-xl transition-colors"
+                    className="hover:text-hokGray/80 text-xl transition-colors uppercase"
                   >
-                    HOME
+                    about
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/"
+                    className="hover:text-hokGray/80 text-xl transition-colors uppercase"
+                  >
+                    brands
                   </Link>
                 </li>
                 <li>
                   <Link
                     href="/shop"
-                    className="hover:text-hokGray/80 text-xl transition-colors"
+                    className="hover:text-hokGray/80 text-xl transition-colors uppercase"
                   >
-                    SHOP
+                    shop
                   </Link>
                 </li>
                 <li>
                   <Link
                     href="/about"
-                    className="hover:text-hokGray/80 text-xl transition-colors"
+                    className="hover:text-hokGray/80 text-xl transition-colors uppercase"
                   >
-                    About
+                    skin algorithm
                   </Link>
                 </li>
                 <li>
                   <Link
                     href="/contact"
-                    className="hover:text-hokGray/80 text-xl transition-colors"
+                    className="hover:text-hokGray/80 text-xl transition-colors uppercase"
                   >
-                    Contact
+                    wholesale
                   </Link>
                 </li>
               </ul>
             </div>
           </div>
 
-         
-        </div>
+        
+        </div>         
       </div>
     </footer>
   );

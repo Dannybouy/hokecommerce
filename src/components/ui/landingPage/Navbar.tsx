@@ -1,20 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Heart, ShoppingCart, UserRound } from "lucide-react";
+import SignUpPopover from "@/components/ui/SignUpPopover";
+import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
+import { Heart, Menu, ShoppingCart } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import Image from "next/image";
 
 const NavLinks = [
   {
@@ -23,23 +16,19 @@ const NavLinks = [
     submenu: [
       {
         title: "Brand Story",
-        href: "/about/story",
-        
+        href: "/about#story",
       },
       {
         title: "Our Brand",
-        href: "/about/brand",
-        
+        href: "/about#brand",
       },
       {
         title: "How We Source",
-        href: "/about/source",
-       
+        href: "/about#source",
       },
       {
         title: "The HOK Trybe",
-        href: "/about/trybe",
-       
+        href: "/about#trybe",
       },
     ],
   },
@@ -50,30 +39,24 @@ const NavLinks = [
       {
         title: "Cosrx",
         href: "/brands/cosrx",
-        
       },
       {
         title: "Derma Factory",
         href: "/brands/derma-factory",
-        
       },
       {
         title: "Lizara",
         href: "/brands/lizara",
-        
       },
       {
         title: "The Body Shop",
         href: "/brands/the-body-shop",
-        
       },
-      
     ],
   },
   {
     title: "SHOP",
     href: "/shop",
-    
   },
   {
     title: "SKIN ALGORITHM",
@@ -81,8 +64,7 @@ const NavLinks = [
     submenu: [
       {
         title: "Skin Quiz",
-        href: "/skin-algorithm/quiz",
-        
+        href: "/skin-algorithm",
       },
       {
         title: "Personalized Recommendations",
@@ -97,30 +79,30 @@ const NavLinks = [
       {
         title: "Shop Wholesale",
         href: "/paper-dolls/blog",
-        
       },
       {
         title: "Join The HOK Tribe",
-        href: "/paper-dolls/community", 
+        href: "/paper-dolls/community",
       },
       {
         title: "Wholesale Sign in",
-        href:"#"
+        href: "#",
       },
       {
-        title:"The HOK Trybe",
-        href: "#"
-      }
+        title: "The HOK Trybe",
+        href: "#",
+      },
     ],
   },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  //const [activePopover, setActivePopover] = useState<string | null>(null);
 
   return (
     <header className="sticky top-0 z-50 w-full">
-      <nav className="mx-8 mt-8 flex h-20 items-center justify-between px-8 rounded-xl text-white font-montserrat bg-hokBlack">
+      <nav className="font-montserrat bg-hokBlack mx-8 mt-8 flex h-20 items-center justify-between rounded-xl px-8 text-white">
         {/* Mobile menu */}
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild className="lg:hidden">
@@ -166,33 +148,161 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop navigation */}
-        <div className="hidden lg:flex">
-          <NavigationMenu>
-            <NavigationMenuList>
-              {NavLinks.map((link) => (
-                <NavigationMenuItem key={link.title}>
-                  <NavigationMenuTrigger className="bg-transparent text-[#eeeae1] font-medium text-base">
-                    {link.title}
-                  </NavigationMenuTrigger>
-                  {link.submenu && (
-                  <NavigationMenuContent>
-                    <ul className="flex flex-col w-72 py-5 px-7 gap-5 outline-2 outline-orange-700 rounded-bl-lg rounded-br-lg">
-                      {link.submenu?.map((subItem) => (
-                        <li key={subItem.title} className="hover:bg-black/10 py-2 px-1 rounded-lg">
-                          <NavigationMenuLink asChild>
-                            <Link href={subItem.href} className="text-base text-black/70 font-medium leading-none">
-                              {subItem.title}
-                            </Link>
-                          </NavigationMenuLink>
-                        </li>
-                      ))}
-                    </ul>
-                  </NavigationMenuContent>
-                  )}
-                </NavigationMenuItem>
-              ))}
-            </NavigationMenuList>
-          </NavigationMenu>
+        <div className="hidden lg:flex lg:items-center lg:gap-6">
+          <div>
+            <Popover>
+              <PopoverButton className="data-[active]:border-burntOrange data-[focus]:outline-burntOrange block cursor-pointer text-lg font-medium text-white uppercase focus:outline-none data-[active]:border-b-2 data-[active]:text-white data-[focus]:outline-2 data-[hover]:text-white">
+                about
+              </PopoverButton>
+              <PopoverPanel
+                transition
+                anchor="bottom"
+                className="border-burntOrange rounded-br-xl rounded-bl-xl border bg-white transition duration-200 ease-in-out data-[closed]:opacity-0 data-[open]:translate-y-6"
+              >
+                <div className="font-playfair flex w-[274px] flex-col gap-2 py-4 pl-8">
+                  <Link
+                    className="hover:text-burntOrange rounded-lg text-lg font-semibold text-black/70 transition-colors delay-75 ease-in-out"
+                    href="/about#story"
+                  >
+                    Brand Story
+                  </Link>
+                  <Link
+                    className="hover:text-burntOrange rounded-lg text-lg font-semibold text-black/70 transition-colors delay-75 ease-in-out"
+                    href="/about#brand"
+                  >
+                    Our Brand
+                  </Link>
+                  <Link
+                    className="hover:text-burntOrange rounded-lg text-lg font-semibold text-black/70 transition-colors delay-75 ease-in-out"
+                    href="/about#source"
+                  >
+                    How We Source
+                  </Link>
+                  <Link
+                    className="hover:text-burntOrange rounded-lg text-lg font-semibold text-black/70 transition-colors delay-75 ease-in-out"
+                    href="/about#trybe"
+                  >
+                    The HOK Trybe
+                  </Link>
+                </div>
+              </PopoverPanel>
+            </Popover>
+          </div>
+
+          <div>
+            <Popover>
+              <PopoverButton className="data-[active]:border-burntOrange data-[focus]:outline-burntOrange block cursor-pointer text-lg font-medium text-white uppercase focus:outline-none data-[active]:border-b-2 data-[active]:text-white data-[focus]:outline-2 data-[hover]:text-white">
+                brands
+              </PopoverButton>
+              <PopoverPanel
+                transition
+                anchor="bottom"
+                className="border-burntOrange rounded-br-xl rounded-bl-xl border bg-white transition duration-200 ease-in-out data-[closed]:opacity-0 data-[open]:translate-y-6"
+              >
+                <div className="font-playfair flex w-[274px] flex-col gap-2 py-4 pl-8">
+                  <Link
+                    className="hover:text-burntOrange rounded-lg text-lg font-semibold text-black/70 transition-colors delay-75 ease-in-out"
+                    href="/brands/cosrx"
+                  >
+                    Cosrx
+                  </Link>
+                  <Link
+                    className="hover:text-burntOrange rounded-lg text-lg font-semibold text-black/70 transition-colors delay-75 ease-in-out"
+                    href="#"
+                  >
+                    Derma Factory
+                  </Link>
+                  <Link
+                    className="hover:text-burntOrange rounded-lg text-lg font-semibold text-black/70 transition-colors delay-75 ease-in-out"
+                    href="#"
+                  >
+                    Lizara
+                  </Link>
+                  <Link
+                    className="hover:text-burntOrange rounded-lg text-lg font-semibold text-black/70 transition-colors delay-75 ease-in-out"
+                    href="#"
+                  >
+                    12 Grabs
+                  </Link>
+                </div>
+              </PopoverPanel>
+            </Popover>
+          </div>
+
+          <Link
+            href="/shop"
+            className="hover:text-hok-yellow text-lg font-medium text-white uppercase"
+          >
+            shop
+          </Link>
+
+          <div>
+            <Popover>
+              <PopoverButton className="data-[active]:border-burntOrange data-[focus]:outline-burntOrange block cursor-pointer text-lg font-medium text-white uppercase focus:outline-none data-[active]:border-b-2 data-[active]:text-white data-[focus]:outline-2 data-[hover]:text-white">
+                SKIN ALGORITHM
+              </PopoverButton>
+              <PopoverPanel
+                transition
+                anchor="bottom"
+                className="border-burntOrange rounded-br-xl rounded-bl-xl border bg-white transition duration-200 ease-in-out data-[closed]:opacity-0 data-[open]:translate-y-6"
+              >
+                <div className="font-playfair flex w-[312px] flex-col gap-2 px-8 py-4">
+                  <p className="text-lg font-semibold text-black">
+                    Get personalized products recommendations for you now!
+                  </p>
+                  <p className="text-lg text-black/70">
+                    Take quiz to assess skin type and concerns
+                  </p>
+                  <Link
+                    href="/skin-algorithm"
+                    className="bg-burntOrange font-montserrat mt-3 rounded px-6 py-2 text-center text-lg text-white uppercase"
+                  >
+                    start
+                  </Link>
+                </div>
+              </PopoverPanel>
+            </Popover>
+          </div>
+
+          <div>
+            <Popover>
+              <PopoverButton className="data-[active]:border-burntOrange data-[focus]:outline-burntOrange block cursor-pointer text-lg font-medium text-white uppercase focus:outline-none data-[active]:border-b-2 data-[active]:text-white data-[focus]:outline-2 data-[hover]:text-white">
+                wholesale
+              </PopoverButton>
+              <PopoverPanel
+                transition
+                anchor="bottom"
+                className="border-burntOrange rounded-br-xl rounded-bl-xl border bg-white transition duration-200 ease-in-out data-[closed]:opacity-0 data-[open]:translate-y-6"
+              >
+                <div className="font-playfair flex w-[274px] flex-col gap-2 py-4 pl-8">
+                  <Link
+                    className="hover:text-burntOrange rounded-lg text-lg font-semibold text-black/70 transition-colors delay-75 ease-in-out"
+                    href="/wholesale"
+                  >
+                    Shop Wholesale
+                  </Link>
+                  <Link
+                    className="hover:text-burntOrange rounded-lg text-lg font-semibold text-black/70 transition-colors delay-75 ease-in-out"
+                    href="#"
+                  >
+                    Join The HOK Tribe
+                  </Link>
+                  <Link
+                    className="hover:text-burntOrange rounded-lg text-lg font-semibold text-black/70 transition-colors delay-75 ease-in-out"
+                    href="#"
+                  >
+                    Wholesale Sign in
+                  </Link>
+                  <Link
+                    className="hover:text-burntOrange rounded-lg text-lg font-semibold text-black/70 transition-colors delay-75 ease-in-out"
+                    href="#"
+                  >
+                    The HOK Trybe
+                  </Link>
+                </div>
+              </PopoverPanel>
+            </Popover>
+          </div>
         </div>
 
         {/* Right side icons */}
@@ -200,30 +310,31 @@ export default function Navbar() {
           <Button
             variant="ghost"
             size="icon"
-            className="hover:text-hok-yellow text-white"
+            className="hover:bg-gold text-white transition-colors duration-200 ease-in-out"
           >
             <Heart className="h-5 w-5" />
             <span className="sr-only">Wishlist</span>
           </Button>
+
+          <SignUpPopover />
+
           <Button
             variant="ghost"
             size="icon"
-            className="hover:text-hok-yellow text-white"
-          >
-            <UserRound className="h-5 w-5" />
-            <span className="sr-only">Account</span>
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="hover:text-hok-yellow text-white"
+            className="hover:bg-gold text-white transition-colors duration-200 ease-in-out"
           >
             <ShoppingCart className="h-5 w-5" />
             <span className="sr-only">Cart</span>
           </Button>
-          <Button className="bg-gold hover:bg-gold/60 px-7 font-roboto font-medium text-base text-black rounded-lg">
-            SIGN UP
-          </Button>
+          <Link href="/shop">
+            <Button
+              variant="default"
+              size="lg"
+              className="bg-gold hover:bg-gold/80 font-roboto px-7 text-base font-medium text-black"
+            >
+              SHOP
+            </Button>
+          </Link>
         </div>
       </nav>
     </header>

@@ -1,4 +1,5 @@
 import Navbar from "@/components/ui/landingPage/Navbar";
+import Footer from "@/components/ui/landingPage/Footer";
 import type { Metadata } from "next";
 import { Inter, Montserrat, Playfair, Roboto } from "next/font/google";
 import localFont from "next/font/local";
@@ -46,6 +47,7 @@ export default function RootLayout({
       >
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
