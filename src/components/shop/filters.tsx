@@ -174,15 +174,6 @@ export function Filters({ onFilterChange }: FiltersProps) {
     );
   };
 
-  // Toggle skin type selection
-  const toggleSkinType = (typeId: string) => {
-    setSelectedSkinTypes((prev) =>
-      prev.includes(typeId)
-        ? prev.filter((t) => t !== typeId)
-        : [...prev, typeId],
-    );
-  };
-
   // Toggle skin concern selection
   const toggleSkinConcern = (concernId: string) => {
     setSelectedSkinConcerns((prev) =>
