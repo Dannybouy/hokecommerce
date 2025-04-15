@@ -1,9 +1,12 @@
-import Navbar from "@/components/ui/landingPage/Navbar";
+import QueryProvider from "@/components/QueryProvider";
 import Footer from "@/components/ui/landingPage/Footer";
+import Navbar from "@/components/ui/landingPage/Navbar";
 import type { Metadata } from "next";
 import { Inter, Montserrat, Playfair, Roboto } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner"
+
 
 const valky = localFont({
   src: "./fonts/Valky.woff2",
@@ -45,9 +48,12 @@ export default function RootLayout({
       <body
         className={`${montserrat.variable} ${valky.variable} ${roboto.variable} ${playfair.variable} ${inter.variable} bg-hokWhite`}
       >
-        <Navbar />
-        {children}
-        <Footer />
+        <QueryProvider>
+          <Navbar />
+          {children}
+          <Footer />
+          <Toaster />
+        </QueryProvider>
       </body>
     </html>
   );

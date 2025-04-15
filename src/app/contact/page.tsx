@@ -1,4 +1,4 @@
-import FaqAccordion from "@/components/faqAccordion";
+import FaqAccordion from "@/components/ui/faqAccordion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Newsletter from "@/components/ui/landingPage/Newsletter";
@@ -100,8 +100,7 @@ const Contact = () => {
           </div>
           <div>
             <p className="text-lg">
-              Address: Tradefair International Complex, off Lagos - Badagry
-              Expressway, Trade Fair Complex, Lagos 102102, Lagos
+              Address: A 035, Cross River Plaza, Balogun Tradefair, Lagos State, Nigeria.
             </p>
           </div>
         </div>

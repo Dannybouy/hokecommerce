@@ -1,3 +1,5 @@
+// This is a server action that fetches data from the Shopify storefront API
+
 import {
   ShopifyCollectionsResponse,
   ShopifyProductResponse,

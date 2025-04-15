@@ -112,7 +112,7 @@ export type ShopifyCollectionsResponse = {
 };
 
 // Simplified types for use in components
-export type Product = {
+export type Products = {
   id: string;
   title: string;
   handle: string;
@@ -127,7 +127,7 @@ export type Product = {
   };
 };
 
-export type ProductDetails = Product & {
+export type ProductDetails = Products & {
   descriptionHtml: string;
   images: Array<{
     url: string;
@@ -156,3 +156,29 @@ export type Collection = {
     altText: string | null;
   } | null;
 };
+
+export type FilterParams = {
+  minPrice?: string;
+  maxPrice?: string;
+  collections?: string[];
+  vendors?: string[];
+  productType?: string[];
+  tags?: string[];
+  category?: string[];
+  sort?: string;
+  view?: "grid" | "list";
+}
+
+export type CartItem = {
+  id: string;
+  productId: string;
+  variantId: string | null;
+  title: string;
+  price: string;
+  currencyCode: string;
+  quantity: number;
+  image: string;
+  handle: string;
+};
+
+

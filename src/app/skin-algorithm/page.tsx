@@ -1,5 +1,5 @@
 import React from "react";
-import SkinQuiz from "../components/SkinQuiz";
+import SkinQuiz from "../../components/ui/SkinQuiz";
 import Newsletter from "@/components/ui/landingPage/Newsletter";
 const SkinAlgorithmPage = () => {
   return (

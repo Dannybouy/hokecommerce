@@ -1,22 +1,10 @@
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
-interface Product {
-  id: string;
-  title: string;
-  handle: string;
-  description: string;
-  price: string;
-  currencyCode: string;
-  image: {
-    url: string;
-    altText: string | null;
-  };
-}
+import { Products } from "@/lib/shopify/types";
 
 interface ProductGridProps {
-  products: Product;
+  products: Products;
 }
 
 const ProductGrid = ({ products }: ProductGridProps) => {

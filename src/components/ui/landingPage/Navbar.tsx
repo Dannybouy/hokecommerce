@@ -3,11 +3,12 @@
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import SignUpPopover from "@/components/ui/SignUpPopover";
+import { useCartStore } from "@/store/useCartStore";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
-import { Heart, Menu, ShoppingCart } from "lucide-react";
+import { Menu, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const NavLinks = [
   {
@@ -19,7 +20,7 @@ const NavLinks = [
         href: "/about#story",
       },
       {
-        title: "Our Brand",
+        title: "Our Brands",
         href: "/about#brand",
       },
       {
@@ -98,7 +99,15 @@ const NavLinks = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  //const [activePopover, setActivePopover] = useState<string | null>(null);
+  // For hydration safety
+  const [mounted, setMounted] = useState(false);
+  const { totalItems } = useCartStore();
+  const totalItemsCount = totalItems();
+
+  useEffect(() => {
+    setMounted(true);
+    useCartStore.persist.rehydrate();
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full">
@@ -307,25 +316,24 @@ export default function Navbar() {
 
         {/* Right side icons */}
         <div className="flex items-center gap-4">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="hover:bg-gold text-white transition-colors duration-200 ease-in-out"
-          >
-            <Heart className="h-5 w-5" />
-            <span className="sr-only">Wishlist</span>
-          </Button>
-
           <SignUpPopover />
 
-          <Button
-            variant="ghost"
-            size="icon"
-            className="hover:bg-gold text-white transition-colors duration-200 ease-in-out"
-          >
-            <ShoppingCart className="h-5 w-5" />
-            <span className="sr-only">Cart</span>
-          </Button>
+          <Link href="/cart">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="hover:bg-gold relative text-white transition-colors duration-200 ease-in-out"
+            >
+              {mounted && totalItemsCount > 0 && (
+                <span className="bg-gold absolute -top-0 -right-0 flex h-4 w-4 items-center justify-center rounded-full text-xs text-black">
+                  {totalItemsCount}
+                </span>
+              )}
+              <ShoppingCart className="h-5 w-5" />
+              <span className="sr-only">Cart</span>
+            </Button>
+          </Link>
+
           <Link href="/shop">
             <Button
               variant="default"

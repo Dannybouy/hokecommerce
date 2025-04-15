@@ -27,7 +27,7 @@ const About = () => {
         className="relative container mx-auto mt-22 lg:px-[119px]"
       >
         <h2 className="font-playfair text-6xl text-[#2D1801]">
-          Our Brand <br />
+          Brand <br />
           Story: Why HOK?
         </h2>
         <p className="font-montserrat mt-10 text-lg leading-10 font-medium text-pretty text-black">
