@@ -1,6 +1,5 @@
 "use client";
 
-import type React from "react";
 import {
   Carousel,
   CarouselContent,
@@ -11,6 +10,7 @@ import {
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+import type React from "react";
 
 // Collection data
 const collections = [
@@ -38,22 +38,13 @@ const collections = [
 ];
 
 export default function EnhancedCarousel() {
-
   return (
     <section className="container mx-auto max-w-5xl px-4 py-16">
       {/* Heading */}
-      <div className="text-center">
-        <h1 className="font-valky text-cente text-2xl text-stone-900 lg:text-9xl">
+      <div className="mb-10 text-center">
+        <h1 className="font-playfair mx-auto text-center text-2xl text-stone-900 lg:max-w-80 lg:text-7xl">
           Shop By Collection
         </h1>
-      </div>
-
-      {/* Tagline */}
-      <div className="mx-auto mb-12 text-center lg:max-w-3xl">
-        <p className="font-inter mt-11 text-base text-stone-900 lg:text-xl">
-          YOUR DAILY MORNING COFEE. DEPENDABLE AND INTENTIONAL ESSENTIALS WHEN
-          YOU’RE CRAVING YOUR GO-TO’S FOR HEALTH SKIN.
-        </p>
       </div>
 
       {/* Carousel */}
@@ -69,7 +60,7 @@ export default function EnhancedCarousel() {
             {collections.map((collection) => (
               <CarouselItem
                 key={collection.id}
-                className="md:basis-1/2 px-2 lg:basis-1/2"
+                className="px-2 md:basis-1/2 lg:basis-1/2"
               >
                 <Link href={collection.url} className="block">
                   <div
@@ -84,7 +75,7 @@ export default function EnhancedCarousel() {
                         alt={collection.name}
                         width={500}
                         height={400}
-                        className="object-cover rounded-lg"
+                        className="rounded-lg object-cover"
                       />
                     </div>
                   </div>

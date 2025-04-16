@@ -119,7 +119,7 @@ export type Products = {
   description: string;
   price: string;
   currencyCode: string;
-  image?: {
+  featuredImage?: {
     url: string;
     altText: string | null;
     width?: number;
@@ -167,7 +167,7 @@ export type FilterParams = {
   category?: string[];
   sort?: string;
   view?: "grid" | "list";
-}
+};
 
 export type CartItem = {
   id: string;
@@ -180,5 +180,3 @@ export type CartItem = {
   image: string;
   handle: string;
 };
-
-

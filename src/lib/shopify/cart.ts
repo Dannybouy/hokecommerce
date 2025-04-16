@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CartItem } from "@/lib/shopify/types";
 import { shopifyFetch } from ".";
 

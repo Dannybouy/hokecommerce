@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Toggle } from "@/components/ui/toggle";
 import { ProductDetails, Products } from "@/lib/shopify/types";
 import { cn } from "@/lib/utils";
+import { useCartStore } from "@/store/useCartStore";
 import { formatPrice } from "@/utils/formatPrice";
 import {
   useFetchProduct,
@@ -22,14 +23,12 @@ import {
   ChevronRight,
   CircleCheckBig,
   CircleX,
-  Heart,
   ShoppingBag,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useCartStore } from "@/store/useCartStore";
 import { toast } from "sonner";
 
 interface ProductClientProps {
@@ -62,13 +61,12 @@ export default function ProductClient({
   } = useFetchProduct(productHandle, initialProduct);
 
   // Fetch related products with React Query
-  const {
-    data: relatedProducts = initialRelatedProducts,
-  } = useFetchRelatedProducts(productHandle, initialRelatedProducts);
+  const { data: relatedProducts = initialRelatedProducts } =
+    useFetchRelatedProducts(productHandle, initialRelatedProducts);
 
   // Derived state
   const [inStock, setInStock] = useState<boolean>(
-    initialProduct?.availableForSale || true,
+    initialProduct?.variants[0].availableForSale || true,
   );
 
   // Initialize product data when it's loaded
@@ -96,7 +94,9 @@ export default function ProductClient({
   const handleVariantChange = (variantId: string) => {
     if (!product?.variants) return;
 
-    const variant = product.variants.find((v) => v.id === variantId);
+    const variant = product.variants.find(
+      (v: { id: string; availableForSale: boolean }) => v.id === variantId,
+    );
     if (!variant) return;
 
     setSelectedVariant(variantId);
@@ -119,19 +119,18 @@ export default function ProductClient({
 
   // Add to cart functionality
   const handleAddToBag = () => {
-    if (!product) return;
-    
-    addItem(product, selectedVariant, quantity);
-    
-    toast.success(`${quantity} × ${product.title} added to your shopping bag`);
-
-    console.log("Added to bag:", {
-      title: product?.title,
-      variant: selectedVariant,
-      quantity,
+    addItem({
+      productId: product.id,
+      variantId: selectedVariant,
+      title: product.title,
       price: currentPrice,
       currencyCode: currentCurrencyCode,
+      quantity: quantity,
+      image: product.images[0]?.url,
+      handle: product.handle,
     });
+
+    toast.success(`${quantity} × ${product.title} added to your shopping bag`);
   };
 
   const handleNextImage = () => {
@@ -201,7 +200,7 @@ export default function ProductClient({
   );
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 lg:px-16">
       <div className="mb-8">
         <Button
           variant="ghost"
@@ -223,10 +222,10 @@ export default function ProductClient({
               <Image
                 src={productImages[selectedImage]?.url || "/placeholder.svg"}
                 alt={productImages[selectedImage]?.altText || product.title}
-                width={500}
-                height={500}
+                width={300}
+                height={300}
                 className={cn(
-                  "object-cover transition-opacity duration-500",
+                  "h-full w-full object-cover transition-opacity duration-500",
                   imageLoaded ? "opacity-100" : "opacity-0",
                 )}
                 onLoad={() => setImageLoaded(true)}
@@ -376,16 +375,6 @@ export default function ProductClient({
             >
               <ShoppingBag className="h-5 w-5" />
               Add to Bag
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="gap-2"
-              onClick={() => {
-                console.log("Added to wishlist");
-              }}
-            >
-              <Heart className="h-5 w-5" />
             </Button>
           </div>
 

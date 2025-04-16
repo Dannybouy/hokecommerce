@@ -17,6 +17,7 @@ const Cart = () => {
     totalPrice,
     getCheckoutUrl,
     syncWithShopify,
+    clearCart,
   } = useCartStore();
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -40,24 +41,20 @@ const Cart = () => {
       toast.error("Your cart is empty");
       return;
     }
-
     setIsCheckingOut(true);
     setError(null);
 
     try {
-      console.log("Starting checkout process...");
-
       // First sync with Shopify to ensure cart is updated
       await syncWithShopify();
 
       // Then get checkout URL
-      console.log("Getting checkout URL...");
       const checkoutUrl = await getCheckoutUrl();
-      console.log("Checkout URL received:", checkoutUrl);
 
       if (checkoutUrl) {
         // Brief delay to ensure logs are captured
         setTimeout(() => {
+          clearCart();
           window.location.href = checkoutUrl;
         }, 100);
       } else {
@@ -157,7 +154,9 @@ const Cart = () => {
                       <div className="flex justify-between border-t border-gray-200 py-2">
                         <p className="text-sm text-gray-700">Price:</p>
                         <p className="text-sm font-medium">
-                          {formatPrice(item.price, item.currencyCode)}
+                          {formatPrice(item.price, {
+                            currencyCode: item.currencyCode,
+                          })}
                         </p>
                       </div>
 
@@ -196,7 +195,7 @@ const Cart = () => {
                         <p className="text-sm font-medium">
                           {formatPrice(
                             (parseFloat(item.price) * item.quantity).toString(),
-                            item.currencyCode,
+                            { currencyCode: item.currencyCode },
                           )}
                         </p>
                       </div>
@@ -217,10 +216,10 @@ const Cart = () => {
                         />
                       </div>
                       <div>
-                        <h3 className="text-sm font-medium">{item.title}</h3>
+                        <h3 className="text-lg font-medium">{item.title}</h3>
                         <button
                           onClick={() => removeItem(item.id)}
-                          className="mt-1 text-xs tracking-tighter text-gray-400"
+                          className="mt-1 tracking-tighter text-gray-400"
                         >
                           REMOVE
                         </button>
@@ -229,8 +228,10 @@ const Cart = () => {
 
                     {/* Price */}
                     <div className="text-right">
-                      <p className="text-sm">
-                        {formatPrice(item.price, item.currencyCode)}
+                      <p className="text-lg font-medium">
+                        {formatPrice(item.price, {
+                          currencyCode: item.currencyCode,
+                        })}
                       </p>
                     </div>
 
@@ -248,7 +249,9 @@ const Cart = () => {
                         >
                           <Minus className="h-3 w-3" />
                         </button>
-                        <span className="px-4 py-1">{item.quantity}</span>
+                        <span className="px-4 py-1 text-lg">
+                          {item.quantity}
+                        </span>
                         <button
                           onClick={() =>
                             updateQuantity(item.id, item.quantity + 1)
@@ -262,10 +265,10 @@ const Cart = () => {
 
                     {/* Subtotal */}
                     <div className="text-right">
-                      <p className="text-sm">
+                      <p className="text-lg">
                         {formatPrice(
                           (parseFloat(item.price) * item.quantity).toString(),
-                          item.currencyCode,
+                          { currencyCode: item.currencyCode },
                         )}
                       </p>
                     </div>
@@ -294,18 +297,20 @@ const Cart = () => {
 
               {/* Cart Totals */}
               <div className="font-playfair col-span-1 space-y-4">
-                <h3 className="font-medium text-gray-700 uppercase">
+                <h3 className="text-lg font-medium text-gray-700 uppercase">
                   CART TOTALS
                 </h3>
 
                 <div className="space-y-4 border-t border-b py-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm">SUBTOTAL</span>
-                    <span className="text-sm">{totalPrice()}</span>
+                    <span className="text-lg">SUBTOTAL</span>
+                    <span className="text-lg">{totalPrice()}</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm">TOTAL</span>
-                    <span className="text-sm font-bold">{totalPrice()}</span>
+                    <span className="text-lg">TOTAL</span>
+                    <span className="text-lg font-extrabold">
+                      {totalPrice()}
+                    </span>
                   </div>
                 </div>
 

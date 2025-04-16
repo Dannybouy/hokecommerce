@@ -7,6 +7,19 @@ import {
   ShopifyRequestOptions,
 } from "./types";
 
+// Define search params interface here to avoid circular dependency
+interface ShopPageSearchParams {
+  minPrice?: string;
+  maxPrice?: string;
+  collections?: string | string[]; // Note: Collection filtering by ID/handle via query string is limited
+  vendors?: string | string[];
+  productType?: string | string[];
+  tags?: string | string[];
+  category?: string | string[]; // Note: Category often maps to productType or tags
+  page?: string;
+  // Add other potential search params like sort, query etc.
+}
+
 const domain =
   process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN ||
   process.env.SHOPIFY_STORE_DOMAIN ||
@@ -56,16 +69,64 @@ export async function shopifyFetch<T>({
 }
 
 /**
- * Fetches all products from the Shopify storefront API
+ * Fetches all products from the Shopify storefront API, optionally applying filters.
  */
-export async function getProducts() {
+export async function getProducts({
+  searchParams,
+}: {
+  searchParams?: ShopPageSearchParams;
+} = {}) {
+  // Provide default empty object
   if (!isShopifyConfigured) {
     console.warn("Shopify not configured. Returning mock data");
+    // Apply mock filtering if needed, though likely not necessary for mocks
+    return getMockProducts();
   }
 
+  // --- Build Filter Query String ---
+  const filterQueries: string[] = [];
+
+  const processMultiParam = (
+    param: string | string[] | undefined,
+  ): string[] => {
+    if (!param) return [];
+    return Array.isArray(param) ? param : [param];
+  };
+
+  const vendors = processMultiParam(searchParams?.vendors);
+  if (vendors.length > 0) {
+    filterQueries.push(`(${vendors.map((v) => `vendor:'${v}'`).join(" OR ")})`);
+  }
+
+  const productTypes = processMultiParam(searchParams?.productType);
+  if (productTypes.length > 0) {
+    filterQueries.push(
+      `(${productTypes.map((pt) => `product_type:'${pt}'`).join(" OR ")})`,
+    );
+  }
+
+  // Assuming 'category' maps to product_type for filtering
+  const categories = processMultiParam(searchParams?.category);
+  if (categories.length > 0) {
+    filterQueries.push(
+      `(${categories.map((c) => `product_type:'${c}'`).join(" OR ")})`,
+    );
+  }
+
+  const tags = processMultiParam(searchParams?.tags);
+  if (tags.length > 0) {
+    filterQueries.push(`(${tags.map((t) => `tag:'${t}'`).join(" OR ")})`);
+  }
+
+  const filterString = filterQueries.join(" AND ");
+  // ---------------------------------
+
+  // TODO: Implement pagination based on searchParams.page
+  const first = 12; // Default number of products per page
+
   const query = `
-    query GetProducts {
-      products(first: 12) {
+    query GetProducts($filterQuery: String) {
+      products(first: ${first}, query: $filterQuery) {
         edges {
           node {
             id
@@ -83,6 +144,8 @@ export async function getProducts() {
                 node {
                   url
                   altText
+                  width  # Added width
+                  height # Added height
                 }
               }
             }
@@ -93,32 +156,67 @@ export async function getProducts() {
   `;
 
   try {
-    const response = await shopifyFetch<ShopifyProductsResponse>({ query });
+    const response = await shopifyFetch<ShopifyProductsResponse>({
+      query,
+      variables: { filterQuery: filterString }, // Pass the filter string
+    });
 
-    if (!response.body.data || !response.body.data.products) {
+    if (
+      !response ||
+      response.status !== 200 ||
+      !response.body?.data?.products
+    ) {
       console.error("Invalid response from Shopify API:", response);
-      return getMockProducts();
+      return getMockProducts(); // Return mock on error
     }
 
-    const products = response.body.data.products.edges.map(({ node }) => {
-      const product = {
-        id: node.id,
-        title: node.title,
-        handle: node.handle,
-        description: node.description,
-        price: node.priceRange.minVariantPrice.amount,
-        currencyCode: node.priceRange.minVariantPrice.currencyCode,
-        image: {
-          url: node.images.edges[0]?.node?.url || "/placeholder.svg",
-          altText: node.images.edges[0]?.node?.altText || node.title,
-        },
-      };
-      return product;
-    });
+    let products = response.body.data.products.edges.map(({ node }) => ({
+      id: node.id,
+      title: node.title,
+      handle: node.handle,
+      description: node.description,
+      price: node.priceRange.minVariantPrice.amount,
+      currencyCode: node.priceRange.minVariantPrice.currencyCode,
+      featuredImage: node.images.edges[0]?.node
+        ? {
+            url: node.images.edges[0].node.url,
+            altText: node.images.edges[0].node.altText || node.title,
+            width: node.images.edges[0].node.width,
+            height: node.images.edges[0].node.height,
+          }
+        : {
+            // Provide a default structure if no image exists
+            url: "/placeholder.svg", // Or a more appropriate default
+            altText: node.title,
+            width: 100, // Example default width
+            height: 100, // Example default height
+          },
+    }));
+
+    // --- Post-fetch Price Filtering ---
+    const minPrice = searchParams?.minPrice
+      ? parseFloat(searchParams.minPrice)
+      : undefined;
+    const maxPrice = searchParams?.maxPrice
+      ? parseFloat(searchParams.maxPrice)
+      : undefined;
+
+    if (minPrice !== undefined || maxPrice !== undefined) {
+      products = products.filter((product) => {
+        const price = parseFloat(product.price);
+        const meetsMin = minPrice === undefined || price >= minPrice;
+        const meetsMax = maxPrice === undefined || price <= maxPrice;
+        return meetsMin && meetsMax;
+      });
+    }
+    // ---------------------------------
+
+    // TODO: Implement collection filtering post-fetch if needed, using product handles/tags/types
+
     return products;
   } catch (error) {
     console.error("Error fetching products:", error);
-    return getMockProducts();
+    return getMockProducts(); // Return mock on error
   }
 }
 
