@@ -104,10 +104,7 @@ export default function Home() {
         <p className="font-montserrat mt-5 mb-12 text-xl font-medium text-stone-900">
           WE&apos;RE HOK YOUR SKIN CARE BRAND
         </p>
-        <Link
-          href="/signup"
-          className="flex items-end justify-center text-center"
-        >
+        <Link href="#" className="flex items-end justify-center text-center">
           <p className="font-playfair text-5xl font-medium text-stone-900">
             JOIN
             <br />

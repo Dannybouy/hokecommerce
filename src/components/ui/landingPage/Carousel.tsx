@@ -77,13 +77,13 @@ export default function EnhancedCarousel() {
             {collections?.map((collection) => (
               <CarouselItem
                 key={collection.id}
-                className="px-2 md:basis-1/2 lg:basis-1/2"
+                className="px-2 md:basis-1/2 lg:basis-1/2 rounded-lg overflow-hidden"
               >
                 <Link
                   href={`/shop?collections=${collection.handle}`}
                   className="block"
                 >
-                  <div className={cn("mb-3 overflow-hidden rounded-lg")}>
+                  <div className={cn("mb-3 overflow-hidden rounded-l")}>
                     <div className="relative h-[400px] w-full lg:h-[700px]">
                       {collection.image ? (
                         <Image

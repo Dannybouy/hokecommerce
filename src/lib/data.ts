@@ -41,79 +41,82 @@ export const AccordionContentList = [
     id: "1",
     title: "How do i place an order?",
     content:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni quaevel officia nobis aut, enim maxime exercitationem placeat! Illumvoluptate vero id placeat cumque? Harum, possimus Ipsa odit consectetur voluptate",
+      "Simply browse our products, add your favorites to your cart, and check out! You’ll receive a confirmation email once your order is placed.",
   },
   {
     id: "2",
     title: " Can I change or cancel my order after placing it?",
     content:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni quaevel officia nobis aut, enim maxime exercitationem placeat! Illumvoluptate vero id placeat cumque? Harum, possimus Ipsa odit consectetur voluptate",
+      "If your order hasn’t been shipped yet, you can request changes or cancellations. Please contact us ASAP!",
   },
   {
     id: "3",
     title: " How can I track my order?",
     content:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni quaevel officia nobis aut, enim maxime exercitationem placeat! Illumvoluptate vero id placeat cumque? Harum, possimus Ipsa odit consectetur voluptate",
+      "Once your order is shipped, you’ll receive a tracking link via email/SMS. You can also track it from your Order History in your account.",
   },
   {
     id: "4",
     title: " Do you offer wholesale pricing?",
     content:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni quaevel officia nobis aut, enim maxime exercitationem placeat! Illumvoluptate vero id placeat cumque? Harum, possimus Ipsa odit consectetur voluptate",
+      " Yes! We have a dedicated Wholesale Section with special bulk pricing for B2B buyers. Contact us for details.",
   },
   {
     id: "5",
     title: "Where do you deliver?",
-    content:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni quaevel officia nobis aut, enim maxime exercitationem placeat! Illumvoluptate vero id placeat cumque? Harum, possimus Ipsa odit consectetur voluptate",
+    content: "We deliver nationwide across Nigeria! 🚀",
   },
   {
     id: "6",
     title: " How long does delivery take?",
-    content:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni quaevel officia nobis aut, enim maxime exercitationem placeat! Illumvoluptate vero id placeat cumque? Harum, possimus Ipsa odit consectetur voluptate",
+    content: "Lagos: 1-3 working days\nOther states: 3-7 working days",
   },
   {
     id: "7",
     title: " How much is delivery?",
-    content:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni quaevel officia nobis aut, enim maxime exercitationem placeat! Illumvoluptate vero id placeat cumque? Harum, possimus Ipsa odit consectetur voluptate",
+    content: "Delivery fees depend on your location and will be calculated at checkout.",
   },
   {
     id: "8",
     title: "Can I pay on delivery?",
     content:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni quaevel officia nobis aut, enim maxime exercitationem placeat! Illumvoluptate vero id placeat cumque? Harum, possimus Ipsa odit consectetur voluptate",
+      "Currently, we only offer prepaid orders to ensure a smooth and secure shopping experience.",
   },
   {
     id: "9",
     title: "What payment options do you accept?",
     content:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni quaevel officia nobis aut, enim maxime exercitationem placeat! Illumvoluptate vero id placeat cumque? Harum, possimus Ipsa odit consectetur voluptate",
+      "We accept debit/credit cards, bank transfers, mobile money, and Flutterwave/Paystack payments.",
   },
   {
     id: "10",
     title: " Do you accept returns?",
     content:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni quaevel officia nobis aut, enim maxime exercitationem placeat! Illumvoluptate vero id placeat cumque? Harum, possimus Ipsa odit consectetur voluptate",
+      "For hygiene reasons, we do not accept returns on opened skincare products. However, if you receive a damaged or incorrect item, please contact us within 24 hours for a resolution.",
   },
   {
     id: "11",
     title: "Are your products 100% authentic?",
     content:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni quaevel officia nobis aut, enim maxime exercitationem placeat! Illumvoluptate vero id placeat cumque? Harum, possimus Ipsa odit consectetur voluptate",
+      "Yes! We source directly from Korean brands & authorized distributors—no fakes, no shortcuts.",
   },
   {
     id: "12",
     title: "How do I know which products are right for my skin?",
     content:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni quaevel officia nobis aut, enim maxime exercitationem placeat! Illumvoluptate vero id placeat cumque? Harum, possimus Ipsa odit consectetur voluptate",
+      "Take our Personalized Skin Quiz to get the best recommendations for your skin type and concerns!",
   },
   {
     id: "13",
     title: " Do you sell skin-lightening products?",
     content:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni quaevel officia nobis aut, enim maxime exercitationem placeat! Illumvoluptate vero id placeat cumque? Harum, possimus Ipsa odit consectetur voluptate",
+      "No. We believe in healthy, radiant skin, not bleaching. Our products focus on hydration, repair, and glow—not altering your natural skin tone.",
+  },
+  {
+    id: "14",
+    title: "Can I purchase an HOK Gift Card?",
+    content:
+      "Yes! We offer digital Gift Cards in different amounts, perfect for birthdays or skincare lovers..",
   },
 ];
 

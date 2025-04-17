@@ -4,8 +4,8 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-hokBlack sticky bottom-0 rounded-tl-4xl rounded-tr-4xl py-16 px-4 text-white">
-      <div className="container mx-auto ">
+    <footer className="bg-hokBlack sticky bottom-0 rounded-tl-4xl rounded-tr-4xl px-4 py-16 text-white">
+      <div className="container mx-auto">
         <div className="flex items-center justify-between">
           {/* Logo and Brand */}
           <div className="flex flex-col items-center md:items-start">
@@ -100,7 +100,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link
-                    href="https://instagram.com"
+                    href="https://www.instagram.com/thehomeofkoreanproducts/"
                     className="flex items-center text-xl transition-colors hover:text-gray-300"
                   >
                     <Instagram className="mr-2 h-4 w-4" />
@@ -109,20 +109,39 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link
-                    href="https://youtube.com"
+                    href="https://www.tiktok.com/@homeofkoreanproducts"
                     className="flex items-center text-xl transition-colors hover:text-gray-300"
                   >
                     <Youtube className="mr-2 h-4 w-4" />
-                    YOUTUBE
+                    TiKTOK
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="https://facebook.com"
+                    href="https://www.facebook.com/share/1EK81bfAFp/"
+                    rel=""
                     className="flex items-center text-xl transition-colors hover:text-gray-300"
                   >
                     <Facebook className="mr-2 h-4 w-4" />
                     FACEBOOK
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="https://t.me/Homeofkoreanbeauty"
+                    className="flex items-center text-xl transition-colors hover:text-gray-300"
+                  >
+                    <Facebook className="mr-2 h-4 w-4" />
+                    TELEGRAM
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="https://whatsapp.com/channel/0029VbAMxdn9hXF5cKnHxz12"
+                    className="flex items-center text-xl transition-colors hover:text-gray-300"
+                  >
+                    <Facebook className="mr-2 h-4 w-4" />
+                    WHATSAPP
                   </Link>
                 </li>
               </ul>
@@ -132,7 +151,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="/"
-                    className="hover:text-hokGray/80 text-xl transition-colors uppercase"
+                    className="hover:text-hokGray/80 text-xl uppercase transition-colors"
                   >
                     about
                   </Link>
@@ -140,7 +159,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="/"
-                    className="hover:text-hokGray/80 text-xl transition-colors uppercase"
+                    className="hover:text-hokGray/80 text-xl uppercase transition-colors"
                   >
                     brands
                   </Link>
@@ -148,7 +167,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="/shop"
-                    className="hover:text-hokGray/80 text-xl transition-colors uppercase"
+                    className="hover:text-hokGray/80 text-xl uppercase transition-colors"
                   >
                     shop
                   </Link>
@@ -156,7 +175,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="/about"
-                    className="hover:text-hokGray/80 text-xl transition-colors uppercase"
+                    className="hover:text-hokGray/80 text-xl uppercase transition-colors"
                   >
                     skin algorithm
                   </Link>
@@ -164,7 +183,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="/contact"
-                    className="hover:text-hokGray/80 text-xl transition-colors uppercase"
+                    className="hover:text-hokGray/80 text-xl uppercase transition-colors"
                   >
                     wholesale
                   </Link>
@@ -172,9 +191,7 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-
-        
-        </div>         
+        </div>
       </div>
     </footer>
   );

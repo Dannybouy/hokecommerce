@@ -202,7 +202,7 @@ export default function Navbar() {
                     href="/about#brand"
                     onClick={() => handlePopoverLinkClick(aboutButtonRef)}
                   >
-                    Our Brand
+                    Our Brands
                   </Link>
                   <Link
                     className="hover:text-burntOrange rounded-lg text-lg font-semibold text-black/70 transition-colors delay-75 ease-in-out"

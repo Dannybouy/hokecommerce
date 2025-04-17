@@ -1,5 +1,5 @@
-import FaqAccordion from "@/components/ui/faqAccordion";
 import { Button } from "@/components/ui/button";
+import FaqAccordion from "@/components/ui/faqAccordion";
 import { Input } from "@/components/ui/input";
 import Newsletter from "@/components/ui/landingPage/Newsletter";
 import { Textarea } from "@/components/ui/textarea";
@@ -99,8 +99,10 @@ const Contact = () => {
             </span>
           </div>
           <div>
-            <p className="text-lg">
-              Address: A 035, Cross River Plaza, Balogun Tradefair, Lagos State, Nigeria.
+            <p className="font-semi-bold text-lg">
+              Address: SHOP 043 GRACE OF GOD PLAZA, OPPOSITE KADUNA PLAZA,
+              BALOGUN MARKET, OFF LAGOS BADAGRY EXPRESS WAY, TRADE FAIR
+              COMPLEX, LAGOS STATE.
             </p>
           </div>
         </div>
@@ -108,7 +110,7 @@ const Contact = () => {
 
       <section className="container mx-auto mt-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:px-[119px]">
         <div className="col-span-1">
-          <h2 className="font-valky text-[82px] text-[#201E1C]">FAQ</h2>
+          <h2 className="font-playfair text-[82px] text-[#201E1C]">FAQ</h2>
           <span className="font-inter text-lg text-black/70">
             We’ve got answers!
           </span>
