@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Newsletter from "@/components/ui/landingPage/Newsletter";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 const About = () => {
   return (
@@ -149,10 +150,12 @@ const About = () => {
             <div className="flex flex-col items-start gap-6 overflow-hidden rounded-xl md:flex-row">
               <div className="border-gold shadow-gold w-full rounded-[18px] border-[3px] shadow-xl md:w-1/2 lg:w-[600px]">
                 <Image
-                  src="/derma-image.png"
+                  src="/derma-factory.jpg"
                   alt="Derma factory"
                   width={600}
                   height={500}
+                  quality={100}
+                  priority
                   className="h-auto w-full rounded-[15px] object-cover"
                 />
               </div>
@@ -165,9 +168,11 @@ const About = () => {
                   concentrated formulas that work.
                 </p>
                 <div className="mt-auto">
-                  <Button className="font-montserrat rounded-full bg-[#2d1801] px-8 py-2 font-medium tracking-wide text-white hover:bg-[#472b07]">
-                    SHOP NOW
-                  </Button>
+                  <Link href="/shop">
+                    <Button className="font-montserrat rounded-full bg-[#2d1801] px-8 py-2 font-medium tracking-wide text-white hover:bg-[#472b07]">
+                      SHOP NOW
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -196,10 +201,12 @@ const About = () => {
             <div className="flex flex-col items-start gap-6 overflow-hidden rounded-xl md:flex-row">
               <div className="shadow-burntOrange order-2 w-full rounded-[18px] shadow-lg md:w-1/2 lg:w-[600px]">
                 <Image
-                  src="/12grabs.png"
+                  src="/12grabs.jpg"
                   alt="Derma factory"
                   width={600}
                   height={500}
+                  quality={100}
+                  priority
                   className="h-auto w-full rounded-[15px] object-cover"
                 />
               </div>
@@ -212,9 +219,11 @@ const About = () => {
                   effective beauty.
                 </p>
                 <div className="mt-auto">
-                  <Button className="font-montserrat rounded-full bg-[#2d1801] px-8 py-2 font-medium tracking-wide text-white hover:bg-[#472b07]">
-                    SHOP NOW
-                  </Button>
+                  <Link href="/shop">
+                    <Button className="font-montserrat rounded-full bg-[#2d1801] px-8 py-2 font-medium tracking-wide text-white hover:bg-[#472b07]">
+                      SHOP NOW
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -248,6 +257,8 @@ const About = () => {
                   alt="Derma factory"
                   width={600}
                   height={500}
+                  quality={100}
+                  priority
                   className="h-auto w-full rounded-[15px] object-cover"
                 />
               </div>
@@ -260,9 +271,11 @@ const About = () => {
                   heal, soothe, and transform.
                 </p>
                 <div className="mt-auto">
-                  <Button className="font-montserrat rounded-full bg-[#2d1801] px-8 py-2 font-medium tracking-wide text-white hover:bg-[#472b07]">
-                    SHOP NOW
-                  </Button>
+                  <Link href="/shop">
+                    <Button className="font-montserrat rounded-full bg-[#2d1801] px-8 py-2 font-medium tracking-wide text-white hover:bg-[#472b07]">
+                      SHOP NOW
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -295,6 +308,8 @@ const About = () => {
                   alt="Derma factory"
                   width={600}
                   height={500}
+                  quality={100}
+                  priority
                   className="h-auto w-full rounded-[15px] object-cover"
                 />
               </div>
@@ -306,9 +321,11 @@ const About = () => {
                   skincare science to nourish and rejuvenate your skin.
                 </p>
                 <div className="mt-auto">
-                  <Button className="font-montserrat rounded-full bg-[#2d1801] px-8 py-2 font-medium tracking-wide text-white hover:bg-[#472b07]">
-                    SHOP NOW
-                  </Button>
+                  <Link href="/shop">
+                    <Button className="font-montserrat rounded-full bg-[#2d1801] px-8 py-2 font-medium tracking-wide text-white hover:bg-[#472b07]">
+                      SHOP NOW
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -483,26 +500,28 @@ const About = () => {
           Our Founders
         </h2>
 
-        <div className="mt-10">
-          <div className="mb-16 flex flex-col items-start gap-8 md:flex-row">
-            <div className="w-full md:w-1/3">
-              <div className="border-gold inline-block rounded-3xl border-[5px]">
+        <div className="mt-12">
+          <div className="flex flex-col items-start gap-8 md:flex-row">
+            <div className="flex w-full justify-end md:w-1/3">
+              <div className="inline-block rounded-3xl">
                 <Image
-                  src="/co-founder-1.png"
+                  src="/co-founder-2.png"
                   alt="Nnenna Irebisi"
                   width={400}
-                  height={300}
+                  height={400}
+                  quality={100}
+                  priority
                   className="aspect-square rounded-3xl object-cover"
                 />
               </div>
             </div>
             <div className="w-full md:w-2/3">
-              <h3 className="font-montserrat mb-4 text-4xl font-bold text-yellow-300">
-                Nnenna Irebisi (Co-Founder)
+              <h3 className="font-montserrat mb-4 text-4xl font-bold text-white">
+                Peter Okonkwo (Co-Founder)
               </h3>
               <p className="font-montserrat mt-10 max-w-3xl text-2xl leading-10 text-balance text-white">
                 A true skincare enthusiast who believes healthy skin is happy
-                skin. She is passionate about promoting  the best skincare
+                skin. He is passionate about promoting the best skincare
                 practices and making Korean beauty accessible to all.
               </p>
             </div>
@@ -523,25 +542,28 @@ const About = () => {
             </svg>
           </div>
 
-          <div className="flex flex-col items-start gap-8 md:flex-row-reverse">
-            <div className="flex w-full justify-end md:w-1/3">
-              <div className="inline-block rounded-3xl border-[5px] border-white">
+          <div className="mb-16 flex flex-col items-start md:flex-row-reverse">
+            <div className="w-full md:w-1/3">
+              <div className="inline-block rounded-3xl">
                 <Image
-                  src="/co-founder-2.png"
+                  src="/co-founder-1.png"
                   alt="Nnenna Irebisi"
-                  width={400}
-                  height={300}
-                  className="aspect-square rounded-3xl object-cover"
+                  width={500}
+                  height={500}
+                  quality={100}
+                  priority
+                  className="rounded-3xl object-cover"
                 />
               </div>
             </div>
+
             <div className="w-full md:w-2/3">
-              <h3 className="font-montserrat mb-4 text-4xl font-bold text-white">
-                Peter Okonkwo (Co-Founder)
+              <h3 className="font-montserrat mb-4 text-4xl font-bold text-yellow-300">
+                Nnenna Irebisi (Co-Founder)
               </h3>
               <p className="font-montserrat mt-10 max-w-3xl text-2xl leading-10 text-balance text-white">
                 A true skincare enthusiast who believes healthy skin is happy
-                skin. He is passionate about promoting the best skincare
+                skin. She is passionate about promoting  the best skincare
                 practices and making Korean beauty accessible to all.
               </p>
             </div>

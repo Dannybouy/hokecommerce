@@ -387,12 +387,16 @@ export default function ProductClient({
           </div>
 
           {/* Product Information Accordion */}
-          <Accordion type="single" collapsible className="mt-8 space-y-2">
+          <Accordion
+            type="single"
+            collapsible
+            className="font-montserrat mt-8 space-y-2"
+          >
             <AccordionItem value="description">
-              <AccordionTrigger className="font-montserrat mb-2">
+              <AccordionTrigger className="mb-2">
                 Product Description
               </AccordionTrigger>
-              <AccordionContent>
+              <AccordionContent className="mt-3">
                 <div
                   dangerouslySetInnerHTML={{
                     __html: product.descriptionHtml || product.description,
@@ -402,18 +406,13 @@ export default function ProductClient({
             </AccordionItem>
 
             <AccordionItem value="shipping">
-              <AccordionTrigger>Shipping & Returns</AccordionTrigger>
-              <AccordionContent>
+              <AccordionTrigger className="mb-2">
+                Shipping & Returns
+              </AccordionTrigger>
+              <AccordionContent className="mt-3">
                 <p>
                   Free shipping on orders over ₦30,000. Standard shipping 3-5
                   business days. Express shipping available at checkout.
-                </p>
-                <p className="mt-2">
-                  Free returns within 14 days. See our{" "}
-                  <Link href="/returns" className="text-burntOrange underline">
-                    return policy
-                  </Link>
-                  .
                 </p>
               </AccordionContent>
             </AccordionItem>
@@ -433,7 +432,7 @@ export default function ProductClient({
                 id: string;
                 handle: string;
                 title: string;
-                image: { url: string; altText: string };
+                featuredImage: { url: string; altText: string };
                 price: string;
               }) => (
                 <Link
@@ -444,9 +443,13 @@ export default function ProductClient({
                   <div className="mb-2 aspect-square overflow-hidden rounded-md bg-gray-100">
                     <div className="relative h-full w-full">
                       <Image
-                        src={relatedProduct.image?.url}
+                        src={
+                          relatedProduct.featuredImage?.url ||
+                          "/placeholder.svg"
+                        }
                         alt={
-                          relatedProduct.image?.altText || relatedProduct.title
+                          relatedProduct.featuredImage?.altText ||
+                          relatedProduct.title
                         }
                         fill
                         className="object-cover transition-transform duration-300 group-hover:scale-105"

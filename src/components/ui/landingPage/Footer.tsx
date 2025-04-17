@@ -1,4 +1,3 @@
-import { Facebook, Instagram, Youtube } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -103,7 +102,7 @@ const Footer = () => {
                     href="https://www.instagram.com/thehomeofkoreanproducts/"
                     className="flex items-center text-xl transition-colors hover:text-gray-300"
                   >
-                    <Instagram className="mr-2 h-4 w-4" />
+                   
                     INSTAGRAM
                   </Link>
                 </li>
@@ -112,7 +111,7 @@ const Footer = () => {
                     href="https://www.tiktok.com/@homeofkoreanproducts"
                     className="flex items-center text-xl transition-colors hover:text-gray-300"
                   >
-                    <Youtube className="mr-2 h-4 w-4" />
+                    
                     TiKTOK
                   </Link>
                 </li>
@@ -122,7 +121,7 @@ const Footer = () => {
                     rel=""
                     className="flex items-center text-xl transition-colors hover:text-gray-300"
                   >
-                    <Facebook className="mr-2 h-4 w-4" />
+                    
                     FACEBOOK
                   </Link>
                 </li>
@@ -131,7 +130,7 @@ const Footer = () => {
                     href="https://t.me/Homeofkoreanbeauty"
                     className="flex items-center text-xl transition-colors hover:text-gray-300"
                   >
-                    <Facebook className="mr-2 h-4 w-4" />
+                    
                     TELEGRAM
                   </Link>
                 </li>
@@ -140,7 +139,7 @@ const Footer = () => {
                     href="https://whatsapp.com/channel/0029VbAMxdn9hXF5cKnHxz12"
                     className="flex items-center text-xl transition-colors hover:text-gray-300"
                   >
-                    <Facebook className="mr-2 h-4 w-4" />
+                    
                     WHATSAPP
                   </Link>
                 </li>
