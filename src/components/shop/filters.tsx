@@ -15,21 +15,28 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import {
-  brands,
-  categories,
-  collections,
-  productTypes,
-  skinConcerns,
-} from "@/lib/filters";
+import { brands, categories, productTypes, skinConcerns } from "@/lib/filters";
+import { useFetchAllCollections } from "@/utils/hooks/useFetchAllCollections";
 import { Sliders } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 
 export default function Filters() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  const {
+    data: shopifyCollections,
+    isLoading: isCollectionsLoading,
+    error: collectionsError,
+  } = useFetchAllCollections();
+
+  useEffect(() => {
+    const collectionParam = searchParams.get("collections");
+    if (collectionParam && shopifyCollections) {
+      console.log(`Collection filter active: ${collectionParam}`);
+    }
+  }, [searchParams, shopifyCollections]);
 
   const handleFilterChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,28 +127,43 @@ export default function Filters() {
             </AccordionTrigger>
             <AccordionContent>
               <div className="mt-4 ml-4 flex flex-wrap items-center gap-4">
-                {collections.map((collection) => (
-                  <div
-                    key={collection.id}
-                    className="flex items-center space-x-2"
-                  >
-                    <input
-                      type="checkbox"
-                      name="collections"
-                      value={collection.id}
-                      id={`collection-${collection.id}`}
-                      onChange={handleFilterChange}
-                      checked={isChecked("collections", collection.id)}
-                      className="accent-burntOrange h-4 w-4 bg-white"
-                    />
-                    <label
-                      htmlFor={`collection-${collection.id}`}
-                      className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      {collection.name}
-                    </label>
+                {isCollectionsLoading ? (
+                  <div className="animate-pulse space-y-2">
+                    {[...Array(4)].map((_, i) => (
+                      <div
+                        key={i}
+                        className="h-5 w-32 rounded bg-gray-200"
+                      ></div>
+                    ))}
                   </div>
-                ))}
+                ) : collectionsError ? (
+                  <div className="text-sm text-red-500">
+                    Failed to load collections
+                  </div>
+                ) : (
+                  shopifyCollections?.map((collection) => (
+                    <div
+                      key={collection.id}
+                      className="flex items-center space-x-2"
+                    >
+                      <input
+                        type="checkbox"
+                        name="collections"
+                        value={collection.handle}
+                        id={`collection-${collection.handle}`}
+                        onChange={handleFilterChange}
+                        checked={isChecked("collections", collection.handle)}
+                        className="accent-burntOrange h-4 w-4 bg-white"
+                      />
+                      <label
+                        htmlFor={`collection-${collection.handle}`}
+                        className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        {collection.title}
+                      </label>
+                    </div>
+                  ))
+                )}
               </div>
             </AccordionContent>
           </AccordionItem>
@@ -331,28 +353,46 @@ export default function Filters() {
                   </AccordionTrigger>
                   <AccordionContent>
                     <div className="mt-4 ml-4 flex flex-wrap items-center gap-4">
-                      {collections.map((collection) => (
-                        <div
-                          key={`mobile-collection-${collection.id}`}
-                          className="flex items-center space-x-2"
-                        >
-                          <input
-                            type="checkbox"
-                            name="collections"
-                            value={collection.id}
-                            id={`mobile-collection-${collection.id}`}
-                            onChange={handleFilterChange}
-                            checked={isChecked("collections", collection.id)}
-                            className="accent-burntOrange h-4 w-4 bg-white"
-                          />
-                          <label
-                            htmlFor={`mobile-collection-${collection.id}`}
-                            className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {collection.name}
-                          </label>
+                      {isCollectionsLoading ? (
+                        <div className="animate-pulse space-y-2">
+                          {[...Array(4)].map((_, i) => (
+                            <div
+                              key={i}
+                              className="h-5 w-32 rounded bg-gray-200"
+                            ></div>
+                          ))}
                         </div>
-                      ))}
+                      ) : collectionsError ? (
+                        <div className="text-sm text-red-500">
+                          Failed to load collections
+                        </div>
+                      ) : (
+                        shopifyCollections?.map((collection) => (
+                          <div
+                            key={`mobile-collection-${collection.id}`}
+                            className="flex items-center space-x-2"
+                          >
+                            <input
+                              type="checkbox"
+                              name="collections"
+                              value={collection.handle}
+                              id={`mobile-collection-${collection.handle}`}
+                              onChange={handleFilterChange}
+                              checked={isChecked(
+                                "collections",
+                                collection.handle,
+                              )}
+                              className="accent-burntOrange h-4 w-4 bg-white"
+                            />
+                            <label
+                              htmlFor={`mobile-collection-${collection.handle}`}
+                              className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                              {collection.title}
+                            </label>
+                          </div>
+                        ))
+                      )}
                     </div>
                   </AccordionContent>
                 </AccordionItem>

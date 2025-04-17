@@ -29,9 +29,12 @@ export const skinTypes = [
 export const skinConcerns = [
   { id: "hyperpigmentation", name: "Hyperpigmentation" },
   { id: "acne-blemishes", name: "Acne & Blemishes" },
-  { id: "dehydrated-flaky", name: "Dehydrated & Flaky Skin" },
+  { id: "dehydration", name: "Dehydration" },
+  { id: "flaky", name: "Flaky Skin" },
   { id: "sensitive", name: "Sensitive Skin" },
-  { id: "daily-protection", name: "Daily Protection" },
+  { id: "spf", name: "SPF" },
+  { id: "dryness", name: "Dryness" },
+  { id: "aging", name: "Aging" },
 ];
 
 // Price ranges
@@ -46,11 +49,10 @@ export const priceRanges = [
 export const productTypes = [
   { id: "facial-cream", name: "Facial Cream" },
   { id: "protection-cream", name: "Protection Cream" },
-  { id: "shampoo", name: "Shampoo" },
   { id: "body-lotion", name: "Body Lotion" },
   { id: "toner", name: "Toner" },
   { id: "cleanser", name: "Cleanser" },
-  { id: "moisturizer", name: "Moisturizer" },
+  { id: "haircare", name: "Haircare" },
 ];
 
 // Categories

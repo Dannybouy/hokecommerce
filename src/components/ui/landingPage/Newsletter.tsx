@@ -6,12 +6,12 @@ const Newsletter = () => {
     <section className="my-44">
       <div className="container mx-auto text-center">
         {/* Heading */}
-        <h2 className="font-playfair mb-5 text-5xl font-light tracking-wide text-black/70 md:text-6xl">
+        <h2 className="font-playfair mb-3 text-5xl font-light tracking-wide text-black/70 md:text-6xl">
           Subscribe To Our Newsletter
         </h2>
 
         {/* Subheading */}
-        <p className="font-inter mb-8 font-normal text-black/70 lg:text-xl">
+        <p className="font-montserrat mb-8 font-normal text-black/70 lg:text-xl">
           Get the latest updates on new products and upcoming sales
         </p>
 

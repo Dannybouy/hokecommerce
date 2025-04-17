@@ -1,3 +1,5 @@
+import DiscoveredForYou from "@/components/DiscoveredForYou";
+import ShopOurProducts from "@/components/ShopOurProducts";
 import Carousel from "@/components/ui/landingPage/Carousel";
 import Newsletter from "@/components/ui/landingPage/Newsletter";
 import SearchComponent from "@/components/ui/landingPage/search";
@@ -97,10 +99,10 @@ export default function Home() {
         </section>
       </div>
 
-      <div className="rounded-3xl border border-[#2D18101]/50 bg-cream text-center lg:mx-[127px] lg:mt-64 lg:py-[70px]">
+      <div className="bg-cream rounded-3xl border border-[#2D18101]/50 text-center lg:mx-[127px] lg:mt-64 lg:py-[70px]">
         <h1 className="font-playfair text-8xl">Hey. Hi. Hello</h1>
         <p className="font-montserrat mt-5 mb-12 text-xl font-medium text-stone-900">
-          WE’RE HOK YOUR SKIN CARE BRAND
+          WE&apos;RE HOK YOUR SKIN CARE BRAND
         </p>
         <Link
           href="/signup"
@@ -144,10 +146,10 @@ export default function Home() {
           />
         </div>
         <div className="mt-20 text-center">
-          <h1 className="font-playfair text-center text-2xl text-stone-900 lg:text-6xl max-w- mx-auto">
+          <h1 className="font-playfair max-w- mx-auto text-center text-2xl text-stone-900 lg:text-6xl">
             Best Selling Product
           </h1>
-          
+
           <div className="container mx-auto mt-12 mb-6 max-w-5xl">
             <div className="flex gap-8">
               <Image
@@ -183,6 +185,12 @@ export default function Home() {
       {/* Carousel */}
       <div className="mt-44 w-full bg-white">
         <Carousel />
+      </div>
+
+      {/* Featured Products */}
+      <div className="mt-44 w-full">
+        <DiscoveredForYou />
+        <ShopOurProducts />
       </div>
 
       {/* Testimonial */}

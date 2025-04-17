@@ -15,16 +15,16 @@ const Testimonial = () => {
     <section className="container mx-auto py-20">
       {/* Heading */}
       <div className=" text-center">
-        <h1 className="font-valky text-cente text-2xl text-stone-900 lg:text-9xl">
-          Customer testimonials
+        <h1 className="font-playfair text-center text-2xl text-stone-900 lg:text-6xl">
+          Customer <br />
+          testimonials
         </h1>
       </div>
 
       {/* Tagline */}
       <div className="mx-auto mb-12 text-center lg:max-w-3xl">
         <p className="font-inter mt-11 text-base text-stone-900 lg:text-xl">
-          WE’RE HERE TO MAKE DAILY ROUTINES BETTER FOR YOUR VODY AND BETTER FOR
-          OUR PLANET - BECAUSE SMALL CHANGE CNA MAKE A BIG IMPANCT.
+        See what our customers say about us
         </p>
       </div>
 
