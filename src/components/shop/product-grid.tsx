@@ -1,7 +1,7 @@
+import { Products } from "@/lib/shopify/types";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Products } from "@/lib/shopify/types";
 
 interface ProductGridProps {
   products: Products;
@@ -23,8 +23,8 @@ const ProductGrid = ({ products }: ProductGridProps) => {
       <Link href={`/shop/${products.handle}`} className="block">
         <div className="relative overflow-hidden rounded-md bg-gray-100">
           <Image
-            src={products.image?.url || "/placeholder.svg"}
-            alt={products.image?.altText || products.title}
+            src={products.featuredImage?.url || "/placeholder.svg"}
+            alt={products.featuredImage?.altText || products.title}
             width={500}
             height={500}
             className="aspect-square w-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
