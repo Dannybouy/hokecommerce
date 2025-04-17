@@ -258,28 +258,30 @@ export default function ProductClient({
           {/* Thumbnails */}
           {productImages.length > 1 && (
             <div className="flex gap-2 overflow-x-auto pb-2">
-              {productImages.map((image, index) => (
-                <button
-                  key={index}
-                  className={cn(
-                    "relative h-20 w-20 overflow-hidden rounded-md border-2 transition-all duration-200",
-                    selectedImage === index
-                      ? "border-blue-600"
-                      : "border-transparent hover:border-gray-300",
-                  )}
-                  onClick={() => {
-                    setImageLoaded(false);
-                    setSelectedImage(index);
-                  }}
-                >
-                  <Image
-                    src={image.url || "/placeholder.svg"}
-                    alt={`${product.title} - Image ${index + 1}`}
-                    fill
-                    className="object-cover"
-                  />
-                </button>
-              ))}
+              {productImages.map(
+                (image: { url: string; altText: string }, index: number) => (
+                  <button
+                    key={index}
+                    className={cn(
+                      "relative h-20 w-20 overflow-hidden rounded-md border-2 transition-all duration-200",
+                      selectedImage === index
+                        ? "border-blue-600"
+                        : "border-transparent hover:border-gray-300",
+                    )}
+                    onClick={() => {
+                      setImageLoaded(false);
+                      setSelectedImage(index);
+                    }}
+                  >
+                    <Image
+                      src={image.url || "/placeholder.svg"}
+                      alt={`${product.title} - Image ${index + 1}`}
+                      fill
+                      className="object-cover"
+                    />
+                  </button>
+                ),
+              )}
             </div>
           )}
         </div>
@@ -331,25 +333,31 @@ export default function ProductClient({
             <div className="mb-6">
               <h3 className="mb-3 font-medium">Variants</h3>
               <div className="flex flex-wrap gap-2">
-                {product.variants.map((variant) => (
-                  <Toggle
-                    key={variant.id}
-                    pressed={selectedVariant === variant.id}
-                    onPressedChange={() => handleVariantChange(variant.id)}
-                    variant="outline"
-                    disabled={!variant.availableForSale}
-                    className={cn(
-                      "rounded-md transition-all duration-200",
-                      selectedVariant === variant.id
-                        ? "border-burntOrange text-burntOrange"
-                        : "",
-                      !variant.availableForSale && "line-through opacity-50",
-                    )}
-                  >
-                    {variant.title}
-                    {!variant.availableForSale && " (Out of Stock)"}
-                  </Toggle>
-                ))}
+                {product.variants.map(
+                  (variant: {
+                    id: string;
+                    availableForSale: boolean;
+                    title: string;
+                  }) => (
+                    <Toggle
+                      key={variant.id}
+                      pressed={selectedVariant === variant.id}
+                      onPressedChange={() => handleVariantChange(variant.id)}
+                      variant="outline"
+                      disabled={!variant.availableForSale}
+                      className={cn(
+                        "rounded-md transition-all duration-200",
+                        selectedVariant === variant.id
+                          ? "border-burntOrange text-burntOrange"
+                          : "",
+                        !variant.availableForSale && "line-through opacity-50",
+                      )}
+                    >
+                      {variant.title}
+                      {!variant.availableForSale && " (Out of Stock)"}
+                    </Toggle>
+                  ),
+                )}
               </div>
             </div>
           )}
@@ -420,32 +428,42 @@ export default function ProductClient({
             You may also like
           </h2>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-            {relatedProducts.map((relatedProduct) => (
-              <Link
-                key={relatedProduct.id}
-                href={`/shop/${relatedProduct.handle}`}
-                className="group"
-              >
-                <div className="mb-2 aspect-square overflow-hidden rounded-md bg-gray-100">
-                  <div className="relative h-full w-full">
-                    <Image
-                      src={relatedProduct.image?.url || "/placeholder.svg"}
-                      alt={
-                        relatedProduct.image?.altText || relatedProduct.title
-                      }
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
+            {relatedProducts.map(
+              (relatedProduct: {
+                id: string;
+                handle: string;
+                title: string;
+                image: { url: string; altText: string };
+                price: string;
+              }) => (
+                <Link
+                  key={relatedProduct.id}
+                  href={`/shop/${relatedProduct.handle}`}
+                  className="group"
+                >
+                  <div className="mb-2 aspect-square overflow-hidden rounded-md bg-gray-100">
+                    <div className="relative h-full w-full">
+                      <Image
+                        src={relatedProduct.image?.url || "/placeholder.svg"}
+                        alt={
+                          relatedProduct.image?.altText || relatedProduct.title
+                        }
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                    </div>
                   </div>
-                </div>
-                <h3 className="group-hover:text-burntOrange font-medium">
-                  {relatedProduct.title}
-                </h3>
-                <p className="text-sm text-gray-500">
-                  {formatPrice(relatedProduct.price, relatedProduct)}
-                </p>
-              </Link>
-            ))}
+                  <h3 className="group-hover:text-burntOrange font-medium">
+                    {relatedProduct.title}
+                  </h3>
+                  <p className="text-sm text-gray-500">
+                    {formatPrice(relatedProduct.price, {
+                      currencyCode: "NGN",
+                    })}
+                  </p>
+                </Link>
+              ),
+            )}
           </div>
         </div>
       )}
