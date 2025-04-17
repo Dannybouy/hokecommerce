@@ -444,7 +444,7 @@ export default function ProductClient({
                   <div className="mb-2 aspect-square overflow-hidden rounded-md bg-gray-100">
                     <div className="relative h-full w-full">
                       <Image
-                        src={relatedProduct.image?.url || "/placeholder.svg"}
+                        src={relatedProduct.image?.url}
                         alt={
                           relatedProduct.image?.altText || relatedProduct.title
                         }

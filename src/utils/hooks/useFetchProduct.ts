@@ -19,7 +19,7 @@ export function useFetchRelatedProducts(
   return useQuery({
     queryKey: ["related-products", currentProductHandle],
     queryFn: async () => {
-      const allProducts = await getProducts();
+      const { products: allProducts } = await getProducts();
       return allProducts
         .filter((product) => product.handle !== currentProductHandle)
         .slice(0, 4);

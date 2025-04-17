@@ -1,9 +1,10 @@
 import Filters from "@/components/shop/filters";
+import Pagination from "@/components/ui/pagination";
 import ProductGridSkeleton from "@/components/ui/ProductGridSkeleton";
 import { getProducts } from "@/lib/shopify";
-import { Products } from "@/lib/shopify/types"; // Import Products type
+import { Products } from "@/lib/shopify/types";
 import Image from "next/image";
-import Link from "next/link"; // Import Link
+import Link from "next/link";
 import { Suspense } from "react";
 
 // Re-add the interface from shopify/index.ts for page props typing
@@ -17,15 +18,49 @@ interface ShopPageSearchParams {
   tags?: string | string[];
   category?: string | string[];
   page?: string;
+  cursor?: string;
 }
 
 export default async function ShopPage({
-  searchParams, // Now used
+  searchParams,
 }: {
-  searchParams?: ShopPageSearchParams; // Use the defined interface
+  searchParams?: ShopPageSearchParams;
 }) {
-  // Pass searchParams directly to getProducts
-  const products = await getProducts({ searchParams }); // Pass searchParams
+  const cursor = searchParams?.cursor || null;
+  const pageSize = 15;
+
+  // Get products with pagination
+  const { products, pageInfo } = await getProducts({
+    searchParams,
+    cursor,
+    pageSize,
+  });
+
+  // Build URLs for pagination links, preserving existing search params
+  const buildPaginationUrls = (newCursor: string): string | null => {
+    const params = new URLSearchParams();
+
+    // Add all existing search params
+    if (searchParams) {
+      Object.entries(searchParams).forEach(([key, value]) => {
+        if (key !== "cursor") {
+          // Don't copy the cursor parameter
+          if (Array.isArray(value)) {
+            value.forEach((v) => params.append(key, v));
+          } else if (value) {
+            params.append(key, value);
+          }
+        }
+      });
+    }
+
+    // Add new cursor parameter
+    if (newCursor) {
+      params.set("cursor", newCursor);
+    }
+
+    return `/shop?${params.toString()}`;
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -63,7 +98,7 @@ export default async function ShopPage({
                         )}
                         <h3 className="font-semibold">{product.title}</h3>
                         {/* Display price correctly */}
-                        <p className="text-gray-700 font-medium">
+                        <p className="font-medium text-gray-700">
                           {new Intl.NumberFormat("en-US", {
                             style: "currency",
                             currency: product.currencyCode,
@@ -78,6 +113,13 @@ export default async function ShopPage({
               )}
             </div>
             {/* TODO: Add Pagination controls here based on total product count and searchParams */}
+            <Pagination
+              hasNextPage={pageInfo.hasNextPage}
+              hasPreviousPage={pageInfo.hasPreviousPage}
+              startCursor={pageInfo.startCursor}
+              endCursor={pageInfo.endCursor}
+              buildUrl={buildPaginationUrls}
+            />
           </Suspense>
           {/* <ShopClient initialProducts={products} /> */}
         </div>

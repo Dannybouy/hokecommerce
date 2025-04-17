@@ -73,14 +73,26 @@ export async function shopifyFetch<T>({
  */
 export async function getProducts({
   searchParams,
+  cursor = null,
+  pageSize = 15,
 }: {
   searchParams?: ShopPageSearchParams;
+  cursor?: string | null;
+  pageSize?: number;
 } = {}) {
   // Provide default empty object
   if (!isShopifyConfigured) {
     console.warn("Shopify not configured. Returning mock data");
-    // Apply mock filtering if needed, though likely not necessary for mocks
-    return getMockProducts();
+    // Return mock data with consistent structure
+    return {
+      products: getMockProducts(),
+      pageInfo: {
+        hasNextPage: false,
+        hasPreviousPage: false,
+        startCursor: null,
+        endCursor: null,
+      },
+    };
   }
 
   // --- Build Filter Query String ---
@@ -121,45 +133,61 @@ export async function getProducts({
   const filterString = filterQueries.join(" AND ");
   // ---------------------------------
 
-  // TODO: Implement pagination based on searchParams.page
-  const first = 12; // Default number of products per page
-
   const query = `
-    query GetProducts($filterQuery: String) {
-      products(first: ${first}, query: $filterQuery) {
-        edges {
-          node {
-            id
-            title
-            handle
-            description
-            priceRange {
-              minVariantPrice {
-                amount
-                currencyCode
-              }
+  query GetProducts($filterQuery: String, $cursor: String, $first: Int!) {
+    products(first: $first, after: $cursor, query: $filterQuery) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+      edges {
+        cursor
+        node {
+          id
+          title
+          handle
+          description
+          priceRange {
+            minVariantPrice {
+              amount
+              currencyCode
             }
-            images(first: 1) {
-              edges {
-                node {
-                  url
-                  altText
-                  width  # Added width
-                  height # Added height
-                }
+          }
+          images(first: 1) {
+            edges {
+              node {
+                url
+                altText
+                width
+                height
               }
             }
           }
         }
       }
     }
-  `;
+  }
+`;
 
   try {
     const response = await shopifyFetch<ShopifyProductsResponse>({
       query,
-      variables: { filterQuery: filterString }, // Pass the filter string
+      variables: {
+        filterQuery: filterString,
+        cursor: cursor || null,
+        first: pageSize,
+      },
     });
+
+    // Add extra debugging for GraphQL errors
+    if (response?.body?.errors) {
+      console.error(
+        "GraphQL Errors:",
+        JSON.stringify(response.body.errors, null, 2),
+      );
+    }
 
     if (
       !response ||
@@ -167,7 +195,15 @@ export async function getProducts({
       !response.body?.data?.products
     ) {
       console.error("Invalid response from Shopify API:", response);
-      return getMockProducts(); // Return mock on error
+      return {
+        products: getMockProducts(),
+        pageInfo: {
+          hasNextPage: false,
+          hasPreviousPage: false,
+          startCursor: null,
+          endCursor: null,
+        },
+      };
     }
 
     let products = response.body.data.products.edges.map(({ node }) => ({
@@ -209,14 +245,29 @@ export async function getProducts({
         return meetsMin && meetsMax;
       });
     }
-    // ---------------------------------
 
-    // TODO: Implement collection filtering post-fetch if needed, using product handles/tags/types
-
-    return products;
+    // Ensure we return a consistent structure
+    return {
+      products: products,
+      pageInfo: response.body.data.products.pageInfo || {
+        hasNextPage: false,
+        hasPreviousPage: false,
+        startCursor: null,
+        endCursor: null,
+      },
+    };
   } catch (error) {
     console.error("Error fetching products:", error);
-    return getMockProducts(); // Return mock on error
+    // Return mock data with consistent structure
+    return {
+      products: getMockProducts(),
+      pageInfo: {
+        hasNextPage: false,
+        hasPreviousPage: false,
+        startCursor: null,
+        endCursor: null,
+      },
+    };
   }
 }
 

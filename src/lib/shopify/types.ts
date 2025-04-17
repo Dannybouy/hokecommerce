@@ -6,8 +6,14 @@ export type ShopifyRequestOptions = {
 };
 
 export type ShopifyProductsResponse = {
-  data: {
+  data?: {
     products: {
+      pageInfo: {
+        hasNextPage: boolean;
+        hasPreviousPage: boolean;
+        startCursor: string;
+        endCursor: string;
+      };
       edges: Array<{
         node: {
           id: string;
@@ -34,6 +40,15 @@ export type ShopifyProductsResponse = {
       }>;
     };
   };
+  errors?: Array<{
+    message: string;
+    locations?: Array<{
+      line: number;
+      column: number;
+    }>;
+    path?: string[];
+    extensions?: Record<string, unknown>;
+  }>;
 };
 
 export type ShopifyProductResponse = {

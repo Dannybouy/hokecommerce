@@ -16,9 +16,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
   // Fetch related products
   let relatedProducts: Products[] = [];
   if (product) {
-    const allProducts = await getProducts();
+    const { products: allProducts } = await getProducts();
     relatedProducts = allProducts
-      .filter((p) => p.handle !== params.handle)
+      .filter((p: Products) => p.handle !== params.handle)
       .slice(0, 4);
   }
 
