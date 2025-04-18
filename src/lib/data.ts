@@ -137,7 +137,6 @@ export const Questions: Question[] = [
     options: [
       { text: "Tight & dry", emoji: "🍂" },
       { text: "Comfortable, neither oily nor dry", emoji: "😌" },
-      { text: "Slightly oily in the T-zone but normal elsewhere", emoji: "" },
       { text: "Oily all over the face", emoji: "" },
     ],
   },

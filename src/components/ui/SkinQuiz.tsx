@@ -2,9 +2,13 @@
 
 import { Questions } from "@/lib/data";
 import React, { useState } from "react";
+import QuizResults from "./QuizResults";
+import { Button } from "./button";
 
 const SkinQuiz = () => {
   const [answers, setAnswers] = useState<Record<number, number>>({});
+  const [submitted, setSubmitted] = useState(false);
+  const [skinType, setSkinType] = useState("");
 
   const handleOptionSelect = (questionId: number, optionIndex: number) => {
     setAnswers((prev) => ({
@@ -12,6 +16,58 @@ const SkinQuiz = () => {
       [questionId]: optionIndex,
     }));
   };
+
+  const determineResults = () => {
+    // Check if all questions are answered
+    if (Object.keys(answers).length < Questions.length) {
+      alert("Please answer all questions");
+      return;
+    }
+
+    // Specific logic for determining skin type
+    // This implementation follows the request: if user selects option 1 for all questions, it's dry skin
+
+    // Check if all answers are option 1 (index 0) for dry skin
+    const allOptionOne = Object.values(answers).every((answer) => answer === 0);
+    if (allOptionOne) {
+      setSkinType("dry");
+      setSubmitted(true);
+      return;
+    }
+
+    // Count the responses for each type
+    let dryCount = 0;
+    let normalCount = 0;
+    let oilyCount = 0;
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    Object.entries(answers).forEach(([_, optionIndex]) => {
+      if (optionIndex === 0) dryCount++;
+      else if (optionIndex === 1) normalCount++;
+      else if (optionIndex === 2) oilyCount++;
+    });
+
+    // Determine skin type based on most common answers
+    if (dryCount >= normalCount && dryCount >= oilyCount) {
+      setSkinType("dry");
+    } else if (normalCount >= dryCount && normalCount >= oilyCount) {
+      setSkinType("normal");
+    } else {
+      setSkinType("oily");
+    }
+
+    setSubmitted(true);
+  };
+
+  const resetQuiz = () => {
+    setAnswers({});
+    setSubmitted(false);
+    setSkinType("");
+  };
+
+  if (submitted) {
+    return <QuizResults skinType={skinType} resetQuiz={resetQuiz} />;
+  }
 
   return (
     <div className="my-8">
@@ -25,7 +81,7 @@ const SkinQuiz = () => {
               <div
                 key={index}
                 onClick={() => handleOptionSelect(q.id, index)}
-                className={`flex cursor-pointer items-center rounded-lg p-3 transition-colors border border-gray-300 ${
+                className={`flex cursor-pointer items-center rounded-lg border border-gray-300 p-3 transition-colors ${
                   answers[q.id] === index
                     ? "bg-green-100 text-green-800"
                     : "bg-gray-50 hover:bg-gray-100"
@@ -48,9 +104,12 @@ const SkinQuiz = () => {
           </div>
         </div>
       ))}
-      <button className="bg-burntOrange font-montserrat mt-6 rounded-[28px] px-8 py-3 font-semibold text-white transition-opacity hover:opacity-90">
+      <Button
+        onClick={determineResults}
+        className="bg-burntOrange font-montserrat mt-6 rounded-[28px] px-8 py-3 font-semibold text-white transition-opacity hover:opacity-90"
+      >
         SUBMIT
-      </button>
+      </Button>
     </div>
   );
 };

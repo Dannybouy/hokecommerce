@@ -6,7 +6,7 @@ export default function DiscoveredForYou() {
     <section className="py-16">
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center justify-between md:flex-row">
-          <div className="mb-10 w-full md:mb-0 md:w-1/2">
+          <div className="mb-10 w-full md:mb-0 md:w-1/2 pl-10">
             <h1 className="font-playfair mb-6 text-4xl md:text-5xl lg:text-6xl">
               Discovered
               <br />
