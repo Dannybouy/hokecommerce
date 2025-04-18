@@ -1,201 +1,243 @@
 "use client";
 
-import { ArrowLeft } from "lucide-react";
+import { formatPrice } from "@/utils/formatPrice";
+import { useProductsBySkinType } from "@/utils/hooks/useProductsBySkinType";
+import { ArrowLeft, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import React, { useMemo, useState } from "react";
 import { Button } from "./button";
-
-interface Product {
-  id: string;
-  title: string;
-  price: string;
-  image: string;
-  skinType: string[];
-}
-
-/* 
-SHOPIFY INTEGRATION NOTES:
-To integrate with Shopify, we'll need to:
-1. Create product metafields in Shopify for 'skinType' (multiple selection metafield)
-2. Use the Shopify Storefront API to fetch products filtered by the skinType metafield
-3. Example GraphQL query would look like:
-
-query ProductsBySkinType($skinType: String!) {
-  products(first: 10, query: "metafield.skinType:$skinType") {
-    edges {
-      node {
-        id
-        title
-        handle
-        priceRange {
-          minVariantPrice {
-            amount
-            currencyCode
-          }
-        }
-        images(first: 1) {
-          edges {
-            node {
-              url
-              altText
-            }
-          }
-        }
-        metafields(first: 5) {
-          edges {
-            node {
-              namespace
-              key
-              value
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-4. Replace the mockProducts below with actual API fetching from Shopify
-*/
-
-// Mock products - in a real implementation, these would come from Shopify API
-const mockProducts: Product[] = [
-  {
-    id: "1",
-    title: "Salicylic Acid Daily Gentle Cleanser",
-    price: "₦9500.00",
-    image: "/corsx-image.png",
-    skinType: ["oily", "combination"],
-  },
-  {
-    id: "2",
-    title: "Derma Factory Retina Cica Ampoule 30ml",
-    price: "₦8,800.00",
-    image: "/derma-factory.jpg",
-    skinType: ["dry", "sensitive", "normal"],
-  },
-  {
-    id: "3",
-    title: "Cosrx Low pH Gentle Morning Cleanser",
-    price: "₦7,500.00",
-    image: "/corsx-image.png",
-    skinType: ["dry", "sensitive"],
-  },
-  {
-    id: "4",
-    title: "Hyaluronic Acid Intensive Serum",
-    price: "₦12,000.00",
-    image: "/derma-factory.jpg",
-    skinType: ["dry", "normal", "sensitive"],
-  },
-];
 
 interface QuizResultsProps {
   skinType: string;
   resetQuiz: () => void;
+  answers: Record<number, number>;
 }
 
 const skinTypeDescriptions = {
-  dry: "You have a dry skin; needs deep hydration and gentle care.",
-  normal: "You have normal skin; maintain balance with gentle products.",
-  oily: "You have oily skin; needs oil control and gentle exfoliation.",
+  "dry-skin": "You have dry skin; needs deep hydration and gentle care.",
+  "normal-skin": "You have normal skin; maintain balance with gentle products.",
+  "oily-skin": "You have oily skin; needs oil control and gentle exfoliation.",
 };
 
-const QuizResults: React.FC<QuizResultsProps> = ({ skinType, resetQuiz }) => {
+const PRODUCTS_PER_PAGE = 9; // Increased to show 3x3 grid on large screens
+const MAX_PAGES_SHOWN = 5; // Show max 5 page numbers at a time
+
+const QuizResults: React.FC<QuizResultsProps> = ({
+  skinType,
+  resetQuiz,
+  answers,
+}) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [recommendedProducts, setRecommendedProducts] = useState<Product[]>([]);
-  const productsPerPage = 2;
 
-  useEffect(() => {
-    // Filter products based on skin type
-    const filtered = mockProducts.filter((product) =>
-      product.skinType.includes(skinType),
-    );
-    setRecommendedProducts(filtered);
-  }, [skinType]);
+  // Check if all answers are option 3 (index 2) for oily skin
+  const isAllOily = Object.values(answers).every((answer) => answer === 2);
 
-  // Calculate pagination
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = recommendedProducts.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct,
-  );
-  const totalPages = Math.ceil(recommendedProducts.length / productsPerPage);
+  // Only fetch oily skin products if all answers are option 3
+  const {
+    data: SkinProducts,
+    isLoading,
+    error,
+  } = useProductsBySkinType(skinType);
 
-  const handlePageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
+  // Memoize pagination calculations to prevent unnecessary recalculations
+  const { totalProducts, totalPages, currentProducts, visiblePageNumbers } =
+    useMemo(() => {
+      const totalProducts = SkinProducts?.edges.length || 0;
+      const totalPages = Math.ceil(totalProducts / PRODUCTS_PER_PAGE);
+      const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
+      const endIndex = startIndex + PRODUCTS_PER_PAGE;
+      const currentProducts =
+        SkinProducts?.edges.slice(startIndex, endIndex) || [];
+
+      // Calculate visible page numbers
+      let start = Math.max(1, currentPage - Math.floor(MAX_PAGES_SHOWN / 2));
+      let end = Math.min(totalPages, start + MAX_PAGES_SHOWN - 1);
+
+      // Adjust start if we're near the end
+      if (end - start + 1 < MAX_PAGES_SHOWN) {
+        start = Math.max(1, end - MAX_PAGES_SHOWN + 1);
+      }
+
+      const visiblePageNumbers = Array.from(
+        { length: end - start + 1 },
+        (_, i) => start + i,
+      );
+
+      return {
+        totalProducts,
+        totalPages,
+        currentProducts,
+        visiblePageNumbers,
+      };
+    }, [SkinProducts, currentPage]);
+
+  // Handle page changes
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    // Scroll to top of products section
+    document
+      .getElementById("products-section")
+      ?.scrollIntoView({ behavior: "smooth" });
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex h-[60vh] items-center justify-center">
+        <div className="flex flex-col items-center justify-center">
+          <Loader2 className="h-10 w-10 animate-spin" />
+          <p className="font-montserrat mt-4 text-lg">Loading products...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex h-[60vh] items-center justify-center">
+        <div className="text-center">
+          <p className="font-montserrat text-lg text-red-600">
+            Failed to load products. Please try again later.
+          </p>
+          <Button
+            variant="ghost"
+            onClick={resetQuiz}
+            className="text-burntOrange mt-4 flex items-center font-medium"
+          >
+            <ArrowLeft />
+            BACK TO QUIZ
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="my-8">
-      <h3 className="font-playfair mb-6 text-3xl">Results</h3>
+      <h2 className="font-playfair text-6xl">
+        Personalized <br /> Skincare Quiz
+      </h2>
+      <h3 className="font-playfair my-6 text-3xl">Results</h3>
+
+      <div className="bg-burntOrange font-montserrat mt-10 mb-8 w-fit max-w-fit rounded-[28px] px-5 py-[10px] text-lg font-semibold text-white">
+        Determing Your Skin Type
+      </div>
 
       <div className="border-gold mb-8 rounded-lg border bg-white p-4">
         <p className="font-montserrat text-lg">
-          1.{" "}
           {skinTypeDescriptions[skinType as keyof typeof skinTypeDescriptions]}
         </p>
       </div>
 
-      <h3 className="font-montserrat mb-6 w-fit max-w-fit rounded bg-white px-5 py-[10px] text-lg font-semibold">
-        Product Recommendations
-      </h3>
+      {SkinProducts && (
+        <>
+          <div id="products-section">
+            <h3 className="font-montserrat mb-12 w-fit max-w-fit rounded bg-white px-5 py-[10px] text-lg font-semibold">
+              Recommended Products for{" "}
+              {skinType
+                .split("-")
+                .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(" ")}
+              {totalProducts > 0 && (
+                <span className="ml-2 text-gray-500">
+                  ({totalProducts} products)
+                </span>
+              )}
+            </h3>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8">
-        {currentProducts.map((product) => (
-          <div key={product.id} className="rounded-lg">
-            <div className="relative">
-              <Image
-                src={product.image}
-                alt={product.title}
-                width={500}
-                height={500}
-                className="rounded-xl"
-              />
-            </div>
-            <div className="mt-8 flex items-start justify-between">
-              <div className="max-w-[60%]">
-                <h4 className="font-montserrat mb-1 font-medium">
-                  {product.title}
-                </h4>
-                <div className="mt-1 flex">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <svg
-                      key={star}
-                      className={`h-4 w-4 ${star <= 4 ? "text-yellow-400" : "text-gray-300"}`}
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
+            {currentProducts.length === 0 ? (
+              <p className="font-montserrat text-center text-lg text-gray-600">
+                No products found for your skin type.
+              </p>
+            ) : (
+              <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+                {currentProducts.map(({ node }) => (
+                  <div key={node.handle} className="rounded-lg">
+                    {node.media.edges[0]?.node.image?.src && (
+                      <Link href={`/shop/${node.handle}`}>
+                        <div className="border-hokBlack/20 relative aspect-3/2 w-full overflow-hidden rounded-xl border">
+                          <Image
+                            src={node.media.edges[0].node.image.src}
+                            alt={node.media.edges[0].node.alt || node.title}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      </Link>
+                    )}
+                    <div className="mt-4 flex items-start justify-between">
+                      <div className="max-w-[60%]">
+                        <h4 className="font-montserrat mb-1 text-lg font-medium">
+                          {node.title}
+                        </h4>
+                        <div className="flex">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <svg
+                              key={star}
+                              className={`h-4 w-4 ${star <= 4 ? "text-yellow-400" : "text-gray-300"}`}
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                          ))}
+                        </div>
+                      </div>
+                      <p className="font-montserrat text-base font-semibold">
+                        {formatPrice(node.priceRange.minVariantPrice.amount, {
+                          currencyCode:
+                            node.priceRange.minVariantPrice.currencyCode,
+                        })}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="mt-12 flex justify-center">
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className="h-10 w-10"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </Button>
+
+                  {visiblePageNumbers.map((pageNumber) => (
+                    <button
+                      key={pageNumber}
+                      onClick={() => handlePageChange(pageNumber)}
+                      className={`flex h-10 w-10 items-center justify-center rounded border ${
+                        currentPage === pageNumber
+                          ? "border-burntOrange bg-burntOrange text-white"
+                          : "border-gray-300 hover:bg-gray-50"
+                      }`}
                     >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
+                      {pageNumber}
+                    </button>
                   ))}
+
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    className="h-10 w-10"
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
                 </div>
               </div>
-              <p className="font-montserrat text-base font-semibold">
-                {product.price}
-              </p>
-            </div>
+            )}
           </div>
-        ))}
-      </div>
-
-      <div className="mt-12 flex justify-center">
-        <div className="flex space-x-2">
-          {[...Array(totalPages + 1)].map(
-            (_, idx) =>
-              idx > 0 && (
-                <button
-                  key={idx}
-                  onClick={() => handlePageChange(idx)}
-                  className={`flex h-8 w-8 items-center justify-center border ${currentPage === idx ? "bg-burntOrange text-white" : "border-gray-300"}`}
-                >
-                  {idx}
-                </button>
-              ),
-          )}
-        </div>
-      </div>
+        </>
+      )}
 
       <div className="mt-8">
         <Button
