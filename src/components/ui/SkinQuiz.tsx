@@ -114,7 +114,7 @@ const SkinQuiz = () => {
 
   return (
     <div className="my-8">
-      <h2 className="font-playfair text-6xl">
+      <h2 className="font-playfair text-5xl lg:text-6xl">
         Personalized <br /> Skincare Quiz
       </h2>
       <p className="font-montserrat text-hokBlack mt-5 text-lg">
@@ -134,19 +134,17 @@ const SkinQuiz = () => {
               <div
                 key={index}
                 onClick={() => !isSubmitting && handleOptionSelect(q.id, index)}
-                className={`flex cursor-pointer items-center rounded-lg border border-gray-300 p-3 transition-colors ${
-                  answers[q.id] === index
-                    ? "bg-green-100 text-green-800"
-                    : "bg-gray-50 hover:bg-gray-100"
-                } ${isSubmitting ? "cursor-not-allowed opacity-50" : ""}`}
+                className={`flex cursor-pointer items-center rounded-lg border border-gray-300 p-3 transition-colors ${answers[q.id] === index
+                  ? "bg-green-100 text-green-800"
+                  : "bg-gray-50 hover:bg-gray-100"
+                  } ${isSubmitting ? "cursor-not-allowed opacity-50" : ""}`}
               >
                 <div className="flex w-full items-center">
                   <div
-                    className={`mr-3 h-4 w-4 flex-shrink-0 rounded-full border ${
-                      answers[q.id] === index
-                        ? "border-green-500 bg-green-500"
-                        : "border-gray-300"
-                    }`}
+                    className={`mr-3 h-4 w-4 flex-shrink-0 rounded-full border ${answers[q.id] === index
+                      ? "border-green-500 bg-green-500"
+                      : "border-gray-300"
+                      }`}
                   ></div>
                   <span className="font-montserrat">
                     {option.text} {option.emoji}

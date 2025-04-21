@@ -428,7 +428,7 @@ export default function ProductClient({
           <h2 className="font-inter mb-6 text-2xl font-bold">
             You may also like
           </h2>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 lg:gap-8 lg:grid-cols-3 xl:grid-cols-4">
             {recommendationProducts.map(
               (relatedProduct: {
                 id: string;
@@ -458,10 +458,10 @@ export default function ProductClient({
                       />
                     </div>
                   </div>
-                  <h3 className="group-hover:text-burntOrange font-medium font-montserrat">
+                  <h3 className="group-hover:text-burntOrange text-xs md:text-base font-medium font-montserrat">
                     {relatedProduct.title}
                   </h3>
-                  <p className="text-base font-medium font-montserrat text-black">
+                  <p className="text-xs md:text-base font-semibold font-montserrat text-black">
                     {formatPrice(relatedProduct.price, {
                       currencyCode: "NGN",
                     })}

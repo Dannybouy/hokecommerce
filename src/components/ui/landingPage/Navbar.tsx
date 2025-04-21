@@ -79,7 +79,11 @@ const NavLinks = [
     submenu: [
       {
         title: "Shop Wholesale",
-        href: "/paper-dolls/blog",
+        href: "/wholesale-shop",
+      },
+      {
+        title: "Wholesaler Terms",
+        href: "/wholesale",
       },
       {
         title: "Join The HOK Tribe",
@@ -119,68 +123,76 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full">
-      <nav className="font-montserrat bg-hokBlack mx-8 mt-8 flex h-20 items-center justify-between rounded-xl px-8 text-white">
-        {/* Mobile menu */}
-        <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger asChild className="lg:hidden">
-            <Button variant="ghost" size="icon" className="text-white">
-              <Menu className="h-6 w-6" />
-              <span className="sr-only">Toggle menu</span>
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="left" className="w-[300px] sm:w-[400px]">
-            <nav className="mt-8 flex flex-col gap-4">
-              {NavLinks.map((link) => (
-                <div key={link.title} className="py-2">
-                  <Link
-                    href={link.href}
-                    className="text-lg font-medium transition-colors hover:text-gray-400"
-                    onClick={() => setOpen(false)}
-                  >
-                    {link.title}
-                  </Link>
-                  {link.submenu && (
-                    <div className="mt-2 ml-4 flex flex-col gap-2">
-                      {link.submenu.map((subItem) => {
-                        // Special handling for brand links to include vendor filtering
-                        let href = subItem.href;
-                        if (link.title === "BRANDS") {
-                          // Extract the brand slug from the URL
-                          const brandName = subItem.href.split("/").pop();
-                          href = `/shop?vendors=${brandName}`;
-                        }
+      <nav className="
+        font-montserrat bg-hokBlack mx-3 mt-3 md:mx-8 md:mt-8
+        flex h-20 items-center justify-between rounded-xl
+        px-4 md:px-8 text-white
+      ">
+        <div className="flex items-center gap-3">
+          {/* Mobile menu */}
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger asChild className="lg:hidden">
+              <button className="text-white">
+                <Menu />
+                <span className="sr-only">Toggle menu</span>
+              </button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+              <nav className="mt-8 ml-5 flex flex-col gap-4">
+                {NavLinks.map((link) => (
+                  <div key={link.title} className="py-2">
+                    <Link
+                      href={link.href}
+                      className="text-lg font-medium transition-colors hover:text-gray-400"
+                      onClick={() => setOpen(false)}
+                    >
+                      {link.title}
+                    </Link>
+                    {link.submenu && (
+                      <div className="mt-2 ml-4 flex flex-col gap-2">
+                        {link.submenu.map((subItem) => {
+                          // Special handling for brand links to include vendor filtering
+                          let href = subItem.href;
+                          if (link.title === "BRANDS") {
+                            // Extract the brand slug from the URL
+                            const brandName = subItem.href.split("/").pop();
+                            href = `/shop?vendors=${brandName}`;
+                          }
 
-                        return (
-                          <Link
-                            key={subItem.title}
-                            href={href}
-                            className="text-sm text-gray-400 transition-colors hover:text-white"
-                            onClick={() => setOpen(false)}
-                          >
-                            {subItem.title}
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </nav>
-          </SheetContent>
-        </Sheet>
+                          return (
+                            <Link
+                              key={subItem.title}
+                              href={href}
+                              className="text-sm text-gray-400 transition-colors hover:text-white"
+                              onClick={() => setOpen(false)}
+                            >
+                              {subItem.title}
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
 
-        {/* Logo */}
-        <Link href="/">
-          <Image src="/logo.png" alt="HOK Logo" width={80} height={80} />
-        </Link>
+          {/* Logo */}
+          <Link href="/">
+            <figure className="relative w-16 h-16 md:w-20 md:h-20">
+              <Image src="/logo.png" alt="HOK Logo" style={{ objectFit: 'contain' }} fill />
+            </figure>
+          </Link>
+        </div>
 
         {/* Desktop navigation */}
-        <div className="hidden lg:flex lg:items-center lg:gap-6">
+        <div className="hidden lg:flex lg:items-center lg:gap-8">
           <div>
             <Popover className="relative">
               <PopoverButton
                 ref={aboutButtonRef}
-                className="data-[active]:border-burntOrange data-[focus]:outline-burntOrange block cursor-pointer text-lg font-medium text-white uppercase focus:outline-none data-[active]:border-b-2 data-[active]:text-white data-[focus]:outline-2 data-[hover]:text-white"
+                className="data-[active]:border-burntOrange data-[focus]:outline-burntOrange block cursor-pointer font-medium text-white uppercase focus:outline-none data-[active]:border-b-2 data-[active]:text-white data-[focus]:outline-2 data-[hover]:text-white"
               >
                 about
               </PopoverButton>
@@ -227,7 +239,7 @@ export default function Navbar() {
             <Popover className="relative">
               <PopoverButton
                 ref={brandsButtonRef}
-                className="data-[active]:border-burntOrange data-[focus]:outline-burntOrange block cursor-pointer text-lg font-medium text-white uppercase focus:outline-none data-[active]:border-b-2 data-[active]:text-white data-[focus]:outline-2 data-[hover]:text-white"
+                className="data-[active]:border-burntOrange data-[focus]:outline-burntOrange block cursor-pointer font-medium text-white uppercase focus:outline-none data-[active]:border-b-2 data-[active]:text-white data-[focus]:outline-2 data-[hover]:text-white"
               >
                 brands
               </PopoverButton>
@@ -279,7 +291,7 @@ export default function Navbar() {
 
           <Link
             href="/shop"
-            className="hover:text-hok-yellow text-lg font-medium text-white uppercase"
+            className="hover:text-hok-yellow font-medium text-white uppercase"
           >
             shop
           </Link>
@@ -288,7 +300,7 @@ export default function Navbar() {
             <Popover className="relative">
               <PopoverButton
                 ref={skinButtonRef}
-                className="data-[active]:border-burntOrange data-[focus]:outline-burntOrange block cursor-pointer text-lg font-medium text-white uppercase focus:outline-none data-[active]:border-b-2 data-[active]:text-white data-[focus]:outline-2 data-[hover]:text-white"
+                className="data-[active]:border-burntOrange data-[focus]:outline-burntOrange block cursor-pointer font-medium text-white uppercase focus:outline-none data-[active]:border-b-2 data-[active]:text-white data-[focus]:outline-2 data-[hover]:text-white"
               >
                 SKIN ALGORITHM
               </PopoverButton>
@@ -320,7 +332,7 @@ export default function Navbar() {
             <Popover className="relative">
               <PopoverButton
                 ref={wholesaleButtonRef}
-                className="data-[active]:border-burntOrange data-[focus]:outline-burntOrange block cursor-pointer text-lg font-medium text-white uppercase focus:outline-none data-[active]:border-b-2 data-[active]:text-white data-[focus]:outline-2 data-[hover]:text-white"
+                className="data-[active]:border-burntOrange data-[focus]:outline-burntOrange block cursor-pointer font-medium text-white uppercase focus:outline-none data-[active]:border-b-2 data-[active]:text-white data-[focus]:outline-2 data-[hover]:text-white"
               >
                 wholesale
               </PopoverButton>
@@ -358,14 +370,14 @@ export default function Navbar() {
 
           <Link
             href="/contact"
-            className="hover:text-hok-yellow text-lg font-medium text-white uppercase"
+            className="hover:text-hok-yellow font-medium text-white uppercase"
           >
             contact
           </Link>
         </div>
 
         {/* Right side icons */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center md:gap-4">
           <SignUpPopover />
 
           <Link href="/cart">
@@ -384,11 +396,11 @@ export default function Navbar() {
             </Button>
           </Link>
 
-          <Link href="/shop">
+          <Link href="/shop" className="ml-2 md:ml-0">
             <Button
               variant="default"
               size="lg"
-              className="bg-gold hover:bg-gold/80 font-roboto px-7 text-base font-medium text-black"
+              className="bg-gold hover:bg-gold/80 font-roboto px-4 md:px-7 text-sm sm:text-base font-medium text-black"
             >
               SHOP
             </Button>

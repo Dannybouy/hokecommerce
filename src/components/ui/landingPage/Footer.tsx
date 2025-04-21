@@ -4,7 +4,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="mx-12 bg-[#F9F4E1] px-12 py-12">
+    <footer className="mx-6 md:mx-12 mb-6 bg-[#F9F4E1] px-12 py-12">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3 lg:grid-cols-4">
           {/* Logo and Mailing List */}
@@ -70,13 +70,13 @@ const Footer = () => {
               >
                 <Image src="/tiktok.svg" alt="TikTok" width={20} height={20} className="size-3.5" />
               </Link>
-              <Link
+              {/* <Link
                 href="https://www.tiktok.com/@thehomeofkoreanproducts"
                 className="rounded-full bg-black size-7 flex items-center justify-center"
-                aria-label="TikTok"
+                aria-label="Telegram"
               >
                 <Image src="/telegram.svg" alt="Telegram" width={20} height={20} className="size-3.5" />
-              </Link>
+              </Link> */}
             </div>
           </div>
 

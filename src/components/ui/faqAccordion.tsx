@@ -11,11 +11,16 @@ const FaqAccordion = () => {
   return (
     <Accordion type="single" collapsible className="w-full space-y-4">
       {AccordionContentList.map((faq) => (
-        <AccordionItem value={faq.id} key={faq.id}>
-          <AccordionTrigger className="font-inter uppercase">
+        <AccordionItem value={faq.id} key={faq.id} className="pb-4">
+          <AccordionTrigger className="
+            font-inter text-sm md:text-base uppercase rounded-md
+          ">
             {faq.title}
           </AccordionTrigger>
-          <AccordionContent className="font-inter mt-4 mb-4 rounded-2xl bg-white px-5 py-4 text-base">
+          <AccordionContent className="
+            font-inter mt-3 md:mt-4 mb-0 md:mb-4 rounded-md bg-white px-5 py-4
+            text-sm md:text-base
+          ">
             {faq.content}
           </AccordionContent>
         </AccordionItem>

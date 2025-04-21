@@ -27,11 +27,14 @@ const About = () => {
         id="story"
         className="relative container mx-auto mt-22 lg:px-[119px]"
       >
-        <h2 className="font-playfair text-6xl text-[#2D1801]">
-          Brand <br />
+        <h2 className="font-playfair text-4xl md:text-6xl text-[#2D1801]">
+          Brand <br className="hidden md:block" />
           Story: Why HOK?
         </h2>
-        <p className="font-montserrat mt-10 text-lg leading-10 font-medium text-pretty text-black">
+        <p className="
+          font-montserrat mt-5 lg:mt-10 md:text-lg
+          leading-10 font-medium text-pretty text-black
+        ">
           At Home of Korean Beauty (HOK), skincare isn&apos;t just a
           routine—it&apos;s a journey to confidence, radiance, and self-care. We
           saw a growing need for authentic, high-quality Korean skincare in
@@ -112,7 +115,7 @@ const About = () => {
 
       <section id="brand" className="container mx-auto mt-22 lg:px-[119px]">
         <div className="flex items-center justify-between">
-          <h2 className="font-playfair text-6xl text-[#2D1801]">
+          <h2 className="font-playfair text-4xl md:text-6xl text-[#2D1801]">
             Our Brands: <br />
             Only the Best for Your Skin
           </h2>
@@ -133,7 +136,7 @@ const About = () => {
             priority
             className="w-full rounded-xl object-cover"
           />
-          <p className="font-montserrat mt-10 text-lg leading-10 font-medium text-black">
+          <p className="font-montserrat mt-10 md:text-lg leading-10 font-medium text-black">
             At Home of Korean Beauty (HOK), we don&apos;t just sell skincare, we
             bring trusted, effective K-beauty solutions straight to your
             doorstep. We know the struggle of finding authentic products that
@@ -341,8 +344,8 @@ const About = () => {
           height={100}
           className="lg:ml-[20%]"
         />
-        <h2 className="font-playfair mt-10 text-6xl text-[#2D1801]">
-          How <br /> we Source
+        <h2 className="font-playfair mt-10 text-4xl md:text-6xl text-[#2D1801]">
+          How <br className="hidden md:block" /> we Source
         </h2>
         <div className="mt-10">
           <Image
@@ -358,15 +361,15 @@ const About = () => {
             <span className="text-lg font-bold text-black/70">
               The HOK Sourcing Process:
             </span>
-            <ul className="list-none">
-              <li className="mt-3 text-lg leading-10 font-medium text-black/70">
+            <ul className="list-none md:text-lg leading-10 font-medium text-black/70 space-y-3">
+              <li>
                 Authentic Korean Skincare, Straight from Seoul to Nigeria
               </li>
-              <li className="mt-3 text-lg leading-10 font-medium text-black/70">
+              <li className="mt-3">
                 No fakes. No shortcuts. Just 100% authentic,
                 dermatologist-backed skincare.
               </li>
-              <li className="mt-3 text-lg leading-10 font-medium text-black/70">
+              <li className="mt-3">
                 At Home of Korean Beauty (HOK), we know how frustrating it is to
                 waste money on fake or ineffective skincare. That&apos;s why we
                 go the extra mile—sourcing directly from trusted Korean brands
@@ -374,108 +377,145 @@ const About = () => {
               </li>
             </ul>
 
-            <ul className="mt-12 list-none">
-              <li className="mt-3 text-lg leading-10 font-medium text-black/70">
+            <ul className="mt-12 list-none md:text-lg leading-10 font-medium text-black/70 space-y-3">
+              <li>
                 Our Sourcing Process: From Korea to Your Glow
               </li>
-              <li className="mt-3 text-lg leading-10 font-medium text-black/70">
+              <li>
                 Here&apos;s how we ensure every product on our website is
                 authentic, fresh, and works for Nigerian skin.
               </li>
             </ul>
           </div>
 
-          <div className="mt-6 rounded-xl bg-white p-6 lg:p-16">
-            <div className="flex size-[60px] items-center justify-center rounded-full bg-[#2D1801]">
-              <span className="font-montserrat text-xl font-bold text-white">
-                1
-              </span>
-            </div>
-            <p className="font-montserrat mt-8 text-lg leading-11 font-medium text-balance lg:text-2xl">
-              Direct Partnerships with Korean Brands & Certified Distributors We
-              don&apos;t buy from third-party resellers or unknown suppliers.
-              Instead, we work directly with top K-beauty brands and authorized
-              distributors to ensure:Original formulations (No watered-down or
-              fake versions)Fresh stock (Straight from the latest production
-              batches)Fair pricing (No unnecessary markups or middlemen) Video
-              Idea: Behind the scenes of our visits to Korean factories &
-              supplier meetings. Show us personally testing products and
-              speaking with brand representatives.
-            </p>
-          </div>
+          <div className="mt-6 grid grid-cols-1 xl:grid-cols-12 gap-5 md:gap-10">
+            <div className="rounded-xl bg-white xl:col-span-12 p-8 lg:p-16">
+              <div className="flex size-[60px] items-center justify-center rounded-full bg-[#2D1801]">
+                <span className="font-montserrat text-xl font-bold text-white">
+                  1
+                </span>
+              </div>
+              <p className="font-montserrat mt-8 md:text-lg leading-8 md:leading-11 font-medium text-balance lg:text-2xl">
+                <strong>Direct Partnerships with Korean Brands & Certified Distributors</strong>
+                <br />We don&apos;t buy from third-party resellers or unknown suppliers.
+                Instead, we work directly with top K-beauty brands and authorized
+                distributors to ensure:
 
-          <div className="mt-8 items-center justify-between gap-10 lg:flex">
-            <div className="border-burntOrange h-[505px] max-w-2xl rounded-xl border-2 bg-[#F5F5DC] px-[30px] py-5">
+                <ul className="list-inside my-2">
+                  <li>
+                    – Original formulations (No watered-down or fake versions)
+                  </li>
+                  <li>
+                    – Fresh stock (Straight from the latest production batches)
+                  </li>
+                  <li>
+                    – Fair pricing (No unnecessary markups or middlemen)
+                  </li>
+                </ul>
+
+                Video Idea: Behind the scenes of our visits to Korean factories &
+                supplier meetings. Show us personally testing products and
+                speaking with brand representatives.
+              </p>
+            </div>
+
+            <div className="xl:col-span-6 border-burntOrange max-w-2xl rounded-xl border-2 bg-[#F5F5DC] px-8 py-7">
               <div className="bg-burntOrange flex size-[60px] items-center justify-center rounded-full">
                 <span className="font-montserrat text-xl font-bold text-white">
                   2
                 </span>
               </div>
-              <p className="font-montserrat mt-5 text-lg leading-10 font-medium text-[#2D1801] lg:text-2xl">
-                2️. Verified Authenticity & Quality Control Every product that
-                lands in our store goes through strict verification checks,
+              <p className="font-montserrat mt-5 md:text-lg leading-8 md:leading-10 font-medium text-[#2D1801] lg:text-2xl">
+                <strong>Verified Authenticity & Quality Control</strong>
+                <br />Every product that lands in our store goes through strict verification checks,
                 including:
-                <br />
-                Batch & serial number tracking to confirm authenticity
-                <br />
-                Ingredient list verification (so you get the original formula)
-                <br />
-                Freshness checks (we don&apos;t sell expired or near-expiry
-                products)
+
+                <ul className="list-inside mt-2">
+                  <li>
+                    – Batch & serial number tracking to confirm authenticity
+                  </li>
+                  <li>
+                    – Ingredient list verification (so you get the original formula)
+                  </li>
+                  <li>
+                    – Freshness checks (we don&apos;t sell expired or near-expiry
+                    products)
+                  </li>
+                </ul>
               </p>
             </div>
-            <div className="border-burntOrange bg-burntOrange h-[505px] rounded-xl border-2 px-[30px] py-5">
+
+            <div className="xl:col-span-6 border-burntOrange bg-burntOrange rounded-xl border-2 px-8 py-7">
               <div className="flex size-[60px] items-center justify-center rounded-full bg-[#F5F5DC]">
                 <span className="font-montserrat text-burntOrange text-xl font-bold">
                   3
                 </span>
               </div>
-              <p className="font-montserrat mt-5 text-2xl leading-10 font-medium text-[#F5F5DC]">
-                Ethical & Safe Sourcing We believe in skin health, not skin
+              <p className="font-montserrat mt-5 lg:text-2xl leading-8 md:leading-10 font-medium text-[#F5F5DC]">
+                <strong>Ethical & Safe Sourcing</strong>
+                <br />We believe in skin health, not skin
                 bleaching. That&apos;s why we only stock brands that are:
-                <br />
-                Cruelty-free & dermatologist-approved Free from harmful
-                chemicals or bleaching agents
-                <br />
-                Committed to sustainability & fair trade
+                <ul className="list-inside mt-2">
+                  <li>
+                    – Cruelty-free & dermatologist-approved
+                  </li>
+                  <li>
+                    – Free from harmful chemicals or bleaching agents
+                  </li>
+                  <li>
+                    – Committed to sustainability & fair trade
+                  </li>
+                </ul>
+              </p>
+            </div>
+
+            <div className="xl:col-span-10 w-full rounded-xl bg-white p-8 lg:max-w-4xl lg:p-16">
+              <div className="flex size-[60px] items-center justify-center rounded-full bg-[#2D1801]">
+                <span className="font-montserrat text-xl font-bold text-white">
+                  4
+                </span>
+              </div>
+              <p className="font-montserrat mt-8 md:text-lg leading-8 md:leading-11 font-medium text-balance lg:text-2xl">
+                <strong>Fast, Secure Shipping from Korea to Nigeria</strong>
+                <br />Once products are
+                approved, we handle all the logistics ourselves to
+                guarantee:
+                <ul className="list-inside mt-2">
+                  <li>
+                    – Proper storage conditions (No heat damage or contamination)
+                  </li>
+                  <li>
+                    – Quick customs clearance & shipping
+                  </li>
+                  <li>
+                    – Nationwide delivery—Lagos, Abuja, Port Harcourt & beyond!
+                  </li>
+                </ul>
               </p>
             </div>
           </div>
-          <div className="mt-10 w-full rounded-xl bg-white p-6 lg:max-w-4xl lg:p-16">
-            <div className="flex size-[60px] items-center justify-center rounded-full bg-[#2D1801]">
-              <span className="font-montserrat text-xl font-bold text-white">
-                4
-              </span>
-            </div>
-            <p className="font-montserrat mt-8 text-lg leading-11 font-medium text-balance lg:text-2xl">
-              Fast, Secure Shipping from Korea to Nigeria Once products are
-              approved, we handle all the logistics ourselves to
-              guarantee:Proper storage conditions (No heat damage or
-              contamination)Quick customs clearance & shippingNationwide
-              delivery—Lagos, Abuja, Port Harcourt & beyond!
-            </p>
-          </div>
-          <div className="font-montserrat mt-10">
+
+          <div className="font-montserrat mt-16">
             <span className="text-lg font-bold text-black/70">
               Why Trust HOK?
             </span>
-            <ul className="list-none">
-              <li className="mt-3 text-lg leading-10 font-medium text-black/70">
+            <ul className="list-none my-4 space-y-3 md:text-lg leading-8 md:leading-10 font-medium text-black/70">
+              <li>
                 No more guesswork – We&apos;ve done the research, testing, and
                 sourcing for you
               </li>
-              <li className="mt-3 text-lg leading-10 font-medium text-black/70">
+              <li>
                 No more fake skincare – Every product is original, safe, and
                 dermatologist-backed.
               </li>
-              <li className="mt-3 text-lg leading-10 font-medium text-black/70">
+              <li>
                 No more unnecessary shipping costs – Get K-beauty at fair
                 prices, delivered locally.
               </li>
             </ul>
 
-            <ul className="mt-12 list-none">
-              <li className="mt-3 text-lg leading-10 font-medium text-black/70">
+            <ul className="lg:mt-12 list-none">
+              <li className="mt-3 lg:text-lg leading-8 md:leading-10 font-medium text-black/70">
                 At HOK, we don&apos;t just sell skincare, we bring you the real
                 deal. Your glow starts with trust.
               </li>
@@ -495,13 +535,13 @@ const About = () => {
           height={100}
           className="absolute -top-15 right-10"
         />
-        <h2 className="font-playfair text-6xl text-white">
+        <h2 className="font-playfair text-5xl lg:text-6xl text-white">
           Meet <br />
           Our Founders
         </h2>
 
         <div className="mt-12">
-          <div className="flex flex-col items-start gap-8 md:flex-row">
+          <div className="flex flex-col items-start gap-6 md:gap-10 md:flex-row">
             <div className="flex w-full justify-end md:w-1/3">
               <div className="inline-block rounded-3xl">
                 <Image
@@ -515,11 +555,11 @@ const About = () => {
                 />
               </div>
             </div>
-            <div className="w-full md:w-2/3">
-              <h3 className="font-montserrat mb-4 text-4xl font-bold text-white">
+            <div className="w-full md:w-2/3 space-y-2">
+              <h3 className="font-montserrat text-xl lg:text-4xl font-bold text-white">
                 Peter Okonkwo (Co-Founder)
               </h3>
-              <p className="font-montserrat mt-10 max-w-3xl text-2xl leading-10 text-balance text-white">
+              <p className="font-montserrat lg:mt-10 max-w-3xl lg:text-2xl leading-8 lg:leading-10 text-balance text-white">
                 A true skincare enthusiast who believes healthy skin is happy
                 skin. He is passionate about promoting the best skincare
                 practices and making Korean beauty accessible to all.
@@ -542,7 +582,7 @@ const About = () => {
             </svg>
           </div>
 
-          <div className="mb-16 flex flex-col items-start md:flex-row-reverse">
+          <div className="mb-16 flex flex-col items-start md:flex-row-reverse gap-6">
             <div className="w-full md:w-1/3">
               <div className="inline-block rounded-3xl">
                 <Image
@@ -557,11 +597,11 @@ const About = () => {
               </div>
             </div>
 
-            <div className="w-full md:w-2/3">
-              <h3 className="font-montserrat mb-4 text-4xl font-bold text-yellow-300">
+            <div className="w-full md:w-2/3 space-y-2">
+              <h3 className="font-montserrat text-xl lg:text-4xl font-bold text-yellow-300">
                 Nnenna Irebisi (Co-Founder)
               </h3>
-              <p className="font-montserrat mt-10 max-w-3xl text-2xl leading-10 text-balance text-white">
+              <p className="font-montserrat max-w-3xl lg:text-2xl leading-8 lg:leading-10 text-balance text-white">
                 A true skincare enthusiast who believes healthy skin is happy
                 skin. She is passionate about promoting  the best skincare
                 practices and making Korean beauty accessible to all.
