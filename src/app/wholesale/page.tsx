@@ -147,12 +147,17 @@ export default function WholesalePage() {
   };
 
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto px-4 py-8">
       <div className="">
-        <div className="my-12 flex items-center justify-between">
-          <h1 className="font-playfair mb-4 text-6xl">
+        <div className="
+          my-12 flex flex-col md:flex-row
+          md:items-center
+          justify-between
+        ">
+          <h1 className="font-playfair mb-4 text-4xl lg:text-6xl">
             Wholesaler <br /> Terms – HOK Pro
           </h1>
+
           <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <AlertDialogTrigger asChild>
               <Button className="bg-[#73512C] hover:bg-[#73512C]/90">
@@ -417,7 +422,7 @@ export default function WholesalePage() {
       </div>
 
       {/* Quote and Tour Section */}
-      <div className="relative my-16 h-[500px] overflow-hidden rounded">
+      <div className="relative my-16 h-[360px] md:h-[500px] overflow-hidden rounded">
         {/* Background Image with Overlay */}
         <div
           className="absolute inset-0 bg-cover bg-center"
@@ -428,11 +433,11 @@ export default function WholesalePage() {
 
         {/* Content */}
         <div className="relative z-10 flex h-full flex-col items-center justify-center text-white">
-          <h2 className="font-playfair mb-8 text-center text-5xl">
+          <h2 className="font-playfair mb-8 text-center text-3xl lg:text-5xl">
             Request a Quote or Book a<br />
             Warehouse Tour
           </h2>
-          <div className="flex gap-4">
+          <div className="flex flex-col gap-4 md:flex-row">
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button

@@ -63,6 +63,11 @@ const NavLinks = [
       {
         title: "Wholesaler Terms",
         href: "/wholesale",
+        href: "/wholesale-shop",
+      },
+      {
+        title: "Wholesaler Terms",
+        href: "/wholesale",
       },
       {
         title: "Join The HOK Tribe",

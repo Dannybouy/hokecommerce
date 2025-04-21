@@ -99,12 +99,12 @@ export default function Filters() {
               Price Range
             </AccordionTrigger>
             <AccordionContent>
-              <div className="ml-2 flex items-center gap-6">
+              <div className="ml-2 grid grid-cols-2 gap-6 px-2">
                 <input
                   type="number"
                   name="minPrice"
                   placeholder="min price"
-                  className="mt-3 w-44 rounded-2xl bg-white px-4 py-3 text-xs ring-1 ring-gray-400"
+                  className="mt-3 rounded-lg bg-white px-4 py-3 text-xs ring-1 ring-gray-400"
                   onChange={handleFilterChange}
                   value={getInputValue("minPrice")}
                 />
@@ -112,7 +112,7 @@ export default function Filters() {
                   type="number"
                   name="maxPrice"
                   placeholder="max price"
-                  className="mt-3 w-44 rounded-2xl bg-white px-4 py-3 text-xs ring-1 ring-gray-400"
+                  className="mt-3 rounded-lg bg-white px-4 py-3 text-xs ring-1 ring-gray-400"
                   onChange={handleFilterChange}
                   value={getInputValue("maxPrice")}
                 />
@@ -311,21 +311,21 @@ export default function Filters() {
               <span>Filters</span>
             </Button>
           </SheetTrigger>
-          <SheetContent>
+          <SheetContent className="pt-7">
             <SheetHeader>
               <SheetTitle>Filters</SheetTitle>
               <SheetDescription>
                 Refine your product search here
               </SheetDescription>
             </SheetHeader>
-            <div className="mt-4">
+            <div className="mt-4 px-4">
               <Accordion type="multiple" className="w-full space-y-4">
                 {/* Price Range */}
-                <AccordionItem value="price">
+                <AccordionItem value="price" className="border-0">
                   <AccordionTrigger className="mb-2 border border-gray-300">
                     Price Range
                   </AccordionTrigger>
-                  <AccordionContent>
+                  <AccordionContent className="px-2">
                     <div className="ml-2 flex flex-col items-start gap-3">
                       <input
                         type="number"
@@ -347,7 +347,7 @@ export default function Filters() {
                   </AccordionContent>
                 </AccordionItem>
                 {/* Collections */}
-                <AccordionItem value="collections">
+                <AccordionItem value="collections" className="border-0">
                   <AccordionTrigger className="mb-2 border border-gray-300">
                     Collections
                   </AccordionTrigger>
@@ -397,7 +397,7 @@ export default function Filters() {
                   </AccordionContent>
                 </AccordionItem>
                 {/* Brands */}
-                <AccordionItem value="vendors">
+                <AccordionItem value="vendors" className="border-0">
                   <AccordionTrigger className="mb-2 border border-gray-300">
                     Brands
                   </AccordionTrigger>
@@ -429,7 +429,7 @@ export default function Filters() {
                   </AccordionContent>
                 </AccordionItem>
                 {/* Product Types */}
-                <AccordionItem value="productTypes">
+                <AccordionItem value="productTypes" className="border-0">
                   <AccordionTrigger className="mb-2 border border-gray-300">
                     Product Types
                   </AccordionTrigger>
@@ -461,7 +461,7 @@ export default function Filters() {
                   </AccordionContent>
                 </AccordionItem>
                 {/* Tags */}
-                <AccordionItem value="tags">
+                <AccordionItem value="tags" className="border-0">
                   <AccordionTrigger className="mb-2 border border-gray-300">
                     Tags
                   </AccordionTrigger>
@@ -493,7 +493,7 @@ export default function Filters() {
                   </AccordionContent>
                 </AccordionItem>
                 {/* Categories */}
-                <AccordionItem value="categories">
+                <AccordionItem value="categories" className="border-0">
                   <AccordionTrigger className="mb-2 border border-gray-300">
                     Categories
                   </AccordionTrigger>
