@@ -265,6 +265,13 @@ export default function Navbar() {
                   >
                     12 Grabs
                   </Link>
+                  <Link
+                    className="hover:text-burntOrange rounded-lg text-lg font-semibold text-black/70 transition-colors delay-75 ease-in-out"
+                    href="/shop?vendors=anua"
+                    onClick={() => handlePopoverLinkClick(brandsButtonRef)}
+                  >
+                    Anua
+                  </Link>
                 </div>
               </PopoverPanel>
             </Popover>
@@ -325,10 +332,17 @@ export default function Navbar() {
                 <div className="font-playfair flex w-[274px] flex-col gap-2 py-4 pl-8">
                   <Link
                     className="hover:text-burntOrange rounded-lg text-lg font-semibold text-black/70 transition-colors delay-75 ease-in-out"
-                    href="/wholesale"
+                    href="/wholesale-shop"
                     onClick={() => handlePopoverLinkClick(wholesaleButtonRef)}
                   >
                     Shop Wholesale
+                  </Link>
+                  <Link
+                    className="hover:text-burntOrange rounded-lg text-lg font-semibold text-black/70 transition-colors delay-75 ease-in-out"
+                    href="/wholesale"
+                    onClick={() => handlePopoverLinkClick(wholesaleButtonRef)}
+                  >
+                    Wholesaler Terms
                   </Link>
                   <Link
                     className="hover:text-burntOrange rounded-lg text-lg font-semibold text-black/70 transition-colors delay-75 ease-in-out"
