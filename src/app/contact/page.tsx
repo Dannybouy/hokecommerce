@@ -14,16 +14,6 @@ const Contact = () => {
         <h2 className="font-playfair text-center text-6xl">Contact</h2>
       </div>
 
-      <section className="mt-14 w-full">
-        <Image
-          src="/contact-bg.png"
-          alt="contact map image"
-          width={1000}
-          height={500}
-          className="w-full object-cover"
-        />
-      </section>
-
       <section className="relative container mx-auto mt-16 md:mt-36 lg:px-[119px]">
         <h2 className="font-playfair text-4xl md:text-6xl">Have a question or comment?</h2>
         <p className="font-montserrat mt-2 md:text-lg">

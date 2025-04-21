@@ -6,7 +6,6 @@ import SignUpPopover from "@/components/ui/SignUpPopover";
 import { useCartStore } from "@/store/useCartStore";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
 import {
-  ChevronDown,
   Heart,
   Menu,
   Plus,
@@ -48,10 +47,7 @@ const NavLinks = [
       },
     ],
   },
-  {
-    title: "COLLECTIONS",
-    href: "/collections",
-  },
+
   {
     title: "HOK PRO",
     href: "/wholesale",
@@ -63,21 +59,13 @@ const NavLinks = [
       {
         title: "Wholesaler Terms",
         href: "/wholesale",
-        href: "/wholesale-shop",
       },
-      {
-        title: "Wholesaler Terms",
-        href: "/wholesale",
-      },
+      
       {
         title: "Join The HOK Tribe",
         href: "https://linktr.ee/hokbeauty",
       },
     ],
-  },
-  {
-    title: "CURATED BUNDLES",
-    href: "/bundles",
   },
   {
     title: "SKIN ALGORITHM",
@@ -137,27 +125,6 @@ export default function Navbar() {
 
       {/* User icons */}
       <div className="absolute top-4 right-4 flex items-center gap-3">
-        <Link href="/account">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="text-black hover:bg-transparent"
-          >
-            <User className="h-5 w-5" />
-            <span className="sr-only">Account</span>
-          </Button>
-        </Link>
-
-        <Link href="/wishlist">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="text-black hover:bg-transparent"
-          >
-            <Heart className="h-5 w-5" />
-            <span className="sr-only">Wishlist</span>
-          </Button>
-        </Link>
 
         <Link href="/cart">
           <Button
@@ -231,7 +198,7 @@ export default function Navbar() {
                             ? brandsButtonRef
                             : proButtonRef
                         }
-                        className="flex cursor-pointer items-center gap-1 text-xs font-medium text-[#2c2c2c] uppercase focus:outline-none"
+                        className="flex cursor-pointer items-center gap-1 font-medium  uppercase focus:outline-none"
                       >
                         {link.title}
                         <Plus className="h-3 w-3" />
