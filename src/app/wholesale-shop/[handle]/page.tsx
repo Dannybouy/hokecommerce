@@ -10,7 +10,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Toggle } from "@/components/ui/toggle";
-import { ProductDetails, Products } from "@/lib/shopify/types";
 import { cn } from "@/lib/utils";
 import { useCartStore } from "@/store/useCartStore";
 import { formatPrice } from "@/utils/formatPrice";
@@ -31,15 +30,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-interface ProductClientProps {
-  initialProduct: ProductDetails | null;
-  initialRelatedProducts: Products[];
-}
-
-export default function ProductClient({
-  initialProduct,
-  initialRelatedProducts,
-}: ProductClientProps) {
+export default function WholesaleProductPage() {
   const params = useParams();
   const router = useRouter();
   const productHandle = params.handle as string;
@@ -54,21 +45,14 @@ export default function ProductClient({
   const [imageLoaded, setImageLoaded] = useState(false);
 
   // Fetch product data with React Query
-  const {
-    data: product,
-    isLoading,
-    error,
-  } = useFetchProduct(productHandle, initialProduct);
+  const { data: product, isLoading, error } = useFetchProduct(productHandle);
 
   // Fetch related products with React Query
-  const { data: recommendationProducts } = useFetchRelatedProducts(
-    product?.id,
-    initialRelatedProducts,
-  );
+  const { data: relatedProducts } = useFetchRelatedProducts(productHandle);
 
   // Derived state
   const [inStock, setInStock] = useState<boolean>(
-    initialProduct?.variants[0].availableForSale || true,
+    product?.variants[0].availableForSale || true,
   );
 
   // Initialize product data when it's loaded
@@ -152,7 +136,7 @@ export default function ProductClient({
   };
 
   // Loading state
-  if (isLoading && !initialProduct) {
+  if (isLoading) {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="animate-pulse">
@@ -183,7 +167,7 @@ export default function ProductClient({
           removed.
         </p>
         <Button asChild>
-          <Link href="/shop">Back to Shop</Link>
+          <Link href="/wholesale-shop">Back to wholesale shop</Link>
         </Button>
       </div>
     );
@@ -209,9 +193,9 @@ export default function ProductClient({
           asChild
           className="hover:text-burntOrange p-0 hover:bg-transparent"
         >
-          <Link href="/shop" className="flex items-center">
+          <Link href="/wholesale-shop" className="flex items-center">
             <ChevronLeft className="mr-1 h-4 w-4" />
-            Back to shop
+            Back to wholesale shop
           </Link>
         </Button>
       </div>
@@ -303,6 +287,12 @@ export default function ProductClient({
             >
               {product.productType}
             </Badge>
+            <Badge
+              variant="default"
+              className="bg-burntOrange mb-4 rounded-3xl px-3 py-1 text-white"
+            >
+              Buy 5 get 5% off
+            </Badge>
           </div>
 
           <h1 className="font-montserrat mb-2 text-3xl font-bold tracking-tight">
@@ -311,7 +301,7 @@ export default function ProductClient({
           <p className="font-inter my-4 text-2xl font-bold">{displayPrice}</p>
 
           <div className="mb-8">
-            <p className="font-inter max-w-xl text-lg text-neutral-600">
+            <p className="font-montserrat max-w-xl text-lg text-neutral-600">
               {product.description}
             </p>
           </div>
@@ -328,6 +318,12 @@ export default function ProductClient({
                 <p className="text-red-600">Out of Stock</p>
               </div>
             )}
+          </div>
+
+          <div className="mb-6 flex items-center gap-2 rounded-md border border-yellow-300 bg-yellow-100 p-2 ">
+            <p className="font-montserrat text-base font-semibold">
+              Buy 5 get 5% off at checkout
+            </p>
           </div>
 
           {/* Variant Toggles */}
@@ -413,8 +409,11 @@ export default function ProductClient({
               </AccordionTrigger>
               <AccordionContent className="mt-3">
                 <p>
-                  Free shipping on orders over ₦30,000. Standard shipping 3-5
-                  business days. Express shipping available at checkout.
+                  Delivery Outside Lagos (Other States) For orders outside
+                  Lagos, we offer flexible delivery options for your location.
+                  Once your order is placed, our team will reach out via DM or
+                  WhatsApp to confirm the most convenient courier service and
+                  delivery cost for your area.
                 </p>
               </AccordionContent>
             </AccordionItem>
@@ -423,55 +422,6 @@ export default function ProductClient({
       </div>
 
       {/* Related Products */}
-      {recommendationProducts && recommendationProducts.length > 0 && (
-        <div className="mt-16">
-          <h2 className="font-inter mb-6 text-2xl font-bold">
-            You may also like
-          </h2>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-            {recommendationProducts.map(
-              (relatedProduct: {
-                id: string;
-                handle: string;
-                title: string;
-                featuredImage: { url: string; altText: string };
-                price: string;
-              }) => (
-                <Link
-                  key={relatedProduct.id}
-                  href={`/shop/${relatedProduct.handle}`}
-                  className="group"
-                >
-                  <div className="mb-2 aspect-square overflow-hidden rounded-md bg-gray-100">
-                    <div className="relative h-full w-full">
-                      <Image
-                        src={
-                          relatedProduct.featuredImage?.url ||
-                          "/placeholder.svg"
-                        }
-                        alt={
-                          relatedProduct.featuredImage?.altText ||
-                          relatedProduct.title
-                        }
-                        fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
-                    </div>
-                  </div>
-                  <h3 className="group-hover:text-burntOrange font-medium font-montserrat">
-                    {relatedProduct.title}
-                  </h3>
-                  <p className="text-base font-medium font-montserrat text-black">
-                    {formatPrice(relatedProduct.price, {
-                      currencyCode: "NGN",
-                    })}
-                  </p>
-                </Link>
-              ),
-            )}
-          </div>
-        </div>
-      )}
     </div>
   );
 }

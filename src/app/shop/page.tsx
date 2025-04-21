@@ -3,6 +3,7 @@ import Pagination from "@/components/ui/pagination";
 import ProductGridSkeleton from "@/components/ui/ProductGridSkeleton";
 import { getProducts } from "@/lib/shopify";
 import { Products } from "@/lib/shopify/types";
+import { formatPrice } from "@/utils/formatPrice";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -96,13 +97,14 @@ export default async function ShopPage({
                             className="mb-2 h-48 w-full object-cover"
                           />
                         )}
-                        <h3 className="font-semibold">{product.title}</h3>
+                        <h3 className="font-semibold font-montserrat">
+                          {product.title}
+                        </h3>
                         {/* Display price correctly */}
-                        <p className="font-medium text-gray-700">
-                          {new Intl.NumberFormat("en-US", {
-                            style: "currency",
-                            currency: product.currencyCode,
-                          }).format(parseFloat(product.price))}
+                        <p className="font-medium text-gray-700 font-montserrat">
+                          {formatPrice(product.price, {
+                            currencyCode: product.currencyCode,
+                          })}
                         </p>
                       </div>
                     </Link>

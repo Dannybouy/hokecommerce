@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getProduct, getProducts } from "@/lib/shopify";
+import { getProduct } from "@/lib/shopify";
 import { useQuery } from "@tanstack/react-query";
+import { getProductRecommendation } from "../actions/getProductRecommendation";
 
 // Using less strict typing to accommodate the API response structure
 export function useFetchProduct(handle: string, initialData?: any) {
@@ -17,12 +18,11 @@ export function useFetchRelatedProducts(
   initialData?: any,
 ) {
   return useQuery({
-    queryKey: ["related-products", currentProductHandle],
+    queryKey: ["recommendation-products", currentProductHandle],
     queryFn: async () => {
-      const { products: allProducts } = await getProducts();
-      return allProducts
-        .filter((product) => product.handle !== currentProductHandle)
-        .slice(0, 4);
+      const relatedProducts =
+        await getProductRecommendation(currentProductHandle);
+      return relatedProducts;
     },
     enabled: !!currentProductHandle,
     initialData,
