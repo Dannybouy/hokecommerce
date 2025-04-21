@@ -364,97 +364,77 @@ const About = () => {
             </ul>
           </div>
 
-          <div className="mt-6 rounded-xl bg-white p-6 lg:p-16">
-            <div className="flex size-[60px] items-center justify-center rounded-full bg-[#2D1801]">
-              <span className="font-montserrat text-xl font-bold text-white">
-                1
-              </span>
-            </div>
-            <p className="font-montserrat mt-8 text-lg leading-11 font-medium text-balance lg:text-2xl text-[#2D1801]">
-              Direct Partnerships with Korean Brands & Certified Distributors We
-              don&apos;t buy from third-party resellers or unknown suppliers.
-              Instead, we work directly with top K-beauty brands and authorized
-              distributors to ensure:Original formulations (No watered-down or
-              fake versions)Fresh stock (Straight from the latest production
-              batches)Fair pricing (No unnecessary markups or middlemen) Video
-              Idea: Behind the scenes of our visits to Korean factories &
-              supplier meetings. Show us personally testing products and
-              speaking with brand representatives.
-            </p>
-          </div>
-
-          <div className="mt-8 items-center justify-between gap-10 lg:flex">
-            <div className="border-[#73512C] h-[505px] max-w-2xl rounded-xl border-2 bg-[#F5F5DC] px-[30px] py-5">
-              <div className="bg-[#73512C] flex size-[60px] items-center justify-center rounded-full">
-                <span className="font-montserrat text-xl font-bold text-white">
-                  2
-                </span>
-              </div>
-              <p className="font-montserrat text-lg leading-10 font-medium text-black/70 lg:text-2xl">
-                2️. Verified Authenticity & Quality Control Every product that
-                lands in our store goes through strict verification checks,
-                including:
-
-                <ul className="list-inside mt-2">
-                  <li>
-                    – Batch & serial number tracking to confirm authenticity
-                  </li>
-                  <li>
-                    – Ingredient list verification (so you get the original formula)
-                  </li>
-                  <li>
-                    – Freshness checks (we don&apos;t sell expired or near-expiry
-                    products)
-                  </li>
-                </ul>
-              </p>
-            </div>
-            <div className="border-[#73512C] bg-[#73512C] h-[505px] rounded-xl border-2 px-[30px] py-5">
-              <div className="flex size-[60px] items-center justify-center rounded-full bg-[#F5F5DC]">
-                <span className="font-montserrat text-[#73512C] text-xl font-bold">
-                  3
-                </span>
-              </div>
-              <p className="font-montserrat mt-5 text-2xl leading-10 font-medium text-cream">
-                Ethical & Safe Sourcing We believe in skin health, not skin
-                bleaching. That&apos;s why we only stock brands that are:
-                <ul className="list-inside mt-2">
-                  <li>
-                    – Cruelty-free & dermatologist-approved
-                  </li>
-                  <li>
-                    – Free from harmful chemicals or bleaching agents
-                  </li>
-                  <li>
-                    – Committed to sustainability & fair trade
-                  </li>
-                </ul>
-              </p>
-            </div>
-
-            <div className="xl:col-span-10 w-full rounded-xl bg-white p-8 lg:max-w-4xl lg:p-16">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+            {/* Card 1 */}
+            <div className="rounded-xl bg-white p-6 lg:p-8">
               <div className="flex size-[60px] items-center justify-center rounded-full bg-[#2D1801]">
-                <span className="font-montserrat text-xl font-bold text-white">
-                  4
-                </span>
+                <span className="font-montserrat text-xl font-bold text-white">1</span>
               </div>
-              <p className="font-montserrat mt-8 md:text-lg leading-8 md:leading-11 font-medium text-balance lg:text-2xl">
-                <strong>Fast, Secure Shipping from Korea to Nigeria</strong>
-                <br />Once products are
-                approved, we handle all the logistics ourselves to
-                guarantee:
-                <ul className="list-inside mt-2">
-                  <li>
-                    – Proper storage conditions (No heat damage or contamination)
-                  </li>
-                  <li>
-                    – Quick customs clearance & shipping
-                  </li>
-                  <li>
-                    – Nationwide delivery—Lagos, Abuja, Port Harcourt & beyond!
-                  </li>
-                </ul>
+              <p className="font-montserrat mt-6 text-lg leading-relaxed font-medium text-[#2D1801] lg:text-xl">
+                Direct Partnerships with Korean Brands & Certified Distributors
               </p>
+              <p className="font-montserrat mt-4 text-base leading-relaxed text-black/70">
+                We don't buy from third-party resellers or unknown suppliers. Instead, we work directly with top K-beauty brands and authorized distributors to ensure:
+              </p>
+              <ul className="mt-4 space-y-2 text-black/70">
+                <li className="font-montserrat text-base">Original formulations (No watered-down or fake versions)</li>
+                <li className="font-montserrat text-base">Fresh stock (Straight from the latest production batches)</li>
+                <li className="font-montserrat text-base">Fair pricing (No unnecessary markups or middlemen)</li>
+              </ul>
+            </div>
+
+            {/* Card 2 */}
+            <div className="rounded-xl border-2 border-[#73512C] bg-[#F5F5DC] p-6 lg:p-8">
+              <div className="flex size-[60px] items-center justify-center rounded-full bg-[#73512C]">
+                <span className="font-montserrat text-xl font-bold text-white">2</span>
+              </div>
+              <p className="font-montserrat mt-6 text-lg leading-relaxed font-medium text-black/70 lg:text-xl">
+                Verified Authenticity & Quality Control
+              </p>
+              <p className="font-montserrat mt-4 text-base leading-relaxed text-black/70">
+                Every product that lands in our store goes through strict verification checks, including:
+              </p>
+              <ul className="mt-4 space-y-2 text-black/70">
+                <li className="font-montserrat text-base">Batch & serial number tracking to confirm authenticity</li>
+                <li className="font-montserrat text-base">Ingredient list verification (so you get the original formula)</li>
+                <li className="font-montserrat text-base">Freshness checks (we don't sell expired or near-expiry products)</li>
+              </ul>
+            </div>
+
+            {/* Card 3 */}
+            <div className="rounded-xl border-2 border-[#73512C] bg-[#73512C] p-6 lg:p-8">
+              <div className="flex size-[60px] items-center justify-center rounded-full bg-[#F5F5DC]">
+                <span className="font-montserrat text-xl font-bold text-[#73512C]">3</span>
+              </div>
+              <p className="font-montserrat mt-6 text-lg leading-relaxed font-medium text-white lg:text-xl">
+                Ethical & Safe Sourcing
+              </p>
+              <p className="font-montserrat mt-4 text-base leading-relaxed text-white/90">
+                We believe in skin health, not skin bleaching. That's why we only stock brands that are:
+              </p>
+              <ul className="mt-4 space-y-2 text-white/90">
+                <li className="font-montserrat text-base">Cruelty-free & dermatologist-approved</li>
+                <li className="font-montserrat text-base">Free from harmful chemicals or bleaching agents</li>
+                <li className="font-montserrat text-base">Committed to sustainability & fair trade</li>
+              </ul>
+            </div>
+
+            {/* Card 4 */}
+            <div className="rounded-xl bg-white p-6 lg:p-8">
+              <div className="flex size-[60px] items-center justify-center rounded-full bg-[#2D1801]">
+                <span className="font-montserrat text-xl font-bold text-white">4</span>
+              </div>
+              <p className="font-montserrat mt-6 text-lg leading-relaxed font-medium text-[#2D1801] lg:text-xl">
+                Fast, Secure Shipping from Korea to Nigeria
+              </p>
+              <p className="font-montserrat mt-4 text-base leading-relaxed text-black/70">
+                Once products are approved, we handle all the logistics ourselves to guarantee:
+              </p>
+              <ul className="mt-4 space-y-2 text-black/70">
+                <li className="font-montserrat text-base">Proper storage conditions (No heat damage or contamination)</li>
+                <li className="font-montserrat text-base">Quick customs clearance & shipping</li>
+                <li className="font-montserrat text-base">Nationwide delivery—Lagos, Abuja, Port Harcourt & beyond!</li>
+              </ul>
             </div>
           </div>
 
