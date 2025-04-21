@@ -97,7 +97,7 @@ const WholesaleShop = async ({
                         )}
                         <Badge
                           variant="default"
-                          className="bg-burntOrange my-2 rounded-3xl px-3 py-1 text-white"
+                          className="bg-[#73512C] my-2 rounded-3xl px-3 py-1 text-white"
                         >
                           Buy 5 get 5% off
                         </Badge>
@@ -120,7 +120,7 @@ const WholesaleShop = async ({
                 <p>No products found matching your filters.</p>
               )}
             </div>
-            {/* TODO: Add Pagination controls here based on total product count and searchParams */}
+            
             <Pagination
               hasNextPage={pageInfo.hasNextPage}
               hasPreviousPage={pageInfo.hasPreviousPage}
