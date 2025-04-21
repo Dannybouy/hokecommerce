@@ -77,19 +77,7 @@ const Cart = () => {
     <main className="px-6 lg:px-0">
       <div className="container mx-auto mt-22">
         <h2 className="font-playfair text-center text-6xl">Cart</h2>
-        <svg
-          width="62"
-          height="62"
-          viewBox="0 0 62 62"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="mx-auto mt-6"
-        >
-          <path
-            d="M29.5897 1.8311C29.906 0.299297 32.094 0.299296 32.4103 1.8311L36.9688 23.9121C37.085 24.475 37.525 24.915 38.0879 25.0312L60.1689 29.5897C61.7007 29.906 61.7007 32.094 60.1689 32.4103L38.0879 36.9688C37.525 37.085 37.085 37.525 36.9688 38.0879L32.4103 60.1689C32.094 61.7007 29.906 61.7007 29.5897 60.1689L25.0312 38.0879C24.915 37.525 24.475 37.085 23.9121 36.9688L1.8311 32.4103C0.299297 32.094 0.299296 29.906 1.8311 29.5897L23.9121 25.0312C24.475 24.915 24.915 24.475 25.0312 23.9121L29.5897 1.8311Z"
-            fill="#CC5500"
-          />
-        </svg>
+        
       </div>
       <section className="container mx-auto my-32 w-full lg:px-[119px]">
         {items.length === 0 ? (
@@ -321,7 +309,7 @@ const Cart = () => {
                 )}
 
                 <Button
-                  className="bg-burntOrange hover:bg-burntOrange/90 w-full rounded-none transition-all duration-300"
+                  className="bg-[#73512C] hover:bg-[#73512C]/80 w-full rounded-none transition-all duration-300"
                   size="lg"
                   onClick={handleCheckout}
                   disabled={isCheckingOut || items.length === 0}

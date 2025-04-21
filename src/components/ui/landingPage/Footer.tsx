@@ -4,28 +4,26 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="mx-12 bg-[#F9F4E1] px-12 py-12">
-      <div className="container mx-auto">
+    <footer className="mx-12 text-white">
+      <div className="container mx-auto rounded-xl bg-[#2D1801] p-12">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3 lg:grid-cols-4">
           {/* Logo and Mailing List */}
-          <div className="space-y-6">
+          <div className="space-y-3">
             <Link href="/" className="inline-block">
               <Image
-                src="/footer-logo.png"
+                src="/hok-logo-white.svg"
                 alt="HOKBeauty footer logo"
                 width={100}
                 height={100}
               />
             </Link>
-            <p className="font-playfair text-lg text-black">
-              Subscribe to our mailing list to
-              <br />
-              get the new updates!
+            <p className="font-playfair text-lg text-white">
+              Subscribe to our mailing list to get the new updates!
             </p>
             <div className="flex flex-wrap gap-2">
               <Link
                 href="https://www.facebook.com/share/1EK81bfAFp/"
-                className="rounded-full bg-black size-7 flex items-center justify-center"
+                className="flex size-7 items-center justify-center rounded-full bg-white"
                 aria-label="Facebook"
               >
                 <Image
@@ -39,7 +37,7 @@ const Footer = () => {
 
               <Link
                 href="https://www.instagram.com/thehomeofkoreanproducts/"
-                className="rounded-full bg-black size-7 flex items-center justify-center"
+                className="flex size-7 items-center justify-center rounded-full bg-white"
                 aria-label="Instagram"
               >
                 <Image
@@ -50,9 +48,10 @@ const Footer = () => {
                   className="size-3.5"
                 />
               </Link>
+
               <Link
                 href="https://whatsapp.com/channel/0029VbAMxdn9hXF5cKnHxz12"
-                className="rounded-full bg-black size-7 flex items-center justify-center"
+                className="flex size-7 items-center justify-center rounded-full bg-white"
                 aria-label="WhatsApp"
               >
                 <Image
@@ -63,19 +62,33 @@ const Footer = () => {
                   className="size-3.5"
                 />
               </Link>
+
               <Link
                 href="https://www.tiktok.com/@thehomeofkoreanproducts"
-                className="rounded-full bg-black size-7 flex items-center justify-center"
+                className="flex size-7 items-center justify-center rounded-full bg-white"
                 aria-label="TikTok"
               >
-                <Image src="/tiktok.svg" alt="TikTok" width={20} height={20} className="size-3.5" />
+                <Image
+                  src="/tiktok.svg"
+                  alt="TikTok"
+                  width={20}
+                  height={20}
+                  className="size-3.5"
+                />
               </Link>
+
               <Link
-                href="https://www.tiktok.com/@thehomeofkoreanproducts"
-                className="rounded-full bg-black size-7 flex items-center justify-center"
-                aria-label="TikTok"
+                href="https://t.me/HOKBeauty"
+                className="flex size-7 items-center justify-center rounded-full bg-white"
+                aria-label="Telegram"
               >
-                <Image src="/telegram.svg" alt="Telegram" width={20} height={20} className="size-3.5" />
+                <Image
+                  src="/telegram.svg"
+                  alt="Telegram"
+                  width={20}
+                  height={20}
+                  className="size-3.5 text-white"
+                />
               </Link>
             </div>
           </div>
@@ -143,30 +156,25 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 flex flex-col items-center justify-between border-t border-gray-300 pt-6 md:flex-row">
-          <p className="font-playfair mb-4 text-sm md:mb-0">
-            © HOKBeauty 2025
-          </p>
-          <div className="flex gap-8">
-            <Link
-              href="/privacy"
-              className="font-playfair text-sm hover:underline"
-            >
-              Privacy
-            </Link>
-            <Link
-              href="/terms"
-              className="font-playfair text-sm hover:underline"
-            >
-              Terms
-            </Link>
-            <Link
-              href="/sitemap"
-              className="font-playfair text-sm hover:underline"
-            >
-              Sitemap
-            </Link>
-          </div>
+      </div>
+      <div className="mt-6 flex flex-col items-center justify-between py-6 md:flex-row text-black">
+        <p className="font-playfair mb-4 text-base md:mb-0">© HOKBeauty 2025</p>
+        <div className="flex gap-8">
+          <Link
+            href="/privacy"
+            className="font-playfair text-sm hover:underline"
+          >
+            Privacy
+          </Link>
+          <Link href="/terms" className="font-playfair text-sm hover:underline">
+            Terms
+          </Link>
+          <Link
+            href="/sitemap"
+            className="font-playfair text-sm hover:underline"
+          >
+            Sitemap
+          </Link>
         </div>
       </div>
     </footer>

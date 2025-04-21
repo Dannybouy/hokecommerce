@@ -21,13 +21,13 @@ const Newsletter = () => {
             <input
               type="email"
               placeholder="Email address"
-              className="border-burntOrange focus:ring-burntOrange font-montserrat w-full rounded-full border bg-white px-4 py-3 pr-36 focus:ring-1 focus:outline-none"
+              className="border-[#73512C] focus:ring-[#73512C] font-montserrat w-full rounded-full border bg-white px-4 py-3 pr-36 focus:ring-1 focus:outline-none"
               required
             />
             <Button
               type="submit"
               size="lg"
-              className="bg-burntOrange font-roboto absolute top-1/2 right-1 -translate-y-1/2 rounded-full px-6 py-2 text-sm font-normal tracking-wider text-white uppercase hover:bg-orange-600"
+              className="bg-[#73512C] font-roboto absolute top-1/2 right-1 -translate-y-1/2 rounded-full px-6 py-2 text-sm font-normal tracking-wider text-white uppercase hover:bg-orange-600"
             >
               Subscribe
             </Button>

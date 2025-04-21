@@ -12,39 +12,18 @@ const Contact = () => {
     <div className="px-6 lg:px-0">
       <div className="container mx-auto mt-22">
         <h2 className="font-playfair text-center text-6xl">Contact</h2>
-        <svg
-          width="62"
-          height="62"
-          viewBox="0 0 62 62"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="mx-auto mt-6"
-        >
-          <path
-            d="M29.5897 1.8311C29.906 0.299297 32.094 0.299296 32.4103 1.8311L36.9688 23.9121C37.085 24.475 37.525 24.915 38.0879 25.0312L60.1689 29.5897C61.7007 29.906 61.7007 32.094 60.1689 32.4103L38.0879 36.9688C37.525 37.085 37.085 37.525 36.9688 38.0879L32.4103 60.1689C32.094 61.7007 29.906 61.7007 29.5897 60.1689L25.0312 38.0879C24.915 37.525 24.475 37.085 23.9121 36.9688L1.8311 32.4103C0.299297 32.094 0.299296 29.906 1.8311 29.5897L23.9121 25.0312C24.475 24.915 24.915 24.475 25.0312 23.9121L29.5897 1.8311Z"
-            fill="#CC5500"
-          />
-        </svg>
       </div>
 
-      <section className="mt-14 w-full">
-        <Image
-          src="/contact-bg.png"
-          alt="contact map image"
-          width={1000}
-          height={500}
-          className="w-full object-cover"
-        />
-      </section>
-
-      <section className="relative container mx-auto mt-36 lg:px-[119px]">
-        <h2 className="font-playfair text-6xl">Have a question or comment?</h2>
-        <p className="font-montserrat mt-2 text-lg">
+      <section className="relative container mx-auto mt-16 md:mt-36 lg:px-[119px]">
+        <h2 className="font-playfair text-4xl md:text-6xl">
+          Have a question or comment?
+        </h2>
+        <p className="font-montserrat mt-2 md:text-lg">
           Use the form below to send us a message or contact us by mail
         </p>
 
         <form action="" className="font-montserrat mt-8 space-y-5">
-          <div className="grid grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-10">
             <div className="flex flex-col gap-2">
               <label htmlFor="">First name</label>
               <Input
@@ -85,11 +64,16 @@ const Contact = () => {
             />
           </div>
 
-          <Button>Submit</Button>
+          <Button
+            size="lg"
+            className="font-montserrat mt-5 bg-[#2D1801] text-white uppercase"
+          >
+            Submit
+          </Button>
         </form>
       </section>
 
-      <section className="font-montserrat container mx-auto mt-36 space-y-10 lg:px-[119px]">
+      <section className="font-montserrat container mx-auto mt-16 space-y-5 lg:mt-36 lg:space-y-10 lg:px-[119px]">
         <h3 className="text-4xl font-medium text-black">Get in Touch!</h3>
         <div className="grid grid-cols-1 gap-3 text-black/70 lg:grid-cols-2 lg:gap-6">
           <div className="flex flex-col gap-y-4">

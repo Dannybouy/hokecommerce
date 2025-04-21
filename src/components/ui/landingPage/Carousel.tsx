@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
   Carousel,
   CarouselContent,
@@ -15,15 +16,13 @@ import Link from "next/link";
 export default function EnhancedCarousel() {
   const { data: collections, isLoading, error } = useFetchAllCollections();
 
-  console.log(collections);
-
   // Loading state with skeleton
   if (isLoading) {
     return (
       <section className="container mx-auto max-w-5xl px-4 py-16">
         <div className="mb-10 text-center">
           <h1 className="font-playfair mx-auto text-center text-2xl text-stone-900 lg:max-w-80 lg:text-7xl">
-            Shop By Collection
+            Our Collections
           </h1>
         </div>
 
@@ -44,8 +43,8 @@ export default function EnhancedCarousel() {
     return (
       <section className="container mx-auto max-w-5xl px-4 py-16">
         <div className="mb-10 text-center">
-          <h1 className="font-playfair mx-auto text-center text-2xl text-stone-900 lg:max-w-80 lg:text-7xl">
-            Shop By Collection
+          <h1 className="font-playfair mx-auto text-center text-2xl text-stone-900 lg:text-7xl">
+            Our Collections
           </h1>
         </div>
         <div className="rounded-lg bg-red-50 p-4 text-center text-red-500">
@@ -56,35 +55,40 @@ export default function EnhancedCarousel() {
   }
 
   return (
-    <section className="container mx-auto max-w-5xl px-4 py-16">
+    <section className="max-w-8xl container mx-auto px-4 py-16">
       {/* Heading */}
       <div className="mb-10 text-center">
-        <h1 className="font-playfair mx-auto text-center text-2xl text-stone-900 lg:max-w-80 lg:text-7xl">
-          Shop By Collection
+        <h1 className="font-playfair mx-auto text-center text-2xl text-stone-900 lg:text-7xl">
+          Our Collections
         </h1>
+        <div className="mx-auto mt-5 max-w-2xl border-b border-stone-900"></div>
       </div>
 
       {/* Carousel */}
       <div className="relative">
         {/* Slides container */}
         <Carousel
-          className="mx-8 w-full"
+          className="w-full"
           opts={{
-            align: "start",
+            align: "center",
+            loop: true,
+            slidesToScroll: 1,
+            containScroll: "trimSnaps",
+            dragFree: true,
           }}
         >
-          <CarouselContent className="flex">
-            {collections?.map((collection) => (
+          <CarouselContent className="flex px-1">
+            {collections?.slice(0, 4).map((collection) => (
               <CarouselItem
                 key={collection.id}
-                className="px-2 md:basis-1/2 lg:basis-1/2 rounded-lg overflow-hidden"
+                className="overflow-hidden rounded-lg md:basis-1/4 lg:basis-1/4"
               >
                 <Link
                   href={`/shop?collections=${collection.handle}`}
                   className="block"
                 >
                   <div className={cn("mb-3 overflow-hidden rounded-l")}>
-                    <div className="relative h-[400px] w-full lg:h-[700px]">
+                    <div className="relative h-[400px] w-full lg:h-[500px]">
                       {collection.image ? (
                         <Image
                           src={collection.image.url}
@@ -101,15 +105,19 @@ export default function EnhancedCarousel() {
                       )}
                     </div>
                   </div>
-                  <h3 className="font-inter text-center text-lg font-medium">
-                    {collection.title}
-                  </h3>
+                  <Button
+                    className="bg-[#FFFDF mt-5 w-full rounded-none border-2 border-[#484F56] py-5"
+                    variant="outline"
+                    size="default"
+                  >
+                    <h3 className="font-montserrat text-center text-sm font-semibold uppercase">
+                      {collection.title}
+                    </h3>
+                  </Button>
                 </Link>
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="border-goldenBrown text-goldenBrown cursor-pointer hover:bg-gray-100" />
-          <CarouselNext className="border-goldenBrown text-goldenBrown cursor-pointer hover:bg-gray-100" />
         </Carousel>
       </div>
     </section>

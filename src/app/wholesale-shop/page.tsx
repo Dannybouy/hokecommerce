@@ -129,7 +129,6 @@ const WholesaleShop = async ({
               buildUrl={buildPaginationUrls}
             />
           </Suspense>
-          {/* <ShopClient initialProducts={products} /> */}
         </div>
       </div>
     </div>

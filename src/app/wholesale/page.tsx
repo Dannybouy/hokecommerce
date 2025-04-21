@@ -12,19 +12,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Newsletter from "@/components/ui/landingPage/Newsletter";
-import { cn } from "@/lib/utils";
 import { format } from "date-fns";
-import { CalendarIcon, CheckCircle, XCircle } from "lucide-react";
+import { CheckCircle, XCircle } from "lucide-react";
 import React, { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { createNewShopifyCustomer } from "@/utils/actions/createNewShopifyCustomer";
 
 // Form validation schema
@@ -162,7 +155,7 @@ export default function WholesalePage() {
           </h1>
           <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <AlertDialogTrigger asChild>
-              <Button className="bg-burntOrange hover:bg-burntOrange/90">
+              <Button className="bg-[#73512C] hover:bg-[#73512C]/90">
                 Apply Now
               </Button>
             </AlertDialogTrigger>
@@ -245,7 +238,7 @@ export default function WholesalePage() {
                   </Button>
                   <Button
                     type="submit"
-                    className="bg-burntOrange hover:bg-burntOrange/90"
+                    className="bg-[#73512C] hover:bg-[#73512C]/90"
                   >
                     Submit Application
                   </Button>
@@ -461,7 +454,16 @@ export default function WholesalePage() {
                           Download our wholesale price list to view our current
                           offerings:
                         </p>
-                        <Button variant="outline" className="w-full">
+                        <Button
+                          variant="outline"
+                          className="w-full"
+                          onClick={() => {
+                            window.open(
+                              "https://docs.google.com/spreadsheets/d/1b2wmlwzqfG9l6MwqGCYjyhiWO2mQDDkZM1D54MW4hns/edit?usp=sharing",
+                              "_blank",
+                            );
+                          }}
+                        >
                           Download Price List
                         </Button>
                       </div>
@@ -501,7 +503,7 @@ export default function WholesalePage() {
                   </div>
                   <AlertDialogFooter className="flex justify-end gap-4">
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction className="bg-burntOrange hover:bg-burntOrange/90">
+                    <AlertDialogAction className="bg-[#73512C] hover:bg-[#73512C]/90">
                       Submit Request
                     </AlertDialogAction>
                   </AlertDialogFooter>
@@ -575,45 +577,30 @@ export default function WholesalePage() {
                     </div>
                     <div className="grid gap-2">
                       <Label htmlFor="tour-date">Preferred Date</Label>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <Button
-                            variant={"outline"}
-                            className={cn(
-                              "w-[280px] justify-start text-left font-normal",
-                              !date && "text-muted-foreground",
-                            )}
-                          >
-                            <CalendarIcon className="mr-2 h-4 w-4" />
-                            {date ? (
-                              format(date, "PPP")
-                            ) : (
-                              <span>Pick a date</span>
-                            )}
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0">
-                          <Calendar
-                            mode="single"
-                            selected={date}
-                            onSelect={setDate}
-                            initialFocus
-                            disabled={(date) => date < new Date()}
-                          />
-                        </PopoverContent>
-                      </Popover>
+                      <Input
+                        id="tour-date"
+                        name="date"
+                        type="date"
+                        placeholder="Select a date"
+                        value={date ? format(date, "yyyy-MM-dd") : ""}
+                        onChange={(e) => {
+                          const selectedDate = new Date(e.target.value);
+                          if (!isNaN(selectedDate.getTime())) {
+                            setDate(selectedDate);
+                          }
+                        }}
+                        min={format(new Date(), "yyyy-MM-dd")}
+                      />
                     </div>
                   </div>
                   <AlertDialogFooter className="flex justify-end gap-4">
-                    <Button type="button" variant="outline">
-                      Cancel
-                    </Button>
-                    <Button
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
                       type="submit"
-                      className="bg-burntOrange hover:bg-burntOrange/90"
+                      className="bg-[#73512C] hover:bg-[#73512C]/90"
                     >
                       Book Tour
-                    </Button>
+                    </AlertDialogAction>
                   </AlertDialogFooter>
                 </form>
               </AlertDialogContent>

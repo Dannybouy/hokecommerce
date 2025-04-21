@@ -1,5 +1,4 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
 import { getProducts } from "@/lib/shopify";
 import { Products } from "@/lib/shopify/types";
@@ -8,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function ShopOurProducts() {
+const NewArrival = () => {
   const { data: products, isLoading } = useQuery({
     queryKey: ["featuredProducts"],
     queryFn: async () => {
@@ -18,13 +17,12 @@ export default function ShopOurProducts() {
       return fetchedProducts;
     },
   });
-
   return (
-    <section className="py-16">
+    <section className="">
       <div className="container mx-auto px-4">
         <div className="mb-10 text-center">
           <h1 className="font-playfair mx-auto text-center text-2xl text-stone-900 lg:text-7xl">
-            Featured Items
+            New Arrivals
           </h1>
           <div className="mx-auto mt-5 max-w-2xl border-b border-stone-900"></div>
         </div>
@@ -70,7 +68,20 @@ export default function ShopOurProducts() {
             ))}
           </div>
         )}
+
+        <div className="mt-12 text-center lg:mt-24">
+          <Button
+            asChild
+            className="bg-[#FFFDF mt-5 w-fit rounded border-2 border-[#484F56] py-5"
+            variant="outline"
+            size="default"
+          >
+            <Link href="/shop">View More</Link>
+          </Button>
+        </div>
       </div>
     </section>
   );
-}
+};
+
+export default NewArrival;

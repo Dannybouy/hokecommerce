@@ -45,7 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${montserrat.variable} ${valky.variable} ${roboto.variable} ${playfair.variable} ${inter.variable} bg-hokWhite`}
+        className={`${montserrat.variable} ${valky.variable} ${roboto.variable} ${playfair.variable} ${inter.variable} bg-[#f9f4E1]`}
       >
         <QueryProvider>
           <Navbar />

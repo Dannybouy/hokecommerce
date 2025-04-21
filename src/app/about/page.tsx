@@ -8,19 +8,7 @@ const About = () => {
     <main className="px-6 lg:px-0">
       <div className="container mx-auto mt-22">
         <h2 className="font-playfair text-center text-6xl">About</h2>
-        <svg
-          width="62"
-          height="62"
-          viewBox="0 0 62 62"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="mx-auto mt-6"
-        >
-          <path
-            d="M29.5897 1.8311C29.906 0.299297 32.094 0.299296 32.4103 1.8311L36.9688 23.9121C37.085 24.475 37.525 24.915 38.0879 25.0312L60.1689 29.5897C61.7007 29.906 61.7007 32.094 60.1689 32.4103L38.0879 36.9688C37.525 37.085 37.085 37.525 36.9688 38.0879L32.4103 60.1689C32.094 61.7007 29.906 61.7007 29.5897 60.1689L25.0312 38.0879C24.915 37.525 24.475 37.085 23.9121 36.9688L1.8311 32.4103C0.299297 32.094 0.299296 29.906 1.8311 29.5897L23.9121 25.0312C24.475 24.915 24.915 24.475 25.0312 23.9121L29.5897 1.8311Z"
-            fill="#CC5500"
-          />
-        </svg>
+        
       </div>
 
       <section
@@ -28,7 +16,7 @@ const About = () => {
         className="relative container mx-auto mt-22 lg:px-[119px]"
       >
         <h2 className="font-playfair text-6xl text-[#2D1801]">
-          Brand <br />
+          Our Brand <br />
           Story: Why HOK?
         </h2>
         <p className="font-montserrat mt-10 text-lg leading-10 font-medium text-pretty text-black">
@@ -44,19 +32,7 @@ const About = () => {
           to targeted treatments for acne, hyperpigmentation, and aging, we
           bring the best of Korean innovation straight to you.
         </p>
-        <svg
-          width="62"
-          height="62"
-          viewBox="0 0 62 62"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="absolute top-[20%] right-5"
-        >
-          <path
-            d="M29.5897 1.8311C29.906 0.299297 32.094 0.299296 32.4103 1.8311L36.9688 23.9121C37.085 24.475 37.525 24.915 38.0879 25.0312L60.1689 29.5897C61.7007 29.906 61.7007 32.094 60.1689 32.4103L38.0879 36.9688C37.525 37.085 37.085 37.525 36.9688 38.0879L32.4103 60.1689C32.094 61.7007 29.906 61.7007 29.5897 60.1689L25.0312 38.0879C24.915 37.525 24.475 37.085 23.9121 36.9688L1.8311 32.4103C0.299297 32.094 0.299296 29.906 1.8311 29.5897L23.9121 25.0312C24.475 24.915 24.915 24.475 25.0312 23.9121L29.5897 1.8311Z"
-            fill="#8DBC86"
-          />
-        </svg>
+        
         <div className="relative mt-10 grid grid-cols-2 gap-4 lg:grid-cols-3 lg:gap-10">
           <Image
             src="/why-hok1.png"
@@ -391,7 +367,7 @@ const About = () => {
                 1
               </span>
             </div>
-            <p className="font-montserrat mt-8 text-lg leading-11 font-medium text-balance lg:text-2xl">
+            <p className="font-montserrat mt-8 text-lg leading-11 font-medium text-balance lg:text-2xl text-[#2D1801]">
               Direct Partnerships with Korean Brands & Certified Distributors We
               don&apos;t buy from third-party resellers or unknown suppliers.
               Instead, we work directly with top K-beauty brands and authorized
@@ -405,13 +381,13 @@ const About = () => {
           </div>
 
           <div className="mt-8 items-center justify-between gap-10 lg:flex">
-            <div className="border-burntOrange h-[505px] max-w-2xl rounded-xl border-2 bg-[#F5F5DC] px-[30px] py-5">
-              <div className="bg-burntOrange flex size-[60px] items-center justify-center rounded-full">
+            <div className="border-[#73512C] h-[505px] max-w-2xl rounded-xl border-2 bg-[#F5F5DC] px-[30px] py-5">
+              <div className="bg-[#73512C] flex size-[60px] items-center justify-center rounded-full">
                 <span className="font-montserrat text-xl font-bold text-white">
                   2
                 </span>
               </div>
-              <p className="font-montserrat mt-5 text-lg leading-10 font-medium text-[#2D1801] lg:text-2xl">
+              <p className="font-montserrat text-lg leading-10 font-medium text-black/70 lg:text-2xl">
                 2️. Verified Authenticity & Quality Control Every product that
                 lands in our store goes through strict verification checks,
                 including:
@@ -424,13 +400,13 @@ const About = () => {
                 products)
               </p>
             </div>
-            <div className="border-burntOrange bg-burntOrange h-[505px] rounded-xl border-2 px-[30px] py-5">
+            <div className="border-[#73512C] bg-[#73512C] h-[505px] rounded-xl border-2 px-[30px] py-5">
               <div className="flex size-[60px] items-center justify-center rounded-full bg-[#F5F5DC]">
-                <span className="font-montserrat text-burntOrange text-xl font-bold">
+                <span className="font-montserrat text-[#73512C] text-xl font-bold">
                   3
                 </span>
               </div>
-              <p className="font-montserrat mt-5 text-2xl leading-10 font-medium text-[#F5F5DC]">
+              <p className="font-montserrat mt-5 text-2xl leading-10 font-medium text-cream">
                 Ethical & Safe Sourcing We believe in skin health, not skin
                 bleaching. That&apos;s why we only stock brands that are:
                 <br />
@@ -483,94 +459,6 @@ const About = () => {
           </div>
         </div>
       </section>
-
-      <section
-        id="trybe"
-        className="bg-burntOrange relative container mx-auto mt-22 px-6 py-[73px] lg:px-[119px]"
-      >
-        <Image
-          src="/sunflower-lg.png"
-          alt="sunflower"
-          width={100}
-          height={100}
-          className="absolute -top-15 right-10"
-        />
-        <h2 className="font-playfair text-6xl text-white">
-          Meet <br />
-          Our Founders
-        </h2>
-
-        <div className="mt-12">
-          <div className="flex flex-col items-start gap-8 md:flex-row">
-            <div className="flex w-full justify-end md:w-1/3">
-              <div className="inline-block rounded-3xl">
-                <Image
-                  src="/co-founder-2.png"
-                  alt="Nnenna Irebisi"
-                  width={400}
-                  height={400}
-                  quality={100}
-                  priority
-                  className="aspect-square rounded-3xl object-cover"
-                />
-              </div>
-            </div>
-            <div className="w-full md:w-2/3">
-              <h3 className="font-montserrat mb-4 text-4xl font-bold text-white">
-                Peter Okonkwo (Co-Founder)
-              </h3>
-              <p className="font-montserrat mt-10 max-w-3xl text-2xl leading-10 text-balance text-white">
-                A true skincare enthusiast who believes healthy skin is happy
-                skin. He is passionate about promoting the best skincare
-                practices and making Korean beauty accessible to all.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex justify-center">
-            <svg
-              width="107"
-              height="133"
-              viewBox="0 0 107 133"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M17.1982 131L20.2356 128.69L20.7172 132.476L17.1982 131ZM20.1007 130.298C41.0029 127.571 60.7293 123.553 75.9406 117.698C91.176 111.835 101.773 104.171 104.603 94.2232C107.425 84.3008 102.563 71.9162 86.3794 56.4785C70.2107 41.0548 42.8251 22.6682 0.847188 0.770139L1.15286 0.184153C43.1492 22.0917 70.5997 40.5124 86.8356 56.0002C103.057 71.4739 108.168 84.1048 105.239 94.404C102.316 104.678 91.4373 112.442 76.178 118.315C60.8948 124.197 41.1084 128.224 20.1862 130.953L20.1007 130.298Z"
-                fill="white"
-              />
-            </svg>
-          </div>
-
-          <div className="mb-16 flex flex-col items-start md:flex-row-reverse">
-            <div className="w-full md:w-1/3">
-              <div className="inline-block rounded-3xl">
-                <Image
-                  src="/co-founder-1.png"
-                  alt="Nnenna Irebisi"
-                  width={500}
-                  height={500}
-                  quality={100}
-                  priority
-                  className="rounded-3xl object-cover"
-                />
-              </div>
-            </div>
-
-            <div className="w-full md:w-2/3">
-              <h3 className="font-montserrat mb-4 text-4xl font-bold text-yellow-300">
-                Nnenna Irebisi (Co-Founder)
-              </h3>
-              <p className="font-montserrat mt-10 max-w-3xl text-2xl leading-10 text-balance text-white">
-                A true skincare enthusiast who believes healthy skin is happy
-                skin. She is passionate about promoting  the best skincare
-                practices and making Korean beauty accessible to all.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="container mx-auto my-32">
         <Newsletter />
       </section>

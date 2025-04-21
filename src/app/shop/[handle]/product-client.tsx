@@ -207,7 +207,7 @@ export default function ProductClient({
         <Button
           variant="ghost"
           asChild
-          className="hover:text-burntOrange p-0 hover:bg-transparent"
+          className="hover:text-[#73512C] p-0 hover:bg-transparent"
         >
           <Link href="/shop" className="flex items-center">
             <ChevronLeft className="mr-1 h-4 w-4" />
@@ -293,13 +293,13 @@ export default function ProductClient({
           <div className="flex gap-2">
             <Badge
               variant="default"
-              className="bg-burntOrange mb-4 rounded-3xl px-3 py-1 text-white"
+              className="bg-[#73512C] mb-4 rounded-3xl px-3 py-1 text-white font"
             >
               {product.vendor}
             </Badge>
             <Badge
               variant="default"
-              className="mb-4 rounded-3xl bg-neutral-700 px-3 py-1 text-white"
+              className="mb-4 rounded-3xl bg-[#2d1801] px-3 py-1 text-white"
             >
               {product.productType}
             </Badge>
@@ -379,7 +379,7 @@ export default function ProductClient({
             <Button
               id="add-to-bag-button"
               size="lg"
-              className="bg-burntOrange flex-1 cursor-pointer gap-2 text-white"
+              className="bg-[#73512C] flex-1 cursor-pointer gap-2 text-white"
               onClick={handleAddToBag}
               disabled={!inStock || quantity < 1}
             >
@@ -458,7 +458,7 @@ export default function ProductClient({
                       />
                     </div>
                   </div>
-                  <h3 className="group-hover:text-burntOrange font-medium font-montserrat">
+                  <h3 className="group-hover:text-[#73512C] font-medium font-montserrat">
                     {relatedProduct.title}
                   </h3>
                   <p className="text-base font-medium font-montserrat text-black">

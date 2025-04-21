@@ -119,7 +119,7 @@ const QuizResults: React.FC<QuizResultsProps> = ({
       </h2>
       <h3 className="font-playfair my-6 text-3xl">Results</h3>
 
-      <div className="bg-burntOrange font-montserrat mt-10 mb-8 w-fit max-w-fit rounded-[28px] px-5 py-[10px] text-lg font-semibold text-white">
+      <div className="bg-[#73512C] font-montserrat mt-10 mb-8 w-fit max-w-fit rounded-[28px] px-5 py-[10px] text-lg font-semibold text-white">
         Determing Your Skin Type
       </div>
 
@@ -215,7 +215,7 @@ const QuizResults: React.FC<QuizResultsProps> = ({
                       onClick={() => handlePageChange(pageNumber)}
                       className={`flex h-10 w-10 items-center justify-center rounded border ${
                         currentPage === pageNumber
-                          ? "border-burntOrange bg-burntOrange text-white"
+                          ? "border-[#73512C] bg-[#73512C] text-white"
                           : "border-gray-300 hover:bg-gray-50"
                       }`}
                     >

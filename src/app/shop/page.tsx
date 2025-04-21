@@ -94,7 +94,7 @@ export default async function ShopPage({
                             alt={product.featuredImage.altText || product.title}
                             width={product.featuredImage.width}
                             height={product.featuredImage.height}
-                            className="mb-2 h-48 w-full object-cover"
+                            className="mb-2 h-48 w-full object-cover "
                           />
                         )}
                         <h3 className="font-semibold font-montserrat">

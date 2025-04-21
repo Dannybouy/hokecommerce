@@ -121,7 +121,7 @@ const SkinQuiz = () => {
         Find out your skin type and #DISCOVER the best of Korean Skincare for
         your skin
       </p>
-      <div className="bg-burntOrange font-montserrat mt-10 w-fit max-w-fit rounded-[28px] px-5 py-[10px] text-lg font-semibold text-white">
+      <div className="bg-[#73512C] font-montserrat mt-10 w-fit max-w-fit rounded-[28px] px-5 py-[10px] text-lg font-semibold text-white">
         Answer the Questions
       </div>
       {Questions.map((q) => (
@@ -162,7 +162,7 @@ const SkinQuiz = () => {
         disabled={
           isSubmitting || Object.keys(answers).length < Questions.length
         }
-        className="bg-burntOrange font-montserrat mt-6 rounded-[28px] px-8 py-3 font-semibold text-white transition-all duration-300 hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+        className="bg-[#73512C] font-montserrat mt-6 rounded-[28px] px-8 py-3 font-semibold text-white transition-all duration-300 hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
       >
         <div className="flex items-center gap-2">
           {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}
