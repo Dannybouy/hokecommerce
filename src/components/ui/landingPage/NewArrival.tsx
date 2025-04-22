@@ -9,10 +9,13 @@ import Link from "next/link";
 
 const NewArrival = () => {
   const { data: products, isLoading } = useQuery({
-    queryKey: ["featuredProducts"],
+    queryKey: ["featuredProducts", "anua"],
     queryFn: async () => {
       const { products: fetchedProducts } = await getProducts({
         pageSize: 4,
+        searchParams: {
+          vendors: "anua",
+        },
       });
       return fetchedProducts;
     },
