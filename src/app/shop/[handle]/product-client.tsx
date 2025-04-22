@@ -413,8 +413,11 @@ export default function ProductClient({
               </AccordionTrigger>
               <AccordionContent className="mt-3">
                 <p>
-                  Free shipping on orders over ₦30,000. Standard shipping 3-5
-                  business days. Express shipping available at checkout.
+                Delivery Outside Lagos (Other States) For orders outside
+                  Lagos, we offer flexible delivery options for your location.
+                  Once your order is placed, our team will reach out via DM or
+                  WhatsApp to confirm the most convenient courier service and
+                  delivery cost for your area.
                 </p>
               </AccordionContent>
             </AccordionItem>

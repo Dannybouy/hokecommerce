@@ -16,7 +16,8 @@ interface ShopPageSearchParams {
   productType?: string | string[];
   tags?: string | string[];
   category?: string | string[]; // Note: Category often maps to productType or tags
-  page?: string;
+  after?: string; // Cursor for forward pagination
+  before?: string; // Cursor for backward pagination
   // Add other potential search params like sort, query etc.
 }
 
@@ -69,21 +70,18 @@ export async function shopifyFetch<T>({
 }
 
 /**
- * Fetches all products from the Shopify storefront API, optionally applying filters.
+ * Fetches products from the Shopify storefront API using cursor-based pagination.
+ * Handles both forward (after) and backward (before) pagination.
  */
 export async function getProducts({
   searchParams,
-  cursor = null,
-  pageSize = 15,
+  pageSize = 20,
 }: {
   searchParams?: ShopPageSearchParams;
-  cursor?: string | null;
   pageSize?: number;
 } = {}) {
-  // Provide default empty object
   if (!isShopifyConfigured) {
     console.warn("Shopify not configured. Returning mock data");
-    // Return mock data with consistent structure
     return {
       products: getMockProducts(),
       pageInfo: {
@@ -97,7 +95,6 @@ export async function getProducts({
 
   // --- Build Filter Query String ---
   const filterQueries: string[] = [];
-
   const processMultiParam = (
     param: string | string[] | undefined,
   ): string[] => {
@@ -109,79 +106,113 @@ export async function getProducts({
   if (vendors.length > 0) {
     filterQueries.push(`(${vendors.map((v) => `vendor:'${v}'`).join(" OR ")})`);
   }
-
   const productTypes = processMultiParam(searchParams?.productType);
   if (productTypes.length > 0) {
     filterQueries.push(
       `(${productTypes.map((pt) => `product_type:'${pt}'`).join(" OR ")})`,
     );
   }
-
-  // Assuming 'category' maps to product_type for filtering
   const categories = processMultiParam(searchParams?.category);
   if (categories.length > 0) {
     filterQueries.push(
       `(${categories.map((c) => `product_type:'${c}'`).join(" OR ")})`,
     );
   }
-
   const tags = processMultiParam(searchParams?.tags);
   if (tags.length > 0) {
     filterQueries.push(`(${tags.map((t) => `tag:'${t}'`).join(" OR ")})`);
   }
-
   const filterString = filterQueries.join(" AND ");
   // ---------------------------------
 
+  // --- Determine Pagination Variables ---
+  let paginationVariables: { [key: string]: string | number | null } = {
+    first: pageSize,
+    after: searchParams?.after || null,
+    last: null,
+    before: null,
+  };
+
+  if (searchParams?.before) {
+    // If navigating backwards
+    paginationVariables = {
+      first: null,
+      after: null,
+      last: pageSize,
+      before: searchParams.before,
+    };
+  }
+  // -------------------------------------
+
+  // --- Price Filtering (needs to be done post-fetch) ---
+  const minPrice = searchParams?.minPrice
+    ? parseFloat(searchParams.minPrice)
+    : undefined;
+  const maxPrice = searchParams?.maxPrice
+    ? parseFloat(searchParams.maxPrice)
+    : undefined;
+  // ---------------------------------
+
+  // Update GraphQL query to accept all pagination parameters
   const query = `
-  query GetProducts($filterQuery: String, $cursor: String, $first: Int!) {
-    products(first: $first, after: $cursor, query: $filterQuery) {
-      pageInfo {
-        hasNextPage
-        hasPreviousPage
-        startCursor
-        endCursor
-      }
-      edges {
-        cursor
-        node {
-          id
-          title
-          handle
-          description
-          priceRange {
-            minVariantPrice {
-              amount
-              currencyCode
+    query GetProducts(
+      $filterQuery: String,
+      $first: Int,
+      $last: Int,
+      $after: String,
+      $before: String
+    ) {
+      products(
+        first: $first,
+        last: $last,
+        after: $after,
+        before: $before,
+        query: $filterQuery
+      ) {
+        pageInfo {
+          hasNextPage
+          hasPreviousPage
+          startCursor
+          endCursor
+        }
+        edges {
+          cursor
+          node {
+            id
+            title
+            handle
+            description
+            priceRange {
+              minVariantPrice {
+                amount
+                currencyCode
+              }
             }
-          }
-          images(first: 1) {
-            edges {
-              node {
-                url
-                altText
-                width
-                height
+            images(first: 1) {
+              edges {
+                node {
+                  url
+                  altText
+                  width
+                  height
+                }
               }
             }
           }
         }
       }
     }
-  }
-`;
+  `;
 
   try {
     const response = await shopifyFetch<ShopifyProductsResponse>({
       query,
       variables: {
         filterQuery: filterString,
-        cursor: cursor || null,
-        first: pageSize,
+        ...paginationVariables, // Spread the correct pagination variables
       },
     });
 
-    // Add extra debugging for GraphQL errors
     if (response?.body?.errors) {
       console.error(
         "GraphQL Errors:",
@@ -196,7 +227,7 @@ export async function getProducts({
     ) {
       console.error("Invalid response from Shopify API:", response);
       return {
-        products: getMockProducts(),
+        products: [],
         pageInfo: {
           hasNextPage: false,
           hasPreviousPage: false,
@@ -221,22 +252,14 @@ export async function getProducts({
             height: node.images.edges[0].node.height,
           }
         : {
-            // Provide a default structure if no image exists
-            url: "/placeholder.svg", // Or a more appropriate default
+            url: "/placeholder.svg",
             altText: node.title,
-            width: 100, // Example default width
-            height: 100, // Example default height
+            width: 100,
+            height: 100,
           },
     }));
 
     // --- Post-fetch Price Filtering ---
-    const minPrice = searchParams?.minPrice
-      ? parseFloat(searchParams.minPrice)
-      : undefined;
-    const maxPrice = searchParams?.maxPrice
-      ? parseFloat(searchParams.maxPrice)
-      : undefined;
-
     if (minPrice !== undefined || maxPrice !== undefined) {
       products = products.filter((product) => {
         const price = parseFloat(product.price);
@@ -246,7 +269,6 @@ export async function getProducts({
       });
     }
 
-    // Ensure we return a consistent structure
     return {
       products: products,
       pageInfo: response.body.data.products.pageInfo || {
@@ -258,7 +280,6 @@ export async function getProducts({
     };
   } catch (error) {
     console.error("Error fetching products:", error);
-    // Return mock data with consistent structure
     return {
       products: getMockProducts(),
       pageInfo: {
@@ -271,7 +292,7 @@ export async function getProducts({
   }
 }
 
-// Mock data for development without a Shopify connection
+// Mock data (ensure featuredImage structure matches)
 function getMockProducts() {
   return [
     {
@@ -281,9 +302,11 @@ function getMockProducts() {
       description: "A deeply hydrating facial serum",
       price: "25000",
       currencyCode: "NGN",
-      image: {
+      featuredImage: {
         url: "/placeholder.svg",
         altText: "Hydrating Serum",
+        width: 100,
+        height: 100,
       },
     },
     {
@@ -293,9 +316,11 @@ function getMockProducts() {
       description: "Gentle daily cleanser for all skin types",
       price: "12000",
       currencyCode: "NGN",
-      image: {
+      featuredImage: {
         url: "/placeholder.svg",
         altText: "Facial Cleanser",
+        width: 100,
+        height: 100,
       },
     },
     {
@@ -305,9 +330,11 @@ function getMockProducts() {
       description: "Broad spectrum protection with vitamin E",
       price: "15000",
       currencyCode: "NGN",
-      image: {
+      featuredImage: {
         url: "/placeholder.svg",
         altText: "SPF 50 Sunscreen",
+        width: 100,
+        height: 100,
       },
     },
   ];

@@ -8,8 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
-// Re-add the interface from shopify/index.ts for page props typing
-// (Can't directly import from index.ts due to server/client boundary)
+// Updated search params interface
 interface ShopPageSearchParams {
   minPrice?: string;
   maxPrice?: string;
@@ -18,8 +17,8 @@ interface ShopPageSearchParams {
   productType?: string | string[];
   tags?: string | string[];
   category?: string | string[];
-  page?: string;
-  cursor?: string;
+  after?: string; // Cursor for forward pagination
+  before?: string; // Cursor for backward pagination
 }
 
 export default async function ShopPage({
@@ -27,25 +26,27 @@ export default async function ShopPage({
 }: {
   searchParams?: ShopPageSearchParams;
 }) {
-  const cursor = searchParams?.cursor || null;
-  const pageSize = 15;
+  // No need to extract cursor here, getProducts handles searchParams directly
+  const pageSize = 20;
 
-  // Get products with pagination
+  // Get products with pagination (getProducts now reads after/before from searchParams)
   const { products, pageInfo } = await getProducts({
     searchParams,
-    cursor,
     pageSize,
   });
 
-  // Build URLs for pagination links, preserving existing search params
-  const buildPaginationUrls = (newCursor: string): string | null => {
+  // Build URLs for pagination, preserving existing search params
+  // It now generates ?before=... or ?after=...
+  const buildPaginationUrl = (
+    cursor: string,
+    type: "before" | "after",
+  ): string => {
     const params = new URLSearchParams();
 
-    // Add all existing search params
+    // Add all existing search params *except* cursor params
     if (searchParams) {
       Object.entries(searchParams).forEach(([key, value]) => {
-        if (key !== "cursor") {
-          // Don't copy the cursor parameter
+        if (key !== "before" && key !== "after") {
           if (Array.isArray(value)) {
             value.forEach((v) => params.append(key, v));
           } else if (value) {
@@ -55,12 +56,28 @@ export default async function ShopPage({
       });
     }
 
-    // Add new cursor parameter
-    if (newCursor) {
-      params.set("cursor", newCursor);
-    }
+    // Add the new cursor parameter based on type
+    params.set(type, cursor);
 
     return `/shop?${params.toString()}`;
+  };
+
+  // Function to get the URL for the base page (no cursors)
+  const getBasePageUrl = (): string => {
+    const params = new URLSearchParams();
+    if (searchParams) {
+      Object.entries(searchParams).forEach(([key, value]) => {
+        if (key !== "before" && key !== "after") {
+          if (Array.isArray(value)) {
+            value.forEach((v) => params.append(key, v));
+          } else if (value) {
+            params.append(key, value);
+          }
+        }
+      });
+    }
+    const paramString = params.toString();
+    return paramString ? `/shop?${paramString}` : "/shop";
   };
 
   return (
@@ -74,56 +91,49 @@ export default async function ShopPage({
         <div className="md:col-span-3">
           <Suspense fallback={<ProductGridSkeleton />}>
             {/* Render the filtered products directly */}
-            {/* Replace this with your actual ProductGrid component */}
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {products && products.length > 0 ? (
-                products.map(
-                  (
-                    product: Products, // Use imported Products type
-                  ) => (
-                    <Link
-                      key={product.id}
-                      href={`/shop/${product.handle}`}
-                      className="group"
-                    >
-                      <div className="rounded border p-4 transition-shadow duration-200 group-hover:shadow-md">
-                        {/* Basic Product Card - Replace with your design */}
-                        {product.featuredImage && ( // Use featuredImage
-                          <Image
-                            src={product.featuredImage.url}
-                            alt={product.featuredImage.altText || product.title}
-                            width={product.featuredImage.width}
-                            height={product.featuredImage.height}
-                            className="mb-2 h-48 w-full object-cover "
-                          />
-                        )}
-                        <h3 className="font-semibold font-montserrat">
-                          {product.title}
-                        </h3>
-                        {/* Display price correctly */}
-                        <p className="font-medium text-gray-700 font-montserrat">
-                          {formatPrice(product.price, {
-                            currencyCode: product.currencyCode,
-                          })}
-                        </p>
-                      </div>
-                    </Link>
-                  ),
-                )
+                products.map((product: Products) => (
+                  <Link
+                    key={product.id}
+                    href={`/shop/${product.handle}`}
+                    className="group"
+                  >
+                    <div className="rounded border p-4 transition-shadow duration-200 group-hover:shadow-md">
+                      {product.featuredImage && (
+                        <Image
+                          src={product.featuredImage.url}
+                          alt={product.featuredImage.altText || product.title}
+                          width={product.featuredImage.width}
+                          height={product.featuredImage.height}
+                          className="mb-2 h-48 w-full object-cover"
+                        />
+                      )}
+                      <h3 className="font-montserrat font-semibold">
+                        {product.title}
+                      </h3>
+                      <p className="font-montserrat font-medium text-gray-700">
+                        {formatPrice(product.price, {
+                          currencyCode: product.currencyCode,
+                        })}
+                      </p>
+                    </div>
+                  </Link>
+                ))
               ) : (
                 <p>No products found matching your filters.</p>
               )}
             </div>
-            {/* TODO: Add Pagination controls here based on total product count and searchParams */}
+            {/* Pass correct props and adjusted buildUrl */}
             <Pagination
               hasNextPage={pageInfo.hasNextPage}
               hasPreviousPage={pageInfo.hasPreviousPage}
               startCursor={pageInfo.startCursor}
               endCursor={pageInfo.endCursor}
-              buildUrl={buildPaginationUrls}
+              buildUrl={buildPaginationUrl}
+              getBaseUrl={getBasePageUrl} // Pass function to get base URL
             />
           </Suspense>
-          {/* <ShopClient initialProducts={products} /> */}
         </div>
       </div>
     </div>

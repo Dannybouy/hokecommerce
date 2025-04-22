@@ -1,6 +1,5 @@
 "use client";
 
-import DiscoveredForYou from "@/components/DiscoveredForYou";
 import ShopOurProducts from "@/components/ShopOurProducts";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,13 +7,9 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import Newsletter from "@/components/ui/landingPage/Newsletter";
-//import SearchComponent from "@/components/ui/landingPage/search";
 import EnhancedCarousel from "@/components/ui/landingPage/Carousel";
 import ProductCategories from "@/components/ui/landingPage/ProductCategories";
-import Testimonial from "@/components/ui/landingPage/Testimonial";
 import Autoplay from "embla-carousel-autoplay";
-import { MoveUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import NewArrival from "@/components/ui/landingPage/NewArrival";
@@ -34,6 +29,10 @@ const carouselItems = [
   },
   {
     src: "/brands-carousel-4.png",
+    alt: "Lizara Korean Skincare Products",
+  },
+  {
+    src: "/anua-slides.jpg",
     alt: "Lizara Korean Skincare Products",
   },
 ];

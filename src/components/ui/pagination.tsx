@@ -7,7 +7,8 @@ interface PaginationProps {
   hasPreviousPage: boolean;
   startCursor: string | null;
   endCursor: string | null;
-  buildUrl: (newCursor: string) => string | null;
+  buildUrl: (cursor: string, type: "before" | "after") => string | null;
+  getBaseUrl: () => string | null;
 }
 
 const Pagination = ({
@@ -16,12 +17,21 @@ const Pagination = ({
   startCursor,
   endCursor,
   buildUrl,
+  getBaseUrl,
 }: PaginationProps) => {
+  // Determine the href for the Previous button, falling back to #
+  const prevHref = startCursor
+    ? (buildUrl(startCursor, "before") ?? "#")
+    : (getBaseUrl() ?? "#");
+
+  // Determine the href for the Next button, falling back to #
+  const nextHref = endCursor ? (buildUrl(endCursor, "after") ?? "#") : "#";
+
   return (
     <div className="mt-8 flex items-center justify-center gap-2">
-      {hasPreviousPage && startCursor && (
+      {hasPreviousPage && (
         <Link
-          href={buildUrl(startCursor) || "#"}
+          href={prevHref}
           className="flex items-center rounded-md bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm ring-1 ring-gray-300 hover:bg-gray-50"
         >
           <ChevronLeft className="mr-1 h-4 w-4" />
@@ -31,7 +41,7 @@ const Pagination = ({
 
       {hasNextPage && endCursor && (
         <Link
-          href={buildUrl(endCursor) || "#"}
+          href={nextHref}
           className="flex items-center rounded-md bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm ring-1 ring-gray-300 hover:bg-gray-50"
         >
           Next

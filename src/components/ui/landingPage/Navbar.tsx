@@ -2,16 +2,9 @@
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import SignUpPopover from "@/components/ui/SignUpPopover";
 import { useCartStore } from "@/store/useCartStore";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
-import {
-  Heart,
-  Menu,
-  Plus,
-  ShoppingCart,
-  User,
-} from "lucide-react";
+import { Menu, Plus, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -45,6 +38,10 @@ const NavLinks = [
         title: "12 Grabs",
         href: "/shop?vendors=12-grabs",
       },
+      {
+        title: "Anua",
+        href: "/shop?vendors=anua",
+      },
     ],
   },
 
@@ -60,7 +57,7 @@ const NavLinks = [
         title: "Wholesaler Terms",
         href: "/wholesale",
       },
-      
+
       {
         title: "Join The HOK Tribe",
         href: "https://linktr.ee/hokbeauty",
@@ -125,7 +122,6 @@ export default function Navbar() {
 
       {/* User icons */}
       <div className="absolute top-4 right-4 flex items-center gap-3">
-
         <Link href="/cart">
           <Button
             variant="ghost"
@@ -198,7 +194,7 @@ export default function Navbar() {
                             ? brandsButtonRef
                             : proButtonRef
                         }
-                        className="flex cursor-pointer items-center gap-1 font-medium  uppercase focus:outline-none"
+                        className="flex cursor-pointer items-center gap-1 font-medium uppercase focus:outline-none"
                       >
                         {link.title}
                         <Plus className="h-3 w-3" />

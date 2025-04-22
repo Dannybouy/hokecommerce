@@ -9,7 +9,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { Suspense } from "react";
 
-interface ShopPageSearchParams {
+// Use the updated search params interface with before/after cursors
+interface WholesaleShopPageSearchParams {
   minPrice?: string;
   maxPrice?: string;
   collections?: string | string[];
@@ -17,33 +18,36 @@ interface ShopPageSearchParams {
   productType?: string | string[];
   tags?: string | string[];
   category?: string | string[];
-  page?: string;
-  cursor?: string;
+  after?: string; // Cursor for forward pagination
+  before?: string; // Cursor for backward pagination
 }
+
 const WholesaleShop = async ({
   searchParams,
 }: {
-  searchParams?: ShopPageSearchParams;
+  searchParams?: WholesaleShopPageSearchParams;
 }) => {
-  const cursor = searchParams?.cursor || null;
+  // getProducts now handles reading before/after cursors from searchParams
   const pageSize = 15;
 
-  // Get products with pagination
+  // Get products with pagination using updated logic
   const { products, pageInfo } = await getProducts({
     searchParams,
-    cursor,
     pageSize,
   });
 
-  // Build URLs for pagination links, preserving existing search params
-  const buildPaginationUrls = (newCursor: string): string | null => {
+  // Build URLs for pagination, preserving existing search params
+  // Generates ?before=... or ?after=...
+  const buildPaginationUrl = (
+    cursor: string,
+    type: "before" | "after",
+  ): string => {
     const params = new URLSearchParams();
 
-    // Add all existing search params
+    // Add all existing search params *except* cursor params
     if (searchParams) {
       Object.entries(searchParams).forEach(([key, value]) => {
-        if (key !== "cursor") {
-          // Don't copy the cursor parameter
+        if (key !== "before" && key !== "after") {
           if (Array.isArray(value)) {
             value.forEach((v) => params.append(key, v));
           } else if (value) {
@@ -53,12 +57,30 @@ const WholesaleShop = async ({
       });
     }
 
-    // Add new cursor parameter
-    if (newCursor) {
-      params.set("cursor", newCursor);
-    }
+    // Add the new cursor parameter based on type
+    params.set(type, cursor);
 
-    return `/shop?${params.toString()}`;
+    // Ensure URL points to the wholesale shop
+    return `/wholesale-shop?${params.toString()}`;
+  };
+
+  // Function to get the URL for the base page (no cursors)
+  const getBasePageUrl = (): string => {
+    const params = new URLSearchParams();
+    if (searchParams) {
+      Object.entries(searchParams).forEach(([key, value]) => {
+        if (key !== "before" && key !== "after") {
+          if (Array.isArray(value)) {
+            value.forEach((v) => params.append(key, v));
+          } else if (value) {
+            params.append(key, value);
+          }
+        }
+      });
+    }
+    const paramString = params.toString();
+    // Ensure URL points to the wholesale shop
+    return paramString ? `/wholesale-shop?${paramString}` : "/wholesale-shop";
   };
 
   return (
@@ -72,61 +94,56 @@ const WholesaleShop = async ({
         <div className="md:col-span-3">
           <Suspense fallback={<ProductGridSkeleton />}>
             {/* Render the filtered products directly */}
-            {/* Replace this with your actual ProductGrid component */}
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {products && products.length > 0 ? (
-                products.map(
-                  (
-                    product: Products, // Use imported Products type
-                  ) => (
-                    <Link
-                      key={product.id}
-                      href={`/wholesale-shop/${product.handle}`}
-                      className="group"
-                    >
-                      <div className="rounded border p-4 transition-shadow duration-200 group-hover:shadow-md">
-                        {/* Basic Product Card - Replace with your design */}
-                        {product.featuredImage && ( // Use featuredImage
-                          <Image
-                            src={product.featuredImage.url}
-                            alt={product.featuredImage.altText || product.title}
-                            width={product.featuredImage.width}
-                            height={product.featuredImage.height}
-                            className="mb-2 h-48 w-full object-cover"
-                          />
-                        )}
-                        <Badge
-                          variant="default"
-                          className="bg-[#73512C] my-2 rounded-3xl px-3 py-1 text-white"
-                        >
-                          Buy 5 get 5% off
-                        </Badge>
-                        <div className="">
-                          <h3 className="text-base font-medium">
-                            {product.title}
-                          </h3>
-                        </div>
-                        {/* Display price correctly */}
-                        <p className="font-medium">
-                          {formatPrice(product.price, {
-                            currencyCode: product.currencyCode,
-                          })}
-                        </p>
+                products.map((product: Products) => (
+                  <Link
+                    key={product.id}
+                    href={`/wholesale-shop/${product.handle}`}
+                    className="group"
+                  >
+                    <div className="rounded border p-4 transition-shadow duration-200 group-hover:shadow-md">
+                      {product.featuredImage && (
+                        <Image
+                          src={product.featuredImage.url}
+                          alt={product.featuredImage.altText || product.title}
+                          width={product.featuredImage.width}
+                          height={product.featuredImage.height}
+                          className="mb-2 h-48 w-full object-cover"
+                        />
+                      )}
+                      <Badge
+                        variant="default"
+                        className="my-2 rounded-3xl bg-[#73512C] px-3 py-1 text-white"
+                      >
+                        Buy 5 get 5% off
+                      </Badge>
+                      <div className="">
+                        <h3 className="text-base font-medium">
+                          {product.title}
+                        </h3>
                       </div>
-                    </Link>
-                  ),
-                )
+                      <p className="font-medium">
+                        {formatPrice(product.price, {
+                          currencyCode: product.currencyCode,
+                        })}
+                      </p>
+                    </div>
+                  </Link>
+                ))
               ) : (
                 <p>No products found matching your filters.</p>
               )}
             </div>
-            
+
+            {/* Use the updated Pagination component with correct props */}
             <Pagination
               hasNextPage={pageInfo.hasNextPage}
               hasPreviousPage={pageInfo.hasPreviousPage}
               startCursor={pageInfo.startCursor}
               endCursor={pageInfo.endCursor}
-              buildUrl={buildPaginationUrls}
+              buildUrl={buildPaginationUrl}
+              getBaseUrl={getBasePageUrl}
             />
           </Suspense>
         </div>

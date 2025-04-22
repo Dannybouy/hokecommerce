@@ -147,7 +147,7 @@ const About = () => {
                   concentrated formulas that work.
                 </p>
                 <div className="mt-auto">
-                  <Link href="/shop">
+                  <Link href="/shop?vendors=derma-factory">
                     <Button className="font-montserrat rounded-full bg-[#2d1801] px-8 py-2 font-medium tracking-wide text-white hover:bg-[#472b07]">
                       SHOP NOW
                     </Button>
@@ -198,7 +198,7 @@ const About = () => {
                   effective beauty.
                 </p>
                 <div className="mt-auto">
-                  <Link href="/shop">
+                  <Link href="/shop?vendors=12-grabs">
                     <Button className="font-montserrat rounded-full bg-[#2d1801] px-8 py-2 font-medium tracking-wide text-white hover:bg-[#472b07]">
                       SHOP NOW
                     </Button>
@@ -250,7 +250,7 @@ const About = () => {
                   heal, soothe, and transform.
                 </p>
                 <div className="mt-auto">
-                  <Link href="/shop">
+                  <Link href="/shop?vendors=cosrx">
                     <Button className="font-montserrat rounded-full bg-[#2d1801] px-8 py-2 font-medium tracking-wide text-white hover:bg-[#472b07]">
                       SHOP NOW
                     </Button>
@@ -300,7 +300,59 @@ const About = () => {
                   skincare science to nourish and rejuvenate your skin.
                 </p>
                 <div className="mt-auto">
-                  <Link href="/shop">
+                  <Link href="/shop?vendors=lizara">
+                    <Button className="font-montserrat rounded-full bg-[#2d1801] px-8 py-2 font-medium tracking-wide text-white hover:bg-[#472b07]">
+                      SHOP NOW
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+
+              
+            </div>
+
+            <div className="item-center mr-20 flex justify-end mt-10">
+              <svg
+                width="160"
+                height="202"
+                viewBox="0 0 160 202"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M25.5084 198.85L30.104 195.355L30.8328 201.083L25.5084 198.85ZM29.9 197.787C61.5256 193.662 91.3723 187.582 114.387 178.724C137.439 169.853 153.473 158.257 157.754 143.206C162.024 128.193 154.668 109.455 130.182 86.097C105.718 62.7605 64.2827 34.9409 0.768793 1.80858L1.2313 0.921965C64.773 34.0688 106.306 61.9399 130.872 85.3734C155.415 108.786 163.148 127.896 158.716 143.48C154.295 159.025 137.834 170.772 114.747 179.658C91.6226 188.557 61.6852 194.65 30.0293 198.779L29.9 197.787Z"
+                  fill="#CC5500"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div>
+            <h2 className="font-montserrat mb-5 text-2xl font-bold text-black/70">
+              Anua
+            </h2>
+
+            <div className="flex flex-col items-start gap-6 overflow-hidden rounded-xl md:flex-row">
+              <div className="shadow- order-2 w-full rounded-[18px] border-[3px] shadow-xl md:w-1/2 lg:w-[600px]">
+                <Image
+                  src="/anua.png"
+                  alt="Derma factory"
+                  width={600}
+                  height={500}
+                  quality={100}
+                  priority
+                  className="h-auto w-full rounded-[15px] object-cover"
+                />
+              </div>
+              <div className="order-1 flex w-full flex-col md:w-1/2">
+                <p className="font-montserrat mb-6 text-base leading-relaxed font-medium text-pretty text-black/70 md:text-xl lg:max-w-xl">
+                  Luxury meets nature in Lizara&apos;s carefully crafted
+                  skincare. Infused with premium botanical extracts, this brand
+                  offers a balance of traditional herbal wisdom and modern
+                  skincare science to nourish and rejuvenate your skin.
+                </p>
+                <div className="mt-auto">
+                  <Link href="/shop?vendors=anua">
                     <Button className="font-montserrat rounded-full bg-[#2d1801] px-8 py-2 font-medium tracking-wide text-white hover:bg-[#472b07]">
                       SHOP NOW
                     </Button>
@@ -374,7 +426,7 @@ const About = () => {
                 Direct Partnerships with Korean Brands & Certified Distributors
               </p>
               <p className="font-montserrat mt-4 text-base leading-relaxed text-black/70">
-                We don't buy from third-party resellers or unknown suppliers. Instead, we work directly with top K-beauty brands and authorized distributors to ensure:
+                We don&apos;t buy from third-party resellers or unknown suppliers. Instead, we work directly with top K-beauty brands and authorized distributors to ensure:
               </p>
               <ul className="mt-4 space-y-2 text-black/70">
                 <li className="font-montserrat text-base">Original formulations (No watered-down or fake versions)</li>
@@ -397,7 +449,7 @@ const About = () => {
               <ul className="mt-4 space-y-2 text-black/70">
                 <li className="font-montserrat text-base">Batch & serial number tracking to confirm authenticity</li>
                 <li className="font-montserrat text-base">Ingredient list verification (so you get the original formula)</li>
-                <li className="font-montserrat text-base">Freshness checks (we don't sell expired or near-expiry products)</li>
+                <li className="font-montserrat text-base">Freshness checks (we don&apos;t sell expired or near-expiry products)</li>
               </ul>
             </div>
 
@@ -410,7 +462,7 @@ const About = () => {
                 Ethical & Safe Sourcing
               </p>
               <p className="font-montserrat mt-4 text-base leading-relaxed text-white/90">
-                We believe in skin health, not skin bleaching. That's why we only stock brands that are:
+                We believe in skin health, not skin bleaching. That&apos;s why we only stock brands that are:
               </p>
               <ul className="mt-4 space-y-2 text-white/90">
                 <li className="font-montserrat text-base">Cruelty-free & dermatologist-approved</li>
