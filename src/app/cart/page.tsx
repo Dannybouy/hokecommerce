@@ -3,7 +3,13 @@
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/useCartStore";
 import { formatPrice } from "@/utils/formatPrice";
-import { Loader2, Minus, Plus, X } from "lucide-react";
+import {
+  Loader2,
+  MessageSquareWarning,
+  Minus,
+  Plus,
+  X,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -77,7 +83,16 @@ const Cart = () => {
     <main className="px-6 lg:px-0">
       <div className="container mx-auto mt-22">
         <h2 className="font-playfair text-center text-6xl">Cart</h2>
-        
+
+        <div className="font-montserrat container mx-auto my-6 flex max-w-4xl items-center gap-2 border-2 border-[#73512C] bg-red-400 p-4">
+          <MessageSquareWarning className="size-20 mr-3" />
+          <p className="text-sm">
+            Delivery Outside Lagos (Other States) For orders outside Lagos, we
+            offer flexible delivery options for your location. Once your order
+            is placed, our team will reach out via DM or WhatsApp to confirm the
+            most convenient courier service and delivery cost for your area.
+          </p>
+        </div>
       </div>
       <section className="container mx-auto my-32 w-full lg:px-[119px]">
         {items.length === 0 ? (
@@ -309,7 +324,7 @@ const Cart = () => {
                 )}
 
                 <Button
-                  className="bg-[#73512C] hover:bg-[#73512C]/80 w-full rounded-none transition-all duration-300"
+                  className="w-full rounded-none bg-[#73512C] transition-all duration-300 hover:bg-[#73512C]/80"
                   size="lg"
                   onClick={handleCheckout}
                   disabled={isCheckingOut || items.length === 0}
