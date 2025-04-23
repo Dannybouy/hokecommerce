@@ -4,7 +4,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="mx-12 text-white">
+    <footer className="mx-0 lg:mx-12 text-white">
       <div className="container mx-auto rounded-xl bg-[#2D1801] p-12">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3 lg:grid-cols-4">
           {/* Logo and Mailing List */}

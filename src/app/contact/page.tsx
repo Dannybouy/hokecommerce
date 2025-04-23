@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input";
 import Newsletter from "@/components/ui/landingPage/Newsletter";
 import { Textarea } from "@/components/ui/textarea";
 import { Asterisk } from "lucide-react";
-import Image from "next/image";
 import React from "react";
 
 const Contact = () => {

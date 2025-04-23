@@ -106,22 +106,62 @@ export default function Navbar() {
 
   return (
     <header className="w-full bg-[#f8f4e8]">
-      {/* Top logo bar */}
-      <div className="flex justify-center py-2">
-        <Link href="/">
-          <div className="flex flex-col items-center">
-            <Image
-              src="/new-hok-logo.svg"
-              alt="HOK Logo"
-              width={60}
-              height={40}
-            />
-          </div>
-        </Link>
-      </div>
+      {/* Top bar with logo and icons */}
+      <div className="relative flex items-center justify-between px-4 py-2">
+        {/* Mobile menu trigger */}
+        <Sheet open={open} onOpenChange={setOpen}>
+          <SheetTrigger asChild className="lg:hidden">
+            <Button variant="ghost" size="icon" className="text-black">
+              <Menu className="h-6 w-6" />
+              <span className="sr-only">Toggle menu</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-[300px] sm:w-[400px] pl-5 border-r-2 border-[#73512C]">
+            <nav className="mt-10 flex flex-col gap-2">
+              {NavLinks.map((link) => (
+                <div key={link.title} className="border-b border-gray-100 py-3">
+                  <Link
+                    href={link.href}
+                    className="text-lg font-medium transition-colors hover:text-gray-600 font-montserrat text-[#2D1801]"
+                    onClick={() => setOpen(false)}
+                  >
+                    {link.title}
+                  </Link>
+                  {link.submenu && (
+                    <div className="mt-3 ml-4 flex flex-col gap-3 font-montserrat">
+                      {link.submenu.map((subItem) => (
+                        <Link
+                          key={subItem.title}
+                          href={subItem.href}
+                          className="text-sm text-[#73512C] transition-colors hover:text-black"
+                          onClick={() => setOpen(false)}
+                        >
+                          {subItem.title}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </nav>
+          </SheetContent>
+        </Sheet>
 
-      {/* User icons */}
-      <div className="absolute top-4 right-4 flex items-center gap-3">
+        {/* Logo centered */}
+        <div className="absolute left-1/2 -translate-x-1/2">
+          <Link href="/">
+            <div className="flex flex-col items-center">
+              <Image
+                src="/new-hok-logo.svg"
+                alt="HOK Logo"
+                width={60}
+                height={40}
+              />
+            </div>
+          </Link>
+        </div>
+
+        {/* Cart icon */}
         <Link href="/cart">
           <Button
             variant="ghost"
@@ -141,45 +181,6 @@ export default function Navbar() {
 
       {/* Main navigation */}
       <nav className="font-montserrat border-b-2 border-[#2c2c2c] py-3">
-        {/* Mobile menu */}
-        <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger asChild className="ml-4 lg:hidden">
-            <Button variant="ghost" size="icon" className="text-black">
-              <Menu className="h-6 w-6" />
-              <span className="sr-only">Toggle menu</span>
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="left" className="w-[300px] sm:w-[400px]">
-            <nav className="mt-8 flex flex-col gap-4">
-              {NavLinks.map((link) => (
-                <div key={link.title} className="py-2">
-                  <Link
-                    href={link.href}
-                    className="text-lg font-medium transition-colors hover:text-gray-600"
-                    onClick={() => setOpen(false)}
-                  >
-                    {link.title}
-                  </Link>
-                  {link.submenu && (
-                    <div className="mt-2 ml-4 flex flex-col gap-2">
-                      {link.submenu.map((subItem) => (
-                        <Link
-                          key={subItem.title}
-                          href={subItem.href}
-                          className="text-sm text-gray-600 transition-colors hover:text-black"
-                          onClick={() => setOpen(false)}
-                        >
-                          {subItem.title}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </nav>
-          </SheetContent>
-        </Sheet>
-
         {/* Desktop navigation */}
         <div className="mx-auto hidden max-w-screen-2xl justify-center lg:flex">
           <div className="flex items-center justify-center space-x-6">

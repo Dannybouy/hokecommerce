@@ -13,13 +13,13 @@ const FaqAccordion = () => {
       {AccordionContentList.map((faq) => (
         <AccordionItem value={faq.id} key={faq.id} className="pb-4">
           <AccordionTrigger className="
-            font-inter text-sm md:text-base uppercase rounded-md
+            font-montserrat text-sm md:text-base uppercase rounded-md
           ">
             {faq.title}
           </AccordionTrigger>
           <AccordionContent className="
-            font-inter mt-3 md:mt-4 mb-0 md:mb-4 rounded-md bg-white px-5 py-4
-            text-sm md:text-base
+             mt-3 md:mt-4 mb-0 md:mb-4 rounded-md bg-white px-5 py-4
+            text-sm md:text-base font-montserrat
           ">
             {faq.content}
           </AccordionContent>
