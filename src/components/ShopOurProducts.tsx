@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { getProducts } from "@/lib/shopify";
 import { Products } from "@/lib/shopify/types";
 import { formatPrice } from "@/utils/formatPrice";

@@ -294,7 +294,7 @@ export default function Filters() {
           <Button
             variant="outline"
             size="lg"
-            className="bg-gold text-burntOrange mt-4 ml-4"
+            className="bg-[#73512C] text-white mt-6 w-full"
             onClick={handleClearFilters}
           >
             Clear Filter

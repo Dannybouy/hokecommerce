@@ -5,8 +5,7 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
+
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 import { useFetchAllCollections } from "@/utils/hooks/useFetchAllCollections";
@@ -19,7 +18,7 @@ export default function EnhancedCarousel() {
   // Loading state with skeleton
   if (isLoading) {
     return (
-      <section className="container mx-auto max-w-5xl px-4 py-16">
+      <section className="container mx-auto max-w-5xl px-4 lg:py-16">
         <div className="mb-10 text-center">
           <h1 className="font-playfair mx-auto text-center text-2xl text-stone-900 lg:max-w-80 lg:text-7xl">
             Our Collections
@@ -55,7 +54,7 @@ export default function EnhancedCarousel() {
   }
 
   return (
-    <section className="max-w-8xl container mx-auto px-4 py-16">
+    <section className="max-w-8xl container mx-auto px-4 py-8 lg:py-16">
       {/* Heading */}
       <div className="mb-10 text-center">
         <h1 className="font-playfair mx-auto text-center text-2xl text-stone-900 lg:text-7xl">
@@ -64,8 +63,48 @@ export default function EnhancedCarousel() {
         <div className="mx-auto mt-5 max-w-2xl border-b border-stone-900"></div>
       </div>
 
-      {/* Carousel */}
-      <div className="relative">
+      {/* Mobile Grid View */}
+      <div className="grid grid-cols-2 gap-4 md:hidden">
+        {collections?.slice(0, 4).map((collection) => (
+          <div key={collection.id} className="mb-6">
+            <Link
+              href={`/shop?collections=${collection.handle}`}
+              className="block"
+            >
+              <div className="mb-3 overflow-hidden rounded-lg">
+                <div className="relative h-[180px] w-full">
+                  {collection.image ? (
+                    <Image
+                      src={collection.image.url}
+                      alt={collection.image.altText || collection.title}
+                      fill
+                      className="rounded-lg object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center bg-gray-100">
+                      <p className="text-sm font-medium text-gray-500">
+                        {collection.title}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <Button
+                className="bg-[#FFFDF mt-2 w-full rounded-none border-2 border-[#484F56] py-2"
+                variant="outline"
+                size="sm"
+              >
+                <h3 className="font-montserrat text-center text-xs font-semibold uppercase">
+                  {collection.title}
+                </h3>
+              </Button>
+            </Link>
+          </div>
+        ))}
+      </div>
+
+      {/* Carousel for larger screens */}
+      <div className="relative hidden md:block">
         {/* Slides container */}
         <Carousel
           className="w-full"
@@ -81,7 +120,7 @@ export default function EnhancedCarousel() {
             {collections?.slice(0, 4).map((collection) => (
               <CarouselItem
                 key={collection.id}
-                className="overflow-hidden rounded-lg md:basis-1/4 lg:basis-1/4"
+                className="overflow-hidden md:basis-1/4 lg:basis-1/4"
               >
                 <Link
                   href={`/shop?collections=${collection.handle}`}

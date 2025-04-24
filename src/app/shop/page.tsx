@@ -99,7 +99,7 @@ export default async function ShopPage({
                     href={`/shop/${product.handle}`}
                     className="group"
                   >
-                    <div className="rounded border p-4 transition-shadow duration-200 group-hover:shadow-md">
+                    <div className="rounded border border-[#2D1801]/20 p-4 transition-shadow duration-200 group-hover:shadow-md">
                       {product.featuredImage && (
                         <Image
                           src={product.featuredImage.url}

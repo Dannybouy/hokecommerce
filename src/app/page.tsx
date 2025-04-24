@@ -41,20 +41,54 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="w-full bg-[#f8f4e8] py-10 md:py-16">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col items-center md:flex-row md:items-center md:justify-between">
+      <section className="relative w-full py-0 md:py-16">
+        {/* Mobile background image */}
+        <div className="relative h-[50vh] w-full md:hidden">
+          <Image
+            src="/lizare-image-2.png"
+            alt="Lizara Korean Skincare Products"
+            fill
+            className="object-cover"
+            priority
+          />
+          {/* Mobile text overlay */}
+          <div className="absolute inset-0 flex flex-col items-start justify-center bg-black/30 p-8 backdrop-blur-[2px]">
+            <h2 className="font-playfair text-4xl font-bold text-[#b88e5b]">
+              DISCOVER
+            </h2>
+            <h1 className="font-playfair mt-2 mb-3 text-4xl font-bold text-white uppercase">
+              AUTHENTIC
+              <br />
+              KOREAN SKINCARE
+            </h1>
+            <p className="font-montserrat mb-6 text-base text-white">
+              Save more on your order!
+            </p>
+            <Link href="/shop">
+              <Button
+                className="font-montserrat rounded bg-[#73512c] text-white uppercase hover:bg-[#5d4726]"
+                size="lg"
+              >
+                SHOP NOW
+              </Button>
+            </Link>
+          </div>
+        </div>
+
+        {/* Desktop layout */}
+        <div className="container mx-auto hidden px-4 md:block">
+          <div className="flex items-center justify-between">
             {/* Left content */}
-            <div className="mb-8 w-full md:mb-0 md:ml-auto md:w-1/2 md:pr-8 md:pl-16">
-              <h2 className="font-playfair text-2xl text-[#7a5c2d] md:text-3xl lg:text-6xl">
+            <div className="mb-0 w-1/2 md:ml-auto md:pr-8 md:pl-16">
+              <h2 className="font-playfair text-3xl text-[#7a5c2d] lg:text-6xl">
                 DISCOVER
               </h2>
-              <h1 className="font-playfair mt-2 mb-3 text-4xl font-bold text-black uppercase md:text-5xl lg:text-6xl">
+              <h1 className="font-playfair mt-2 mb-3 text-5xl font-bold text-black uppercase lg:text-6xl">
                 Authentic
                 <br />
                 KOREAN SKINCARE
               </h1>
-              <p className="font-montserrat mb-6 text-base md:text-lg">
+              <p className="font-montserrat mb-6 text-lg">
                 Save more on your order!
               </p>
               <Link href="/shop">
@@ -68,8 +102,8 @@ export default function Home() {
             </div>
 
             {/* Right content - Product Image */}
-            <div className="h-full w-full md:w-1/2">
-              <div className="relative h-[300px] md:h-[400px] lg:h-[500px]">
+            <div className="h-full w-1/2">
+              <div className="relative h-[400px] w-full lg:h-[500px]">
                 <Image
                   src="/lizare-image-2.png"
                   alt="Lizara Korean Skincare Products"
@@ -84,9 +118,9 @@ export default function Home() {
       </section>
 
       {/* Wholesaler Banner */}
-      <div className="font-montserrat container hidden w-full border-t border-b border-[#2c2c2c] bg-[#f8f4e8] py-3 font-semibold lg:block">
-        <div className="container mx-auto flex items-center justify-center gap-6">
-          <p className="font-montserrat mb-2 text-center text-sm font-semibold text-black md:text-base">
+      <div className="font-montserrat w-full border-t border-b border-[#2c2c2c] py-3 lg:block">
+        <div className="flex items-center justify-center px-4 text-center lg:gap-6">
+          <p className="font-montserrat text-xs font-semibold text-black md:text-base text-left lg:text-center">
             JOIN THE HOK TRYBE & BECOME A WHOLESALER
           </p>
           <Link href="/wholesale">
@@ -100,7 +134,7 @@ export default function Home() {
         </div>
       </div>
 
-      <section className="mb-8 w-full">
+      <section className="mb-8 w-full border-b border-[#2c2c2c]">
         <Carousel
           opts={{
             align: "start",
@@ -138,7 +172,7 @@ export default function Home() {
       </div>
 
       {/* Featured Products */}
-      <div className="mt-14 w-full">
+      <div className=" lg:mt-14 w-full">
         <ShopOurProducts />
       </div>
 

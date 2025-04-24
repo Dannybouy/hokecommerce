@@ -14,7 +14,7 @@ const About = () => {
 
       <section
         id="story"
-        className="relative container mx-auto mt-10 lg:mt-22 lg:px-[119px]"
+        className="relative mx-auto mt-10 lg:mt-22 lg:px-[119px]"
       >
         <h2 className="font-playfair text-4xl text-[#2D1801] lg:text-6xl">
           Our Brand <br />
@@ -89,7 +89,7 @@ const About = () => {
 
       <section
         id="brand"
-        className="container mx-auto mt-10 lg:mt-22 lg:px-[119px]"
+        className="mx-auto mt-10 lg:mt-22 lg:px-[119px]"
       >
         <div className="flex items-center justify-between">
           <h2 className="font-playfair text-2xl text-[#2D1801] md:text-6xl">
@@ -122,26 +122,28 @@ const About = () => {
             to Korea to partner with brands that deliver real results.
           </p>
         </div>
+
         <div className="mt-10 lg:mt-22">
+          {/* Derma Factory */}
           <div>
             <h2 className="font-montserrat mb-2 text-lg font-bold text-black/70 lg:mb-5 lg:text-2xl">
               Derma Factory
             </h2>
 
-            <div className="flex flex-col items-start gap-6 overflow-hidden rounded-xl md:flex-row">
-              <div className="border-gold lg:shadow-gold w-full rounded-[18px] border-[3px] md:w-1/2 lg:w-[600px] lg:shadow-xl">
+            <div className="flex flex-col items-start gap-6 overflow-hidden md:flex-row">
+              <div className="w-full rounded-[18px] md:w-1/2 lg:w-[600px]">
                 <Image
                   src="/derma-factory.jpg"
                   alt="Derma factory"
-                  width={600}
+                  width={500}
                   height={500}
                   quality={100}
                   priority
                   className="h-auto w-full rounded-[15px] object-cover"
                 />
               </div>
-              <div className="flex w-full flex-col md:w-1/2 md:p-8">
-                <p className="font-montserrat mb-6 text-base leading-relaxed font-medium text-balance text-black/70 md:text-xl lg:max-w-xl lg:text-pretty">
+              <div className="flex w-full flex-col md:w-1/2 md:px-6">
+                <p className="font-montserrat mb-6 text-base leading-relaxed font-medium text-balance text-black/70 md:text-xl lg:max-w-xl">
                   Science meets skincare! Powered by high-performance
                   ingredients, Derma Factory delivers effective, no-nonsense
                   solutions for every skin type. Whether it&apos;s hydration,
@@ -152,7 +154,7 @@ const About = () => {
                   <Link href="/shop?vendors=derma-factory">
                     <Button
                       size="lg"
-                      className="font-montserrat rounded-lg bg-[#2d1801] font-medium tracking-wide text-white hover:bg-[#472b07]"
+                      className="font-montserrat rounded bg-[#2d1801] font-medium tracking-wide text-white hover:bg-[#472b07]"
                     >
                       SHOP NOW
                     </Button>
@@ -178,36 +180,37 @@ const About = () => {
             </div>
           </div>
 
-          <div className="">
+          {/* 12 Grabs */}
+          <div className="mt-10">
             <h2 className="font-montserrat mb-5 text-2xl font-bold text-black/70">
               12 Grabs
             </h2>
 
-            <div className="flex flex-col items-start gap-6 overflow-hidden rounded-xl md:flex-row">
-              <div className="w-full rounded-[18px] shadow-lg md:w-1/2 lg:order-2 lg:w-[600px]">
+            <div className="flex flex-col items-start gap-6 md:gap-12 overflow-hidden md:flex-row">
+              <div className="w-full rounded-[18px] md:order-2 md:w-1/2 lg:w-[600px]">
                 <Image
                   src="/12grabs.jpg"
-                  alt="Derma factory"
+                  alt="12 Grabs"
                   width={600}
                   height={500}
                   quality={100}
                   priority
-                  className="h-[300px] rounded-[15px] object-cover lg:h-auto lg:w-full"
+                  className="h-[300px] rounded-[15px] object-cover object-bottom lg:h-[500px] lg:w-full"
                 />
               </div>
-              <div className="order-1 flex w-full flex-col md:order-2 md:w-1/2">
-                <p className="font-montserrat mb-6 text-base leading-relaxed font-medium text-pretty text-black/70 md:text-xl lg:max-w-xl">
+              <div className="flex w-full flex-col md:order-1 md:w-1/2">
+                <p className="font-montserrat mb-6 text-base leading-relaxed font-medium text-balance text-black/70 md:text-xl lg:max-w-xl">
                   Your go-to for gentle yet powerful skincare! 12 Grabs
                   harnesses the power of natural extracts and skin-friendly
                   actives to keep your skin healthy, hydrated, and
                   glowing—without irritation. Perfect for those who love simple,
                   effective beauty.
                 </p>
-                <div className="">
+                <div className="mt-auto">
                   <Link href="/shop?vendors=12-grabs">
                     <Button
                       size="lg"
-                      className="font-montserrat rounded-none bg-[#2d1801] font-medium tracking-wide text-white hover:bg-[#472b07]"
+                      className="font-montserrat rounded bg-[#2d1801] font-medium tracking-wide text-white hover:bg-[#472b07]"
                     >
                       SHOP NOW
                     </Button>
@@ -234,16 +237,17 @@ const About = () => {
             </div>
           </div>
 
-          <div>
+          {/* COSRX */}
+          <div className="mt-10">
             <h2 className="font-montserrat mb-5 text-2xl font-bold text-black/70">
               COSRX
             </h2>
 
-            <div className="flex flex-col items-start gap-6 overflow-hidden rounded-xl md:flex-row">
-              <div className="border-gold shadow-gold w-full rounded-[18px] border-[3px] md:w-1/2 lg:w-[600px]">
+            <div className="flex flex-col items-start gap-6 overflow-hidden  md:flex-row">
+              <div className="w-full rounded-[18px]  md:w-1/2 lg:w-[600px]">
                 <Image
                   src="/corsx-image.png"
-                  alt="Derma factory"
+                  alt="COSRX"
                   width={600}
                   height={500}
                   quality={100}
@@ -251,8 +255,8 @@ const About = () => {
                   className="h-auto w-full rounded-[15px] object-cover"
                 />
               </div>
-              <div className="flex w-full flex-col md:w-1/2 md:p-8">
-                <p className="font-montserrat mb-6 text-base leading-relaxed font-medium text-pretty text-black/70 md:text-xl lg:max-w-xl">
+              <div className="flex w-full flex-col md:w-1/2 md:px-6">
+                <p className="font-montserrat mb-6 text-base leading-relaxed font-medium text-balance text-black/70 md:text-xl lg:max-w-xl">
                   A cult-favorite Korean skincare brand loved for its minimalist
                   formulas with maximum results. Whether you&apos;re battling
                   acne, dryness, or dull skin, COSRX&apos;s ingredient-focused
@@ -263,7 +267,7 @@ const About = () => {
                   <Link href="/shop?vendors=cosrx">
                     <Button
                       size="lg"
-                      className="font-montserrat rounded-none bg-[#2d1801] font-medium tracking-wide text-white hover:bg-[#472b07]"
+                      className="font-montserrat rounded bg-[#2d1801] font-medium tracking-wide text-white hover:bg-[#472b07]"
                     >
                       SHOP NOW
                     </Button>
@@ -272,7 +276,7 @@ const About = () => {
               </div>
             </div>
 
-            <div className="item-center my-5 ml-10 lg:ml-20 flex justify-start">
+            <div className="item-center my-5 ml-10 flex justify-start lg:ml-20">
               <svg
                 width="109"
                 height="203"
@@ -289,16 +293,17 @@ const About = () => {
             </div>
           </div>
 
-          <div>
+          {/* Lizare */}
+          <div className="mt-10">
             <h2 className="font-montserrat mb-5 text-2xl font-bold text-black/70">
-              Lizare
+              Lizara
             </h2>
 
-            <div className="flex flex-col items-start gap-6 overflow-hidden rounded-xl md:flex-row">
-              <div className="border-[#73512C] order-2 w-full rounded-[18px] border-[3px] shadow-xl md:w-1/2 lg:w-[600px]">
+            <div className="flex flex-col items-start gap-6 md:gap-12 overflow-hidden md:flex-row">
+              <div className="w-full rounded-[18px] border-[3px] shadow-xl md:order-2 md:w-1/2 lg:w-[600px]">
                 <Image
                   src="/lizare-image.png"
-                  alt="Derma factory"
+                  alt="Lizara"
                   width={600}
                   height={500}
                   quality={100}
@@ -306,8 +311,8 @@ const About = () => {
                   className="h-auto w-full rounded-[15px] object-cover"
                 />
               </div>
-              <div className="order-1 flex w-full flex-col md:w-1/2">
-                <p className="font-montserrat mb-6 text-base leading-relaxed font-medium text-pretty text-black/70 md:text-xl lg:max-w-xl">
+              <div className="flex w-full flex-col md:order-1 md:w-1/2">
+                <p className="font-montserrat mb-6 text-base leading-relaxed font-medium text-balance text-black/70 md:text-xl lg:max-w-xl">
                   Luxury meets nature in Lizara&apos;s carefully crafted
                   skincare. Infused with premium botanical extracts, this brand
                   offers a balance of traditional herbal wisdom and modern
@@ -315,7 +320,10 @@ const About = () => {
                 </p>
                 <div className="mt-auto">
                   <Link href="/shop?vendors=lizara">
-                    <Button className="font-montserrat rounded-full bg-[#2d1801] px-8 py-2 font-medium tracking-wide text-white hover:bg-[#472b07]">
+                    <Button
+                      size="lg"
+                      className="font-montserrat rounded bg-[#2d1801] font-medium tracking-wide text-white hover:bg-[#472b07]"
+                    >
                       SHOP NOW
                     </Button>
                   </Link>
@@ -340,16 +348,17 @@ const About = () => {
             </div>
           </div>
 
-          <div>
+          {/* Anua */}
+          <div className="mt-10">
             <h2 className="font-montserrat mb-5 text-2xl font-bold text-black/70">
               Anua
             </h2>
 
-            <div className="flex flex-col items-start gap-6 overflow-hidden rounded-xl md:flex-row">
-              <div className="shadow- order-2 w-full rounded-[18px] border-[3px] shadow-xl md:w-1/2 lg:w-[600px]">
+            <div className="flex flex-col items-start gap-6 overflow-hidden md:flex-row">
+              <div className="w-full rounded-[18px] border-[3px] shadow-xl md:w-1/2 lg:w-[600px]">
                 <Image
                   src="/anua.png"
-                  alt="Derma factory"
+                  alt="Anua"
                   width={600}
                   height={500}
                   quality={100}
@@ -357,12 +366,14 @@ const About = () => {
                   className="h-auto w-full rounded-[15px] object-cover"
                 />
               </div>
-              <div className="order-1 flex w-full flex-col md:w-1/2">
-                <p className="font-montserrat mb-6 text-base leading-relaxed font-medium text-pretty text-black/70 md:text-xl lg:max-w-xl">
-                  Luxury meets nature in Lizara&apos;s carefully crafted
-                  skincare. Infused with premium botanical extracts, this brand
-                  offers a balance of traditional herbal wisdom and modern
-                  skincare science to nourish and rejuvenate your skin.
+              <div className="flex w-full flex-col md:w-1/2 md:px-6">
+                <p className="font-montserrat mb-6 text-base leading-relaxed font-medium text-balance text-black/70 md:text-xl lg:max-w-xl lg:text-pretty">
+                  Anua is a Korean skincare brand known for its gentle,
+                  plant-powered formulas that prioritize skin balance,
+                  hydration, and barrier care. With star ingredients like
+                  Heartleaf, Rice Extract, and Niacinamide, Anua offers clean,
+                  effective solutions for sensitive, acne-prone, and dull
+                  skin—perfect for achieving that healthy, natural glow.
                 </p>
                 <div className="mt-auto">
                   <Link href="/shop?vendors=anua">
@@ -380,7 +391,7 @@ const About = () => {
         </div>
       </section>
 
-      <section id="source" className="container mx-auto mt-22 lg:px-[119px]">
+      <section id="source" className="mx-auto mt-22 lg:px-[119px]">
         <Image
           src="/sunflower-lg.png"
           alt="sunflower"
@@ -568,6 +579,7 @@ const About = () => {
           </div>
         </div>
       </section>
+
       <section className="container mx-auto my-32">
         <Newsletter />
       </section>
