@@ -5,7 +5,6 @@ import { formatPrice } from "@/utils/formatPrice";
 import { useSearchProducts } from "@/utils/hooks/useSearchProducts";
 import { LoaderCircle, Search, X } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "./button";
 import { Input } from "./input";
@@ -16,7 +15,6 @@ const ProductSearch = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const isFirstRun = useRef(true);
-  const router = useRouter();
 
   useEffect(() => {
     if (isFirstRun.current) {
@@ -48,7 +46,7 @@ const ProductSearch = () => {
       <div className="relative z-50">
         <div
           className={cn(
-            "flex h-10 w-96 items-center rounded-xs bg-neutral-400/40 p-2",
+            "flex h-10 w-full items-center rounded-xs bg-neutral-400/40 p-2 lg:w-96",
             {
               "bg-white": focused,
             },
@@ -63,12 +61,13 @@ const ProductSearch = () => {
             ref={inputRef}
             type="text"
             placeholder="type to search..."
-            className="ml-3 h-full w-full border-none bg-transparent text-xl font-bold text-gray-700 shadow-none placeholder:font-semibold placeholder:italic focus:border-none focus:shadow-none focus:ring-0 focus:outline-none focus-visible:ring-0"
+            className="h-full w-full border-none bg-transparent text-xl font-bold text-gray-700 shadow-none placeholder:font-semibold placeholder:italic focus:border-none focus:shadow-none focus:ring-0 focus:outline-none focus-visible:ring-0"
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             autoComplete="off"
+            tabIndex={focused ? 0 : -1}
           />
           {focused && query.length > 0 && (
             <Button
@@ -97,7 +96,7 @@ const ProductSearch = () => {
                   className="flex items-center gap-3 rounded p-2 hover:bg-neutral-600"
                   onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
                     e.preventDefault(); // Prevent input blur
-                    router.push(`/shop/${item.handle}`); // Navigate manually
+                    window.location.href = `/shop/${item.handle}`; // Navigate manually
                     setFocused(false);
                     setQuery(""); // Clear query after navigation
                   }}

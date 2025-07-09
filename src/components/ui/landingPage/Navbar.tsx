@@ -124,7 +124,7 @@ export default function Navbar() {
       <section className="flex w-full items-center justify-between">
         <div className="flex w-[50%]">
           {/* Hamburger menu */}
-          <div className="z-10 hidden">
+          <div className="z-10 lg:hidden">
             <div className="lg:hidden">
               <Sheet open={open} onOpenChange={setOpen}>
                 <SheetTrigger asChild>
@@ -137,7 +137,11 @@ export default function Navbar() {
                   side="left"
                   className="w-[300px] border-r-2 border-[#73512C] pl-5 sm:w-[400px]"
                 >
-                  <nav className="mt-10 flex flex-col gap-2">
+                  {/* Search Icon */}
+                  <div className="mt-14">
+                    <ProductSearch />
+                  </div>
+                  <nav className="flex flex-col gap-2">
                     {NavLinks.map((link) => (
                       <div
                         key={link.title}
@@ -172,7 +176,7 @@ export default function Navbar() {
             </div>
           </div>
           {/* Search Icon */}
-          <div className="ml-16">
+          <div className="ml-16 hidden lg:block">
             <ProductSearch />
           </div>
         </div>
@@ -186,7 +190,7 @@ export default function Navbar() {
                 alt="HOK Logo Mobile"
                 width={60}
                 height={60}
-                className="block md:hidden"
+                className="size-full block md:hidden"
               />
             </Link>
 
@@ -220,6 +224,7 @@ export default function Navbar() {
           </div>
         </div>
       </section>
+
       <nav className="font-montserrat hidden border-b-2 border-[#2c2c2c] pb-3 lg:block">
         {/* Desktop navigation */}
         <div className="mx-auto hidden max-w-screen-2xl justify-center lg:flex">

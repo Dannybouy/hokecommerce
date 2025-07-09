@@ -207,7 +207,7 @@ export default function ProductClient({
         <Button
           variant="ghost"
           asChild
-          className="hover:text-[#73512C] p-0 hover:bg-transparent"
+          className="p-0 hover:bg-transparent hover:text-[#73512C]"
         >
           <Link href="/shop" className="flex items-center">
             <ChevronLeft className="mr-1 h-4 w-4" />
@@ -226,6 +226,7 @@ export default function ProductClient({
                 alt={productImages[selectedImage]?.altText || product.title}
                 width={300}
                 height={300}
+                sizes="(min-width: 640px) 300px, 100vw"
                 className={cn(
                   "h-full w-full object-cover transition-opacity duration-500",
                   imageLoaded ? "opacity-100" : "opacity-0",
@@ -279,6 +280,7 @@ export default function ProductClient({
                       src={image.url || "/placeholder.svg"}
                       alt={`${product.title} - Image ${index + 1}`}
                       fill
+                      sizes="(min-width: 640px) 300px, 100vw"
                       className="object-cover"
                     />
                   </button>
@@ -293,7 +295,7 @@ export default function ProductClient({
           <div className="flex gap-2">
             <Badge
               variant="default"
-              className="bg-[#73512C] mb-4 rounded-3xl px-3 py-1 text-white font"
+              className="font mb-4 rounded-3xl bg-[#73512C] px-3 py-1 text-white"
             >
               {product.vendor}
             </Badge>
@@ -379,7 +381,7 @@ export default function ProductClient({
             <Button
               id="add-to-bag-button"
               size="lg"
-              className="bg-[#73512C] flex-1 cursor-pointer gap-2 text-white"
+              className="flex-1 cursor-pointer gap-2 bg-[#73512C] text-white"
               onClick={handleAddToBag}
               disabled={!inStock || quantity < 1}
             >
@@ -413,7 +415,7 @@ export default function ProductClient({
               </AccordionTrigger>
               <AccordionContent className="mt-3">
                 <p>
-                Delivery Outside Lagos (Other States) For orders outside
+                  Delivery Outside Lagos (Other States) For orders outside
                   Lagos, we offer flexible delivery options for your location.
                   Once your order is placed, our team will reach out via DM or
                   WhatsApp to confirm the most convenient courier service and
@@ -431,7 +433,7 @@ export default function ProductClient({
           <h2 className="font-inter mb-6 text-2xl font-bold">
             You may also like
           </h2>
-          <div className="grid grid-cols-2 gap-4 lg:gap-8 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:gap-8 xl:grid-cols-4">
             {recommendationProducts.map(
               (relatedProduct: {
                 id: string;
@@ -457,14 +459,15 @@ export default function ProductClient({
                           relatedProduct.title
                         }
                         fill
+                        sizes="(min-width: 640px) 300px, 100vw"
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                     </div>
                   </div>
-                  <h3 className="group-hover:text-burntOrange text-xs md:text-base font-medium font-montserrat">
+                  <h3 className="group-hover:text-burntOrange font-montserrat text-xs font-medium md:text-base">
                     {relatedProduct.title}
                   </h3>
-                  <p className="text-xs md:text-base font-semibold font-montserrat text-black">
+                  <p className="font-montserrat text-xs font-semibold text-black md:text-base">
                     {formatPrice(relatedProduct.price, {
                       currencyCode: "NGN",
                     })}

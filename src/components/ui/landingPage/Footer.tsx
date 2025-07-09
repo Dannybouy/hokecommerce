@@ -4,7 +4,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="mx-0 lg:mx-12 text-white">
+    <footer className="mx-0 text-white lg:mx-12">
       <div className="container mx-auto rounded-xl bg-[#2D1801] p-12">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3 lg:grid-cols-4">
           {/* Logo and Mailing List */}
@@ -15,6 +15,7 @@ const Footer = () => {
                 alt="HOKBeauty footer logo"
                 width={100}
                 height={100}
+                className="size-full"
               />
             </Link>
             <p className="font-playfair text-lg text-white">
@@ -157,8 +158,10 @@ const Footer = () => {
 
         {/* Bottom Bar */}
       </div>
-      <div className="mt-6 flex flex-col items-center justify-between py-6 md:flex-row text-black">
-        <p className="font-playfair mb-4 text-base md:mb-0">© HOKBeauty 2025</p>
+      <div className="mt-6 flex flex-col items-center justify-between py-6 text-black md:flex-row">
+        <p className="font-playfair mb-4 text-base md:mb-0">
+          © HOKBeauty 2025
+        </p>
         <div className="flex gap-8">
           <Link
             href="/privacy"
