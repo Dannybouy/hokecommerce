@@ -16,6 +16,15 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.(graphql|gql)$/,
+      exclude: /node_modules/,
+      loader: "graphql-tag/loader",
+    });
+    return config; // Ensure the modified config is returned
+  },
 };
 
 export default nextConfig;

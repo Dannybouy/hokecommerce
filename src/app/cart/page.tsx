@@ -3,13 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/useCartStore";
 import { formatPrice } from "@/utils/formatPrice";
-import {
-  Loader2,
-  MessageSquareWarning,
-  Minus,
-  Plus,
-  X,
-} from "lucide-react";
+import { Loader2, MessageSquareWarning, Minus, Plus, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -84,9 +78,9 @@ const Cart = () => {
       <div className="container mx-auto mt-22">
         <h2 className="font-playfair text-center text-6xl">Cart</h2>
 
-        <div className="font-montserrat container mx-auto my-6 flex max-w-4xl items-center gap-2 border-2 border-[#73512C] bg-red-400 p-4">
-          <MessageSquareWarning className="size-20 mr-3" />
-          <p className="text-sm">
+        <div className="font-montserrat container mx-auto my-6 flex max-w-4xl items-center gap-2 border-2 border-[#73512C] bg-[#73512C] p-4">
+          <MessageSquareWarning className="mr-3 size-20 text-white" />
+          <p className="text-sm text-white">
             Delivery Outside Lagos (Other States) For orders outside Lagos, we
             offer flexible delivery options for your location. Once your order
             is placed, our team will reach out via DM or WhatsApp to confirm the
@@ -281,23 +275,7 @@ const Cart = () => {
             </div>
 
             {/* Cart Actions */}
-            <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
-              <div className="col-span-1 md:col-span-2">
-                <div className="flex items-center space-x-2">
-                  <input
-                    type="text"
-                    placeholder="Coupon code"
-                    className="w-full max-w-xs border border-gray-300 px-4 py-2 text-sm"
-                  />
-                  <Button
-                    variant="outline"
-                    className="border-gray-300 bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  >
-                    APPLY
-                  </Button>
-                </div>
-              </div>
-
+            <div className="flex flex-col items-start justify-end gap-6 py-8 md:flex-row md:items-center">
               {/* Cart Totals */}
               <div className="font-playfair col-span-1 space-y-4">
                 <h3 className="text-lg font-medium text-gray-700 uppercase">
