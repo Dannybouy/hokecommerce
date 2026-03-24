@@ -63,7 +63,7 @@ export default function Home() {
               <h1 className="font-playfair mb-2 text-5xl font-bold text-black lg:text-6xl">
                 Distributors of
               </h1>
-              <p className="font-montserrat mb-6 text-xl text-pretty">
+              <p className="font-montserrat mb-6 text-2xl text-pretty">
                 Eucerin, CeraVe, LaRoche Posay, Bio Oil, and Face Facts.
               </p>
               <Link href="/shop">
