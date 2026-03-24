@@ -32,16 +32,14 @@ export default function Home() {
           />
           {/* Mobile text overlay */}
           <div className="absolute inset-0 flex flex-col items-start justify-center bg-black/30 p-8 backdrop-blur-[2px]">
-            <h2 className="font-playfair text-4xl font-bold text-[#b88e5b]">
+            <h2 className="font-playfair text-4xl font-bold text-white">
               Now Official
             </h2>
-            <h1 className="font-playfair mt-2 mb-3 text-4xl font-bold text-white uppercase">
-              AUTHENTIC
-              <br />
-              KOREAN SKINCARE
+            <h1 className="font-playfair text-4xl font-bold text-white uppercase">
+              Distributors of
             </h1>
             <p className="font-montserrat mb-6 text-base text-white">
-              Save more on your order!
+              Eucerin, CeraVe, LaRoche Posay, Bio Oil, and Face Facts.
             </p>
             <Link href="/shop">
               <Button
@@ -62,7 +60,7 @@ export default function Home() {
               <h2 className="font-playfair text-3xl text-[#7a5c2d] lg:text-6xl">
                Now Official
               </h2>
-              <h1 className="font-playfair mt-2 mb-3 text-5xl font-bold text-black lg:text-6xl">
+              <h1 className="font-playfair mb-2 text-5xl font-bold text-black lg:text-6xl">
                 Distributors of
               </h1>
               <p className="font-montserrat mb-6 text-xl text-pretty">
