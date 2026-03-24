@@ -33,7 +33,7 @@ export default function Home() {
           {/* Mobile text overlay */}
           <div className="absolute inset-0 flex flex-col items-start justify-center bg-black/30 p-8 backdrop-blur-[2px]">
             <h2 className="font-playfair text-4xl font-bold text-[#b88e5b]">
-              DISCOVER
+              Now Official
             </h2>
             <h1 className="font-playfair mt-2 mb-3 text-4xl font-bold text-white uppercase">
               AUTHENTIC
@@ -60,15 +60,13 @@ export default function Home() {
             {/* Left content */}
             <div className="mb-0 w-1/2 md:ml-auto md:pr-8 md:pl-16">
               <h2 className="font-playfair text-3xl text-[#7a5c2d] lg:text-6xl">
-                DISCOVER
+               Now Official
               </h2>
-              <h1 className="font-playfair mt-2 mb-3 text-5xl font-bold text-black uppercase lg:text-6xl">
-                Authentic
-                <br />
-                KOREAN SKINCARE
+              <h1 className="font-playfair mt-2 mb-3 text-5xl font-bold text-black lg:text-6xl">
+                Distributors of
               </h1>
-              <p className="font-montserrat mb-6 text-lg">
-                Save more on your order!
+              <p className="font-montserrat mb-6 text-xl text-pretty">
+                Eucerin, CeraVe, LaRoche Posay, Bio Oil, and Face Facts.
               </p>
               <Link href="/shop">
                 <Button
@@ -128,17 +126,16 @@ export default function Home() {
         >
           <CarouselContent>
             {carouselImages.map((item, index) => (
-              <CarouselItem key={index}>
                 <CarouselItem key={index}>
   <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] flex items-center">
-    {/* Text - 50% width, centered vertically and horizontally */}
+    {/* Text - 40% width, centered vertically and horizontally */}
     <div className="w-2/5 h-full flex items-center justify-center px-8">
       <h2 className="font-playfair font-normal text-4xl sm:text-5xl lg:text-8xl tracking-tight text-center">
         {item.name}
       </h2>
     </div>
 
-    {/* Image - 50% width, full height */}
+    {/* Image - 60% width, full height */}
       <div className="relative w-3/5 h-full">
         <Image
           src={item.src}
@@ -146,12 +143,12 @@ export default function Home() {
           fill
           priority={index === 0}
           className="object-cover"
-          sizes="(max-width: 640px) 50vw, (max-width: 768px) 50vw, (max-width: 1024px) 50vw, 50vw"
+          sizes="60vw"
         />
       </div>
   </div>
-</CarouselItem>
-              </CarouselItem>
+                </CarouselItem>
+              
             ))}
           </CarouselContent>
         </Carousel>

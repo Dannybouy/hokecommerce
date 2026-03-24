@@ -14,5 +14,8 @@ export function useFetchAllCollections() {
         throw new Error("Failed to load collections");
       }
     },
+    staleTime: 1000 * 60 * 60 * 72,
+    gcTime: 1000 * 60 * 60 * 72,
+    retry: 2
   });
 }

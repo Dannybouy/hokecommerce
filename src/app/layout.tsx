@@ -34,7 +34,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Home of Korean Beauty",
-  description: "Welcome to our Store, Enjoy the best Korean Beauty Products",
+  description: "Welcome to our Store, Enjoy the best Beauty Products",
 };
 
 export default function RootLayout({

@@ -1,4 +1,10 @@
-export const carouselImages = [
+interface CarouselImage {
+  src: string;
+  alt: string;
+  name: string;
+}
+
+export const carouselImages: CarouselImage[] = [
   {
     src: "/cerave.jpg",
     alt: "CeraVe Skincare Products",
@@ -18,16 +24,11 @@ export const carouselImages = [
     src: "/bio-oil.jpg",
     alt: "Bio-Oil Skincare Products",
     name: "Bio Oil",
-  },
+    },
   {
-    src: "/face-facts.jpg",
-    alt: "Face Facts Skincare Products",
-    name: "Face Facts",
-  },
-  {
-    src: "/corsx.jpg",
-    alt: "CORSX Skincare Products",
-    name: "CORSX",
+    src: "/cosrx.jpg",
+    alt: "COSRX Skincare Products",
+    name: "COSRX",
   },
   {
     src: "/anua.jpg",
