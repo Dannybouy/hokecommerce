@@ -13,29 +13,8 @@ import ProductCategories from "@/components/ui/landingPage/ProductCategories";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import Link from "next/link";
+import { carouselImages } from "@/lib/constants";
 
-const carouselItems = [
-  {
-    src: "/brands-carousel-1.png",
-    alt: "corsx Skincare Products",
-  },
-  {
-    src: "/brands-carousel-2.png",
-    alt: "Lizara Skincare Products",
-  },
-  {
-    src: "/brands-carousel-3.png",
-    alt: "Derma factor Skincare Products",
-  },
-  {
-    src: "/12-grabs-slide.png",
-    alt: "12 Grabs Skincare Products",
-  },
-  {
-    src: "/anua-slide.png",
-    alt: "Anua Skincare Products",
-  },
-];
 
 export default function Home() {
   return (
@@ -148,18 +127,30 @@ export default function Home() {
           className="w-full"
         >
           <CarouselContent>
-            {carouselItems.map((item, index) => (
+            {carouselImages.map((item, index) => (
               <CarouselItem key={index}>
-                <div className="relative h-[300px] w-full">
-                  <Image
-                    src={item.src}
-                    alt={item.alt}
-                    quality={100}
-                    priority
-                    fill
-                    className="object-cover"
-                  />
-                </div>
+                <CarouselItem key={index}>
+  <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] flex items-center">
+    {/* Text - 50% width, centered vertically and horizontally */}
+    <div className="w-2/5 h-full flex items-center justify-center px-8">
+      <h2 className="font-playfair font-normal text-4xl sm:text-5xl lg:text-8xl tracking-tight text-center">
+        {item.name}
+      </h2>
+    </div>
+
+    {/* Image - 50% width, full height */}
+      <div className="relative w-3/5 h-full">
+        <Image
+          src={item.src}
+          alt={item.alt}
+          fill
+          priority={index === 0}
+          className="object-cover"
+          sizes="(max-width: 640px) 50vw, (max-width: 768px) 50vw, (max-width: 1024px) 50vw, 50vw"
+        />
+      </div>
+  </div>
+</CarouselItem>
               </CarouselItem>
             ))}
           </CarouselContent>
